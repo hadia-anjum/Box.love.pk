@@ -10,10 +10,6 @@
 </head>
 <body>
 
-<!-- Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Particles -->
 <div id="particles"></div>
 
@@ -26,7 +22,7 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#payment">How to Order</a></li>
   </ul>
-  <a href="#builder" class="nav-cta">✨ Order Now</a>
+  <a href="#builder" class="nav-cta">Order Now</a>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -40,7 +36,7 @@
   <div class="hero-inner">
 
     <div class="hero-text">
-      <div class="hero-badge"><span class="badge-dot"></span>🎀 Handmade · FSD Based · Black Luxury Boxes</div>
+      <div class="hero-badge"><span class="badge-dot"></span>Handmade · FSD Based · Black Luxury Boxes</div>
       <h1>
         <span class="highlight">Boxes Made</span><br>
         with <span class="script">Love</span>
@@ -200,12 +196,12 @@
             <div class="font-color-selector">
               <label class="fc-opt fc-gold">
                 <input type="radio" name="inkColor" value="gold" checked onchange="setInkColor('gold')">
-                <div class="fc-swatch">✨ Golden</div>
+                <div class="fc-swatch">Golden</div>
                 <span class="fc-label">Golden Ink</span>
               </label>
               <label class="fc-opt fc-silver">
                 <input type="radio" name="inkColor" value="silver" onchange="setInkColor('silver')">
-                <div class="fc-swatch">🩶 Silver</div>
+                <div class="fc-swatch">Silver</div>
                 <span class="fc-label">Silver Ink</span>
               </label>
             </div>
@@ -221,7 +217,7 @@
               <span class="msg-price">+ Rs. 250</span>
             </div>
             <textarea class="msg-textarea" id="ta-top" rows="3" disabled
-              placeholder="e.g. Happy Birthday Hadia 💕 — your message appears live on the box!"
+              placeholder="Write something"
               oninput="liveUpdate()" maxlength="200"></textarea>
             <div class="char-row">
               <span class="char-count"><span id="cc-top">0</span> / 200</span>
@@ -239,7 +235,7 @@
               <span class="msg-price">+ Rs. 250</span>
             </div>
             <textarea class="msg-textarea" id="ta-inside" rows="4" disabled
-              placeholder="Write a longer message here — pour your heart out! This appears when they open the lid. 💕"
+              placeholder="Write something"
               oninput="liveUpdate()" maxlength="400"></textarea>
             <div class="char-row">
               <span class="char-count"><span id="cc-inside">0</span> / 400</span>
@@ -263,20 +259,16 @@
 
           <div class="addon-card" id="ac-fairy" onclick="toggleAddon('fairy')">
             <div class="addon-checkbox" id="achk-fairy"></div>
-            <div class="addon-icon">🌟</div>
             <div class="addon-text">
               <strong>Fairy Lights</strong>
-              <span>Warm golden fairy lights nestled inside — magical when they open it!</span>
             </div>
             <div class="addon-price-tag">+ Rs. 300</div>
           </div>
 
           <div class="addon-card" id="ac-ribbon" onclick="toggleAddon('ribbon')">
             <div class="addon-checkbox" id="achk-ribbon"></div>
-            <div class="addon-icon">🎀</div>
             <div class="addon-text">
-              <strong>Satin Ribbon &amp; Bow</strong>
-              <span>Elegant satin ribbon with a hand-tied bow on top of the box.</span>
+              <strong>Ribbon Bow</strong>
             </div>
             <div class="addon-price-tag">+ Rs. 50</div>
           </div>
@@ -402,7 +394,6 @@
 
     <!-- JazzCash only — full width -->
     <div class="pay-card jazz reveal" style="grid-column:1/-1;max-width:520px;margin:0 auto;width:100%;">
-      <div class="pay-icon" style="background:rgba(0,160,80,0.15);">💚</div>
       <h3>JazzCash</h3>
       <p style="margin-bottom:1.4rem;">Send your advance payment via JazzCash to the number below. When you send, you will see the account name — that confirms you're sending to the right place. 🟢</p>
 
@@ -558,39 +549,38 @@
       </p>
 
       <!-- JazzCash Payment Block -->
-      <div style="background:linear-gradient(135deg,#0A1F12,#0F2A18);border:1px solid rgba(0,160,80,0.3);border-radius:18px;padding:1.4rem 1.5rem;margin:1.2rem 0;">
+      <div style="background:linear-gradient(135deg,var(--pink-50),#FFFFFF);border:1px solid var(--pink-100);border-radius:18px;padding:1.4rem 1.5rem;margin:1.2rem 0;">
         <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
-          <span style="font-size:1.4rem;">💚</span>
-          <strong style="color:#7FD9A0;font-size:1rem;">Pay via JazzCash</strong>
+          <strong style="color:var(--pink-500);font-size:1.1rem;">Pay via JazzCash</strong>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);border-radius:10px;padding:0.65rem 1rem;">
-            <span style="font-size:0.78rem;color:rgba(255,255,255,0.45);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Number</span>
-            <span style="font-size:1.15rem;font-weight:800;color:#FFE08A;font-family:'Playfair Display',serif;letter-spacing:0.06em;">0300-6600178</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:white;border:1px solid var(--pink-100);border-radius:10px;padding:0.65rem 1rem;">
+            <span style="font-size:0.78rem;color:var(--text-mid);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Number</span>
+            <span style="font-size:1.15rem;font-weight:800;color:var(--pink-600);font-family:'Playfair Display',serif;letter-spacing:0.06em;">0300-6600178</span>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);border-radius:10px;padding:0.65rem 1rem;">
-            <span style="font-size:0.78rem;color:rgba(255,255,255,0.45);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Account Name</span>
-            <span style="font-size:0.97rem;font-weight:800;color:#7FD9A0;letter-spacing:0.04em;">NAZI YAQOOB</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:white;border:1px solid var(--pink-100);border-radius:10px;padding:0.65rem 1rem;">
+            <span style="font-size:0.78rem;color:var(--text-mid);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Account Name</span>
+            <span style="font-size:0.97rem;font-weight:800;color:var(--dark-2);letter-spacing:0.04em;">NAZI YAQOOB</span>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);border-radius:10px;padding:0.65rem 1rem;">
-            <span style="font-size:0.78rem;color:rgba(255,255,255,0.45);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Amount to Send</span>
-            <span style="font-size:1.1rem;font-weight:800;color:#FFE08A;font-family:'Playfair Display',serif;" id="modalAmountHighlight">Rs. 2,000</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:white;border:1px solid var(--pink-100);border-radius:10px;padding:0.65rem 1rem;">
+            <span style="font-size:0.78rem;color:var(--text-mid);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Amount to Send</span>
+            <span style="font-size:1.1rem;font-weight:800;color:var(--pink-600);font-family:'Playfair Display',serif;" id="modalAmountHighlight">Rs. 2,000</span>
           </div>
         </div>
 
-        <div style="background:rgba(0,160,80,0.12);border:1px solid rgba(0,160,80,0.2);border-radius:10px;padding:0.75rem 1rem;font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.7;">
-          ✅ <strong style="color:#7FD9A0;">Verification Note:</strong> Enter the number above in JazzCash and make sure the name <strong style="color:white;">NAZI YAQOOB</strong> appears before sending payment.
+        <div style="background:var(--pink-50);border:1px solid var(--pink-100);border-radius:10px;padding:0.75rem 1rem;font-size:0.8rem;color:var(--text-mid);line-height:1.7;">
+          ✅ <strong style="color:var(--pink-600);">Verification Note:</strong> Enter the number above in JazzCash and make sure the name <strong style="color:var(--dark-2);">NAZI YAQOOB</strong> appears before sending payment.
         </div>
       </div>
 
       <!-- Instagram DM Step -->
-      <div style="background:linear-gradient(135deg,#1F0A1A,#2A1020);border:1px solid rgba(194,51,106,0.3);border-radius:18px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;">
+      <div style="background:linear-gradient(135deg,var(--pink-50),#FFFFFF);border:1px solid var(--pink-100);border-radius:18px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;">
         <div style="display:flex;align-items:flex-start;gap:0.8rem;">
           <span style="font-size:1.6rem;flex-shrink:0;">📸</span>
           <div>
-            <strong style="color:var(--pink-200);font-size:0.95rem;display:block;margin-bottom:0.3rem;">Send Payment Screenshot</strong>
-            <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:0.8rem;">Take a screenshot of your successful transaction receipt and send it to us on Instagram. We will verify and begin creating your customized box! 💕</p>
+            <strong style="color:var(--pink-600);font-size:0.95rem;display:block;margin-bottom:0.3rem;">Send Payment Screenshot</strong>
+            <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;margin-bottom:0.8rem;">Take a screenshot of your successful transaction receipt and send it to us on Instagram. We will verify and begin creating your customized box! 💕</p>
             <a href="https://instagram.com/box.love.pk" target="_blank"
               style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#C2336A,#9B2452);color:white;padding:0.6rem 1.4rem;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 15px rgba(194,51,106,0.4);">
               📩 DM us on Instagram @box.love.pk

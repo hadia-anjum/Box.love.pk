@@ -14,19 +14,6 @@ const PRICES = {
   fairy: 300, ribbon: 50, delivery: 400
 };
 
-/* =====================================================
-   CUSTOM CURSOR
-===================================================== */
-const cursorDot  = document.getElementById('cursorDot');
-const cursorRing = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function animCursor() {
-  rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
-  cursorDot.style.left  = mx + 'px'; cursorDot.style.top  = my + 'px';
-  cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-  requestAnimationFrame(animCursor);
-})();
 
 /* =====================================================
    PARTICLES
@@ -369,26 +356,26 @@ function openModal() {
   let total = PRICES.box + PRICES.delivery;
   let rows  = '';
 
-  rows += `<div class="order-row"><span class="or-key">🖤 Black Luxury Box</span><span class="or-val">Rs. 1,600</span></div>`;
+  rows += `<div class="order-row"><span class="or-key">Black Luxury Box</span><span class="or-val">Rs. 1,600</span></div>`;
 
   if (state.orderType === 'simple') {
-    rows += `<div class="order-row"><span class="or-key">📦 Type</span><span class="or-val">Simple Black Box</span></div>`;
+    rows += `<div class="order-row"><span class="or-key">Type</span><span class="or-val">Simple Black Box</span></div>`;
   } else {
     if (state.top) {
-      rows += `<div class="order-row"><span class="or-key">✍️ Top message</span><span class="or-val">${topText || '(not written yet)'}</span></div>`;
+      rows += `<div class="order-row"><span class="or-key">Top Message</span><span class="or-val">${topText || '(not written yet)'}</span></div>`;
       total += PRICES.top;
     }
     if (state.inside) {
-      rows += `<div class="order-row"><span class="or-key">📖 Inside message</span><span class="or-val">${insideText || '(not written yet)'}</span></div>`;
+      rows += `<div class="order-row"><span class="or-key">Inside Message</span><span class="or-val">${insideText || '(not written yet)'}</span></div>`;
       total += PRICES.inside;
     }
     if (state.top || state.inside) {
-      rows += `<div class="order-row"><span class="or-key">🖊️ Ink Colour</span><span class="or-val">${state.inkColor === 'silver' ? '🩶 Silver' : '✨ Golden'}</span></div>`;
+      rows += `<div class="order-row"><span class="or-key">Ink Colour</span><span class="or-val">${state.inkColor === 'silver' ? 'Silver' : 'Golden'}</span></div>`;
     }
-    if (state.addons.fairy)  { rows += `<div class="order-row"><span class="or-key">🌟 Fairy Lights</span><span class="or-val">Rs. 300</span></div>`;  total += PRICES.fairy; }
-    if (state.addons.ribbon) { rows += `<div class="order-row"><span class="or-key">🎀 Ribbon & Bow</span><span class="or-val">Rs. 50</span></div>`;   total += PRICES.ribbon; }
+    if (state.addons.fairy)  { rows += `<div class="order-row"><span class="or-key">Fairy Lights</span><span class="or-val">Rs. 300</span></div>`;  total += PRICES.fairy; }
+    if (state.addons.ribbon) { rows += `<div class="order-row"><span class="or-key">Ribbon Bow</span><span class="or-val">Rs. 50</span></div>`;   total += PRICES.ribbon; }
   }
-  rows += `<div class="order-row"><span class="or-key">📦 Delivery</span><span class="or-val">Rs. 400</span></div>`;
+  rows += `<div class="order-row"><span class="or-key">Delivery</span><span class="or-val">Rs. 400</span></div>`;
 
   document.getElementById('modalRows').innerHTML       = rows;
   
@@ -508,7 +495,7 @@ function submitCheckoutForm() {
     if (state.top) orderTotal += PRICES.top;
     if (state.inside) orderTotal += PRICES.inside;
     if (state.addons.fairy) { orderTotal += PRICES.fairy; addonsList.push("Fairy Lights"); }
-    if (state.addons.ribbon) { orderTotal += PRICES.ribbon; addonsList.push("Satin Ribbon & Bow"); }
+    if (state.addons.ribbon) { orderTotal += PRICES.ribbon; addonsList.push("Ribbon Bow"); }
   }
 
   const orderData = {
