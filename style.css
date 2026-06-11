@@ -640,7 +640,7 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
 .checkout-input, .checkout-select {
   width: 100%;
   background: white;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--pink-100);
   border-radius: 8px;
   padding: 0.75rem 0.9rem;
   font-size: 0.88rem;
@@ -650,8 +650,8 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
   transition: all 0.2s;
 }
 .checkout-input:focus, .checkout-select:focus {
-  border-color: var(--pink-400);
-  box-shadow: 0 0 0 1px var(--pink-400);
+  border-color: var(--pink-300);
+  box-shadow: 0 0 0 1px var(--pink-300);
 }
 .checkout-input-row {
   display: grid;
@@ -696,17 +696,17 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
 
 /* Payment selection styling */
 .payment-method-container {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--pink-100);
   border-radius: 8px;
   overflow: hidden;
 }
 .payment-method-header {
-  background: #fafafa;
+  background: var(--pink-50);
   padding: 0.85rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid var(--pink-100);
 }
 .checkout-radio-label {
   display: flex;
@@ -723,7 +723,7 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
 .radio-custom-dot {
   width: 16px;
   height: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--pink-200);
   border-radius: 50%;
   display: inline-block;
   position: relative;
@@ -747,15 +747,16 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
   transform: translate(-50%, -50%);
 }
 .payment-method-desc {
-  background: #f6f6f6;
+  background: #FFFFFF;
   padding: 1.1rem 1.2rem;
   font-size: 0.82rem;
   line-height: 1.55;
   color: var(--text-mid);
+  border-top: 1px solid var(--pink-100);
 }
 .cod-disabled-msg {
   margin-top: 0.35rem;
-  color: var(--pink-600);
+  color: var(--pink-500);
   font-weight: 700;
   font-size: 0.78rem;
 }
