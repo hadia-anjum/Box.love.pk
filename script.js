@@ -155,20 +155,20 @@ function renderPreviewTabs() {
   if (!pw) return;
   pw.innerHTML = `
     <div class="preview-tabs">
-      <button class="preview-tab active" id="tabTop" onclick="switchTab('top')">🖤 Box Top</button>
-      <button class="preview-tab" id="tabInside" onclick="switchTab('inside')" style="opacity:0.35;">📖 Inside</button>
+      <button class="preview-tab active" id="tabTop" onclick="switchTab('top')">Box Top</button>
+      <button class="preview-tab" id="tabInside" onclick="switchTab('inside')" style="opacity:0.35;">Inside</button>
     </div>
     <div id="topPane" class="box-mockup-wrap">
-      <div class="box-face-flat" id="boxTopFace">
-        <div class="face-label">Top of Box</div>
+      <div class="box-face-flat" id="boxTopFace" style="background: radial-gradient(ellipse at 40% 35%, #222222 0%, #121212 70%, #080808 100%) !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.15) !important;">
+        <div class="face-label" style="background: rgba(255,255,255,0.15) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.7) !important;">Top of Box</div>
         <div class="box-text-layer">
           <span class="live-gold-text placeholder-gold" id="liveTopText">Enable writing above and<br>type your message… it will appear<br>in golden ink ✨</span>
         </div>
       </div>
     </div>
     <div id="insidePane" class="box-mockup-wrap">
-      <div class="box-face-flat box-face-inside" id="boxInsideFace">
-        <div class="face-label">Inside of Box</div>
+      <div class="box-face-flat box-face-inside" id="boxInsideFace" style="background: radial-gradient(ellipse at 50% 40%, #1e1e1e 0%, #101010 70%, #060606 100%) !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.6) !important;">
+        <div class="face-label" style="background: rgba(255,255,255,0.15) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.7) !important;">Inside of Box</div>
         <div class="box-text-layer">
           <span class="live-gold-text placeholder-gold" id="liveInsideText">Enable "Write Inside" above<br>and type your message 💕</span>
         </div>
@@ -215,17 +215,25 @@ function liveUpdate() {
 
   // Ink class
   const inkClass = state.inkColor === 'silver' ? 'silver-ink' : 'gold-ink';
+  const textCol = state.inkColor === 'silver' ? '#E0EAF5' : '#F0C97A';
+  const textShad = state.inkColor === 'silver' 
+    ? '0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(224, 234, 245, 0.4)' 
+    : '0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(240, 201, 122, 0.5)';
 
   // ---- TOP face ----
   const topEl = document.getElementById('liveTopText');
   if (topEl) {
     if (state.top && topText.trim()) {
       topEl.className = 'live-gold-text ' + inkClass;
+      topEl.style.color = textCol;
+      topEl.style.textShadow = textShad;
       topEl.innerHTML = topText.replace(/\n/g, '<br>');
       const len = topText.length;
       topEl.style.fontSize = len < 25 ? '2.2rem' : len < 55 ? '1.7rem' : len < 100 ? '1.3rem' : '1.05rem';
     } else {
       topEl.className = 'live-gold-text placeholder-gold';
+      topEl.style.color = 'rgba(255, 255, 255, 0.3)';
+      topEl.style.textShadow = 'none';
       topEl.style.fontSize = '';
       topEl.innerHTML = state.top
         ? 'Start typing your message…<br>it will appear here in ' + (state.inkColor === 'silver' ? 'silver' : 'golden') + ' ink ✨'
@@ -241,11 +249,15 @@ function liveUpdate() {
       if (tabInside) tabInside.style.opacity = '1';
       if (insideText.trim()) {
         insideEl.className = 'live-gold-text ' + inkClass;
+        insideEl.style.color = textCol;
+        insideEl.style.textShadow = textShad;
         insideEl.innerHTML = insideText.replace(/\n/g, '<br>');
         const len2 = insideText.length;
         insideEl.style.fontSize = len2 < 25 ? '2.2rem' : len2 < 80 ? '1.7rem' : len2 < 160 ? '1.3rem' : '1.05rem';
       } else {
         insideEl.className = 'live-gold-text placeholder-gold';
+        insideEl.style.color = 'rgba(255, 255, 255, 0.3)';
+        insideEl.style.textShadow = 'none';
         insideEl.style.fontSize = '';
         insideEl.innerHTML = 'Type your inside message above 💕';
       }
@@ -254,6 +266,8 @@ function liveUpdate() {
     } else {
       if (tabInside) tabInside.style.opacity = '0.35';
       insideEl.className = 'live-gold-text placeholder-gold';
+      insideEl.style.color = 'rgba(255, 255, 255, 0.3)';
+      insideEl.style.textShadow = 'none';
       insideEl.style.fontSize = '';
       insideEl.innerHTML = 'Enable "Write Inside" above<br>and type your message 💕';
       switchTab('top');
