@@ -396,26 +396,26 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
 .box-mockup-wrap { position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.8rem; }
 .box-face-flat {
   width:100%; aspect-ratio:4/3;
-  background:radial-gradient(ellipse at 40% 35%, #fdf6f9 0%, #f7eef3 50%, #f0e4eb 100%);
+  background:radial-gradient(ellipse at 40% 35%, #222222 0%, #121212 70%, #080808 100%);
   border-radius:10px; position:relative; overflow:hidden;
-  box-shadow:0 0 0 1px rgba(194,51,106,0.1), 0 8px 32px rgba(194,51,106,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.15);
   display:flex; align-items:center; justify-content:center; min-height:180px;
 }
 .box-face-flat::before {
   content:''; position:absolute; inset:0;
   background:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(194,51,106,0.02) 2px, rgba(194,51,106,0.02) 4px),
-    linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(194,51,106,0.05) 100%);
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px),
+    linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%, rgba(0,0,0,0.4) 100%);
   border-radius:10px; pointer-events:none;
 }
 .box-face-flat::after {
   content:''; position:absolute; top:0; left:0; right:0; height:40%;
-  background:linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%);
+  background:linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%);
   border-radius:10px 10px 0 0; pointer-events:none;
 }
 .box-face-inside {
-  background:radial-gradient(ellipse at 50% 40%, #f7eef3 0%, #f0e4eb 50%, #e8d7e0 100%);
-  box-shadow:0 0 0 1px rgba(194,51,106,0.1), 0 8px 32px rgba(194,51,106,0.08), inset 0 0 40px rgba(194,51,106,0.05);
+  background:radial-gradient(ellipse at 50% 40%, #1e1e1e 0%, #101010 70%, #060606 100%);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.6);
 }
 .box-text-layer { position:relative;z-index:2;text-align:center;padding:1.2rem 1.4rem;width:100%;pointer-events:none; }
 .live-gold-text {
@@ -423,11 +423,11 @@ h2 .script { font-family:'Dancing Script',cursive; color:var(--pink-500); font-s
   white-space:pre-wrap; word-break:break-word; display:block;
   transition:all 0.15s ease; animation:textAppear 0.3s ease;
 }
-.live-gold-text.gold-ink  { color:var(--pink-600); text-shadow:0 2px 4px rgba(0,0,0,0.1); }
-.live-gold-text.silver-ink{ color:var(--pink-400); text-shadow:0 2px 4px rgba(0,0,0,0.05); }
+.live-gold-text.gold-ink  { color:var(--gold-2); text-shadow:0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(240, 201, 122, 0.5); }
+.live-gold-text.silver-ink{ color:var(--silver-2); text-shadow:0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(224, 234, 245, 0.4); }
 @keyframes textAppear{ from{opacity:0.5;transform:scale(0.98);}to{opacity:1;transform:scale(1);} }
-.live-gold-text.placeholder-gold { font-size:1.1rem;color:rgba(194,51,106,0.3);text-shadow:none;font-style:italic; }
-.face-label { position:absolute;top:0.7rem;left:0.8rem;background:rgba(255,255,255,0.7);backdrop-filter:blur(4px);border:1px solid var(--pink-100);border-radius:6px;padding:0.2rem 0.6rem;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:var(--pink-600);text-transform:uppercase;z-index:3; }
+.live-gold-text.placeholder-gold { font-size:1.1rem;color:rgba(255,255,255,0.3);text-shadow:none;font-style:italic; }
+.face-label { position:absolute;top:0.7rem;left:0.8rem;background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.2rem 0.6rem;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.7);text-transform:uppercase;z-index:3; }
 #insidePane { display:none; }
 #insidePane.visible { display:block; }
 
