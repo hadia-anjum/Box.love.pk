@@ -10,8 +10,8 @@ const state = {
 };
 
 const PRICES = {
-  box: 1600, top: 250, inside: 250,
-  fairy: 300, ribbon: 50, delivery: 400
+  box: 1600, top: 300, inside: 600,
+  fairy: 300, ribbon: 100, delivery: 400
 };
 
 
@@ -387,7 +387,7 @@ function openModal() {
       rows += `<div class="order-row"><span class="or-key">Ink Colour</span><span class="or-val">${state.inkColor === 'silver' ? 'Silver' : 'Golden'}</span></div>`;
     }
     if (state.addons.fairy)  { rows += `<div class="order-row"><span class="or-key">Fairy Lights</span><span class="or-val">Rs. 300</span></div>`;  total += PRICES.fairy; }
-    if (state.addons.ribbon) { rows += `<div class="order-row"><span class="or-key">Ribbon Bow</span><span class="or-val">Rs. 50</span></div>`;   total += PRICES.ribbon; }
+    if (state.addons.ribbon) { rows += `<div class="order-row"><span class="or-key">Ribbon Bow</span><span class="or-val">Rs. 100</span></div>`;   total += PRICES.ribbon; }
   }
   rows += `<div class="order-row"><span class="or-key">Delivery</span><span class="or-val">Rs. 400</span></div>`;
 
