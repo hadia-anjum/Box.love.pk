@@ -126,26 +126,27 @@ function setInkColor(color) {
    TAB SWITCHER: TOP / INSIDE
 ===================================================== */
 function switchTab(tab) {
-  const tabTop    = document.getElementById('tabTop');
-  const tabInside = document.getElementById('tabInside');
-  const box3d     = document.getElementById('box3dRoot');
-  const lbl       = document.getElementById('boxStatusLabel');
+  const topPane    = document.getElementById('topPane');
+  const insidePane = document.getElementById('insidePane');
+  const tabTop     = document.getElementById('tabTop');
+  const tabInside  = document.getElementById('tabInside');
+  if (!topPane) return;
 
   if (tab === 'top') {
-    if (box3d) box3d.classList.remove('is-open');
-    if (tabTop)    { tabTop.classList.add('active');    tabTop.style.opacity = '1'; }
-    if (tabInside) { tabInside.classList.remove('active'); tabInside.style.opacity = '0.5'; }
-    if (lbl)  lbl.textContent = '✨ Live Preview — Personalised Black Luxury Box';
+    topPane.style.display = 'block';
+    insidePane.classList.remove('visible');
+    tabTop.classList.add('active');
+    tabInside.classList.remove('active');
   } else {
     if (!state.inside) {
       const cb = document.getElementById('cb-inside');
       if (cb) { cb.style.animation = 'shake 0.4s ease'; setTimeout(() => cb.style.animation = '', 500); }
       return;
     }
-    if (box3d) box3d.classList.add('is-open');
-    if (tabInside) { tabInside.classList.add('active');    tabInside.style.opacity = '1'; }
-    if (tabTop)    { tabTop.classList.remove('active'); tabTop.style.opacity = '0.5'; }
-    if (lbl) lbl.textContent = '📖 Box open — inside message preview';
+    topPane.style.display = 'none';
+    insidePane.classList.add('visible');
+    tabTop.classList.remove('active');
+    tabInside.classList.add('active');
   }
 }
 
@@ -154,86 +155,25 @@ function renderPreviewTabs() {
   if (!pw) return;
   pw.innerHTML = `
     <div class="preview-tabs">
-      <button class="preview-tab active" id="tabTop"    onclick="switchTab('top')">🖤 Box Top</button>
-      <button class="preview-tab"        id="tabInside" onclick="switchTab('inside')" style="opacity:0.5;">📖 Inside</button>
+      <button class="preview-tab active" id="tabTop" onclick="switchTab('top')">Box Top</button>
+      <button class="preview-tab" id="tabInside" onclick="switchTab('inside')" style="opacity:0.35;">Inside</button>
     </div>
-
-    <!-- 3D Scene -->
-    <div class="box-3d-scene" id="boxScene3d">
-      <div class="box-3d-shadow"></div>
-
-      <div class="box-3d-root" id="box3dRoot">
-
-        <!-- LID (hinged at top back) -->
-        <div class="box-lid" id="boxLid">
-          <div class="lid-face lid-top">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0;"></div>
-            <!-- 3D Ribbon Bow -->
-            <div class="box-bow">
-              <div class="bow-loop bow-loop-left"></div>
-              <div class="bow-loop bow-loop-right"></div>
-              <div class="bow-center"></div>
-              <div class="bow-tail bow-tail-left"></div>
-              <div class="bow-tail bow-tail-right"></div>
-            </div>
-            <div class="lid-top-text">
-              <span class="live-gold-text placeholder-gold" id="liveTopText" style="font-size:1rem;">Tap ✍️ Write on Top above<br>to see your message here ✨</span>
-            </div>
-          </div>
-          <div class="lid-face lid-front">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-          </div>
-          <div class="lid-face lid-back">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-          </div>
-          <div class="lid-face lid-left">
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 16px; transform: translateY(-50%);"></div>
-          </div>
-          <div class="lid-face lid-right">
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 16px; transform: translateY(-50%);"></div>
-          </div>
+    <div id="topPane" class="box-mockup-wrap">
+      <div class="box-face-flat" id="boxTopFace" style="background: radial-gradient(ellipse at 40% 35%, #222222 0%, #121212 70%, #080808 100%) !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.15) !important;">
+        <div class="face-label" style="background: rgba(255,255,255,0.15) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.7) !important;">Top of Box</div>
+        <div class="box-text-layer">
+          <span class="live-gold-text placeholder-gold" id="liveTopText">Enable writing above and<br>type your message… it will appear<br>in golden ink ✨</span>
         </div>
-
-        <!-- BASE -->
-        <div class="box-base">
-          <div class="b-face b-front">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 24px; transform: translateY(-50%);"></div>
-            <div class="b-front-text">
-              <span style="font-family:'Dancing Script',cursive;font-size:0.8rem;color:rgba(255,255,255,0.15);letter-spacing:0.15em;">box.love.pk</span>
-            </div>
-          </div>
-          <div class="b-face b-back">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 24px; transform: translateY(-50%);"></div>
-          </div>
-          <div class="b-face b-left">
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 24px; transform: translateY(-50%);"></div>
-          </div>
-          <div class="b-face b-right">
-            <div class="ribbon-line ribbon-h" style="width: 100%; left: 0; top: 50%; height: 24px; transform: translateY(-50%);"></div>
-          </div>
-          <div class="b-face b-bottom">
-            <div class="ribbon-line ribbon-v" style="height: 100%; top: 0;"></div>
-          </div>
-          <!-- Inside lining (visible when lid open) -->
-          <div class="box-inside-lining">
-            <div class="inside-text-layer">
-              <span class="live-gold-text placeholder-gold" id="liveInsideText" style="font-size:0.85rem;">Enable "Also Write Inside"<br>to preview your message 💕</span>
-            </div>
-          </div>
+      </div>
+    </div>
+    <div id="insidePane" class="box-mockup-wrap">
+      <div class="box-face-flat box-face-inside" id="boxInsideFace" style="background: radial-gradient(ellipse at 50% 40%, #1e1e1e 0%, #101010 70%, #060606 100%) !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.6) !important;">
+        <div class="face-label" style="background: rgba(255,255,255,0.15) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.7) !important;">Inside of Box</div>
+        <div class="box-text-layer">
+          <span class="live-gold-text placeholder-gold" id="liveInsideText">Enable "Write Inside" above<br>and type your message 💕</span>
         </div>
-
-      </div><!-- /box-3d-root -->
-
-      <div class="box-status-label" id="boxStatusLabel">✨ Live Preview — Personalised Black Luxury Box</div>
-      <div style="font-size:0.65rem; color:var(--text-light); margin-top:2.2rem; opacity:0.85; letter-spacing:0.05em; display:flex; align-items:center; gap:4px; justify-content:center; pointer-events:none; z-index:3;"><span>Drag box to rotate and spin</span> 🔄</div>
+      </div>
     </div>`;
-
-  // Attach card-tilt to showcase & pay cards
-  initTiltEffect();
-  init3DDrag();
 }
 
 /* =====================================================
@@ -280,7 +220,7 @@ function liveUpdate() {
     ? '0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(224, 234, 245, 0.4)' 
     : '0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(240, 201, 122, 0.5)';
 
-  // ---- TOP face (lid top in 3D) ----
+  // ---- TOP face ----
   const topEl = document.getElementById('liveTopText');
   if (topEl) {
     if (state.top && topText.trim()) {
@@ -289,46 +229,47 @@ function liveUpdate() {
       topEl.style.textShadow = textShad;
       topEl.innerHTML = topText.replace(/\n/g, '<br>');
       const len = topText.length;
-      topEl.style.fontSize = len < 20 ? '1.3rem' : len < 50 ? '1.0rem' : len < 100 ? '0.85rem' : '0.72rem';
+      topEl.style.fontSize = len < 25 ? '2.2rem' : len < 55 ? '1.7rem' : len < 100 ? '1.3rem' : '1.05rem';
     } else {
       topEl.className = 'live-gold-text placeholder-gold';
-      topEl.style.color = 'rgba(255,255,255,0.25)';
+      topEl.style.color = 'rgba(255, 255, 255, 0.3)';
       topEl.style.textShadow = 'none';
-      topEl.style.fontSize = '0.95rem';
+      topEl.style.fontSize = '';
       topEl.innerHTML = state.top
-        ? 'Start typing above ✨<br><small style="font-size:0.75em;opacity:0.7">it appears on the lid</small>'
-        : 'Tap ✍️ Write on Top<br>to preview here ✨';
+        ? 'Start typing your message…<br>it will appear here in ' + (state.inkColor === 'silver' ? 'silver' : 'golden') + ' ink ✨'
+        : 'Enable "Write on Top" above to<br>preview your message here ✨';
     }
   }
 
-  // ---- INSIDE face (inside lining in 3D) ----
+  // ---- INSIDE face ----
   const insideEl = document.getElementById('liveInsideText');
   const tabInside = document.getElementById('tabInside');
   if (insideEl) {
     if (state.inside) {
-      if (tabInside) { tabInside.style.opacity = '1'; }
+      if (tabInside) tabInside.style.opacity = '1';
       if (insideText.trim()) {
         insideEl.className = 'live-gold-text ' + inkClass;
         insideEl.style.color = textCol;
         insideEl.style.textShadow = textShad;
         insideEl.innerHTML = insideText.replace(/\n/g, '<br>');
         const len2 = insideText.length;
-        insideEl.style.fontSize = len2 < 20 ? '1.2rem' : len2 < 60 ? '0.95rem' : len2 < 140 ? '0.8rem' : '0.68rem';
+        insideEl.style.fontSize = len2 < 25 ? '2.2rem' : len2 < 80 ? '1.7rem' : len2 < 160 ? '1.3rem' : '1.05rem';
       } else {
         insideEl.className = 'live-gold-text placeholder-gold';
-        insideEl.style.color = 'rgba(255,255,255,0.25)';
+        insideEl.style.color = 'rgba(255, 255, 255, 0.3)';
         insideEl.style.textShadow = 'none';
-        insideEl.style.fontSize = '0.85rem';
-        insideEl.innerHTML = 'Type inside message above 💕';
+        insideEl.style.fontSize = '';
+        insideEl.innerHTML = 'Type your inside message above 💕';
       }
+      // Auto-switch to inside tab while typing inside
       if (insideText.length > 0 && document.activeElement === insideTA) switchTab('inside');
     } else {
-      if (tabInside) tabInside.style.opacity = '0.5';
+      if (tabInside) tabInside.style.opacity = '0.35';
       insideEl.className = 'live-gold-text placeholder-gold';
-      insideEl.style.color = 'rgba(255,255,255,0.2)';
+      insideEl.style.color = 'rgba(255, 255, 255, 0.3)';
       insideEl.style.textShadow = 'none';
-      insideEl.style.fontSize = '0.85rem';
-      insideEl.innerHTML = 'Enable "Also Write Inside"<br>to preview your message 💕';
+      insideEl.style.fontSize = '';
+      insideEl.innerHTML = 'Enable "Write Inside" above<br>and type your message 💕';
       switchTab('top');
     }
   }
@@ -701,88 +642,6 @@ function toggleMenu() {
   } else {
     nav.style.display = 'none';
   }
-}
-
-/* =====================================================
-   3D BOX ROTATE & DRAG LISTENER
-===================================================== */
-function init3DDrag() {
-  const scene = document.getElementById('boxScene3d');
-  const box = document.getElementById('box3dRoot');
-  if (!scene || !box) return;
-
-  let isDragging = false;
-  let startX = 0, startY = 0;
-  let rotX = 20;
-  let rotY = -30;
-
-  const startDrag = (e) => {
-    isDragging = true;
-    box.style.animation = 'none';
-    box.style.transition = 'none';
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    startX = clientX;
-    startY = clientY;
-  };
-
-  const doDrag = (e) => {
-    if (!isDragging) return;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-    const deltaX = clientX - startX;
-    const deltaY = clientY - startY;
-
-    rotY += deltaX * 0.6;
-    rotX -= deltaY * 0.6;
-
-    // Constrain X rotation to reasonable viewing angles
-    if (rotX > 75) rotX = 75;
-    if (rotX < -15) rotX = -15;
-
-    box.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-
-    startX = clientX;
-    startY = clientY;
-
-    // Prevent scrolling when dragging on mobile
-    if (e.cancelable) e.preventDefault();
-  };
-
-  const stopDrag = () => {
-    if (!isDragging) return;
-    isDragging = false;
-    box.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
-  };
-
-  scene.addEventListener('mousedown', startDrag);
-  window.addEventListener('mousemove', doDrag);
-  window.addEventListener('mouseup', stopDrag);
-
-  scene.addEventListener('touchstart', startDrag, { passive: false });
-  window.addEventListener('touchmove', doDrag, { passive: false });
-  window.addEventListener('touchend', stopDrag);
-}
-
-/* =====================================================
-   3D CARD TILT
-===================================================== */
-function initTiltEffect() {
-  const cards = document.querySelectorAll('.box-card, .pay-card');
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;  // -0.5 to 0.5
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      const ry =  x * 18;   // max 18 deg
-      const rx = -y * 14;
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.035,1.035,1.035)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
 }
 
 /* =====================================================
