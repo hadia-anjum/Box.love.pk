@@ -27,57 +27,50 @@ export async function sendThankYouEmail(orderData: any) {
     const mailOptions = {
       from: `"box.love.pk" <${EMAIL_USER}>`,
       to: orderData.email,
-      subject: `Thank you for your order! ❤️ — box.love.pk`,
+      subject: `Order Details - box.love.pk`,
       text: `Hi ${orderData.name},\n\n` +
-            `I hope you are doing well! This is Hadia from box.love.pk.\n\n` +
-            `Thank you so much for choosing my small shop to craft a customized gift box for your special someone. I am already excited to handmake it with love for you! ❤️\n\n` +
-            `Here is a quick summary of what you ordered:\n` +
+            `Thank you for placing your order with box.love.pk!\n\n` +
+            `Here is a summary of your customized gift box order:\n` +
             `- Box Type: ${orderData.boxType}\n` +
             `- Ink Color: ${orderData.inkColor || "N/A"}${customTextSummary}\n` +
             `- Addons: ${orderData.addons}\n` +
             `- Total Price: Rs. ${orderData.total}\n\n` +
-            `To verify and confirm your order, please follow these steps:\n` +
-            `1. Send the advance payment of Rs. ${orderData.total} to my JazzCash account:\n` +
-            `   - Number: 0300-6600178\n` +
-            `   - Account Name: NAZI YAQOOB\n` +
-            `2. Take a screenshot of the transaction receipt.\n` +
-            `3. Send the screenshot to my Instagram DM (@box.love.pk) so I can verify and start crafting your box right away!\n\n` +
-            `Thank you again for supporting my small handmade business. I really hope you love the box as much as I will love making it for you. I would be so happy to design for you again, so please shop with us again in the future! 😊\n\n` +
-            `With love,\n` +
+            `To complete your order, please complete the advance payment of Rs. ${orderData.total} to the following account:\n` +
+            `- JazzCash Number: 0300-6600178\n` +
+            `- Account Name: NAZI YAQOOB\n\n` +
+            `After making the payment, please share a screenshot of the transaction receipt to our Instagram DM: @box.love.pk\n\n` +
+            `Once confirmed, we will start crafting your box right away!\n\n` +
+            `Best regards,\n` +
             `The box.love.pk Team`,
       html: `
-        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 550px; margin: 0 auto; line-height: 1.6; color: #3d202c; font-size: 15px;">
+        <div style="font-family: Arial, sans-serif; max-width: 550px; margin: 0 auto; line-height: 1.6; color: #333333; font-size: 15px;">
           <p>Hi <strong>${orderData.name}</strong>,</p>
           
-          <p>I hope you are doing well! This is Hadia from <strong>box.love.pk</strong>.</p>
+          <p>Thank you for placing your order with <strong>box.love.pk</strong>!</p>
           
-          <p>Thank you so much for choosing my small shop to craft a customized gift box for your special someone. I am already excited to handmake it with love for you! ❤️</p>
-          
-          <p>Here is a quick summary of what you ordered:</p>
-          <ul style="padding-left: 20px; color: #522a3b;">
+          <p>Here is a summary of your customized gift box order:</p>
+          <ul style="padding-left: 20px; color: #333333;">
             <li><strong>Box Type:</strong> ${orderData.boxType}</li>
             ${orderData.inkColor && orderData.inkColor !== "N/A" ? `<li><strong>Ink Color:</strong> ${orderData.inkColor}</li>` : ''}
             ${orderData.topText ? `<li><strong>Lid Message:</strong> "${orderData.topText}"</li>` : ''}
             ${orderData.insideText ? `<li><strong>Inside Message:</strong> "${orderData.insideText}"</li>` : ''}
             <li><strong>Add-ons:</strong> ${orderData.addons}</li>
-            <li><strong>Total Amount:</strong> Rs. ${orderData.total}</li>
+            <li><strong>Total Price:</strong> Rs. ${orderData.total}</li>
           </ul>
           
-          <p>To verify and confirm your order, please follow these steps:</p>
-          <ol style="padding-left: 20px; color: #522a3b;">
-            <li>Send the advance payment of <strong>Rs. ${orderData.total}</strong> to my JazzCash account:<br/>
-                <strong>Number:</strong> 0300-6600178<br/>
-                <strong>Account Name:</strong> NAZI YAQOOB</li>
-            <li>Take a screenshot of the transaction receipt.</li>
-            <li>Send the screenshot to my Instagram DM <a href="https://instagram.com/box.love.pk" style="color: #e03e6d; font-weight: bold; text-decoration: underline;" target="_blank">@box.love.pk</a> so I can verify and start crafting your box right away!</li>
-          </ol>
+          <p>To complete your order, please make the advance payment of <strong>Rs. ${orderData.total}</strong> to our JazzCash account:</p>
+          <ul style="padding-left: 20px; color: #333333;">
+            <li><strong>Number:</strong> 0300-6600178</li>
+            <li><strong>Account Name:</strong> NAZI YAQOOB</li>
+          </ul>
           
-          <p>Thank you again for supporting my small handmade business. I really hope you love the box as much as I will love making it for you. I would be so happy to design for you again, so please shop with us again in the future! 😊</p>
+          <p>After making the payment, please send a screenshot of the transaction receipt to our Instagram DM: <strong>@box.love.pk</strong></p>
           
-          <p style="margin-top: 30px; border-top: 1px solid #ffd6e3; padding-top: 15px; font-size: 14px; color: #854e62;">
-            With love and care,<br/>
-            <strong>The box.love.pk Team</strong><br/>
-            Faisalabad, Pakistan
+          <p>Once confirmed, we will start crafting your box right away!</p>
+          
+          <p style="margin-top: 30px; border-top: 1px solid #eeeeee; padding-top: 15px; font-size: 14px; color: #777777;">
+            Best regards,<br/>
+            <strong>The box.love.pk Team</strong>
           </p>
         </div>
       `,
