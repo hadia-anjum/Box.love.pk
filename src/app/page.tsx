@@ -206,7 +206,7 @@ export default function Home() {
     const y = (e.clientY - r.top) / r.height - 0.5;
     const ry = x * 15; // max 15 deg
     const rx = -y * 12; // max 12 deg
-    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
   };
 
   const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -323,13 +323,13 @@ export default function Home() {
   };
 
   return (
-    <div className="relative overflow-x-hidden min-h-screen">
+    <div className="relative overflow-x-hidden min-h-screen font-sans-inter selection:bg-[var(--pink-200)] selection:text-[var(--pink-600)]">
       {/* ========== PARTICLES ========== */}
       <div id="particles" className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {particles.map((p) => (
           <div
             key={p.id}
-            className="particle bg-[var(--pink-300)] opacity-10"
+            className="particle bg-[var(--pink-400)]/15"
             style={
               {
                 left: p.left,
@@ -346,25 +346,25 @@ export default function Home() {
       {/* ========== HEADER NAV ========== */}
       <nav
         id="mainNav"
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-6 sm:px-12 py-5 flex items-center justify-between transition-all duration-500 border-b ${
           scrolled
-            ? "bg-white/95 py-2.5 shadow-md shadow-pink-600/5 backdrop-blur-md"
-            : "bg-white/80 backdrop-blur-md border-b border-pink-100/45"
+            ? "bg-white/80 shadow-xl shadow-pink-600/5 backdrop-blur-xl border-pink-100/40 py-3"
+            : "bg-transparent border-transparent py-5"
         }`}
       >
-        <a href="#" className="font-dancing text-3xl font-bold text-[var(--pink-500)] tracking-wide">
+        <a href="#" className="font-dancing text-3xl font-extrabold text-[var(--pink-500)] tracking-wide hover:opacity-90 transition-all">
           box<span className="text-[var(--dark-2)]">.</span>love
           <span className="text-[var(--dark-2)]">.</span>pk
         </a>
 
-        <ul className="hidden md:flex items-center gap-9">
+        <ul className="hidden md:flex items-center gap-10">
           {["Our Boxes", "Build Yours", "Pricing", "How to Order"].map((section, idx) => {
             const anchor = ["#showcase", "#builder", "#pricing", "#payment"][idx];
             return (
               <li key={section}>
                 <a
                   href={anchor}
-                  className="relative text-[var(--text-mid)] text-sm font-medium hover:text-[var(--pink-500)] transition-colors duration-200 group py-1"
+                  className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
                 >
                   {section}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
@@ -374,16 +374,16 @@ export default function Home() {
           })}
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <a
             href="#builder"
-            className="hidden sm:inline-block bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-6 py-2 rounded-full text-xs font-semibold tracking-wider uppercase shadow-lg shadow-pink-500/25 hover:shadow-pink-500/35 hover:-translate-y-0.5 transition-all duration-300"
+            className="hidden sm:inline-block bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-7 py-3 rounded-2xl text-xs font-bold tracking-wider uppercase shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 transition-all duration-300"
           >
             Order Now
           </a>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex flex-col gap-1.5 p-2 md:hidden group"
+            className="flex flex-col gap-1.5 p-2 md:hidden group hover:bg-pink-50 rounded-xl transition-all"
             aria-label="Toggle navigation menu"
           >
             <span
@@ -406,7 +406,7 @@ export default function Home() {
 
         {/* Mobile menu drop down */}
         {menuOpen && (
-          <div className="absolute top-[100%] left-0 right-0 bg-white/95 border-b border-pink-100 shadow-xl backdrop-blur-xl flex flex-col p-6 gap-5 md:hidden animate-fade-in z-50">
+          <div className="absolute top-[100%] left-0 right-0 bg-white/95 border-b border-pink-100 shadow-2xl backdrop-blur-2xl flex flex-col p-8 gap-6 md:hidden animate-fade-in z-50 rounded-b-3xl">
             {["Our Boxes", "Build Yours", "Pricing", "How to Order"].map((section, idx) => {
               const anchor = ["#showcase", "#builder", "#pricing", "#payment"][idx];
               return (
@@ -414,7 +414,7 @@ export default function Home() {
                   key={section}
                   href={anchor}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[var(--text-mid)] font-semibold text-base py-1 hover:text-[var(--pink-500)] transition-all"
+                  className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
                 >
                   {section}
                 </a>
@@ -423,7 +423,7 @@ export default function Home() {
             <a
               href="#builder"
               onClick={() => setMenuOpen(false)}
-              className="bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-3 rounded-xl text-center text-sm font-bold shadow-lg shadow-pink-500/20"
+              className="bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-3.5 rounded-2xl text-center text-sm font-bold shadow-lg shadow-pink-500/20"
             >
               Build Your Box ✨
             </a>
@@ -434,41 +434,41 @@ export default function Home() {
       {/* ========== HERO SECTION ========== */}
       <section
         id="home"
-        className="relative min-h-screen bg-gradient-to-br from-[#FFF0F6] via-[#FDDAED] to-[#F9C8E2] flex items-center justify-center px-6 pt-28 pb-16 overflow-hidden z-10"
+        className="relative min-h-screen bg-gradient-to-br from-[#FFF3F7] via-[#FDDAED] to-[#F3CDE1] flex items-center justify-center px-6 pt-32 pb-20 overflow-hidden z-10"
       >
         {/* Glowing Background Blobs */}
-        <div className="hero-blob blob-1 absolute w-[500px] h-[500px] bg-pink-500/15 top-[-100px] right-[-100px] rounded-full blur-[80px]" style={{ animation: "blobFloat1 8s ease-in-out infinite" }} />
-        <div className="hero-blob blob-2 absolute w-[400px] h-[400px] bg-yellow-500/10 bottom-[-50px] left-[-80px] rounded-full blur-[80px]" style={{ animation: "blobFloat2 10s ease-in-out infinite" }} />
-        <div className="hero-blob blob-3 absolute w-[300px] h-[300px] bg-pink-400/15 top-[40%] left-[40%] rounded-full blur-[80px]" style={{ animation: "blobFloat3 7s ease-in-out infinite" }} />
+        <div className="hero-blob blob-1 absolute w-[600px] h-[600px] bg-pink-500/20 top-[-100px] right-[-100px] rounded-full blur-[90px]" style={{ animation: "blobFloat1 9s ease-in-out infinite" }} />
+        <div className="hero-blob blob-2 absolute w-[500px] h-[500px] bg-amber-500/10 bottom-[-50px] left-[-80px] rounded-full blur-[90px]" style={{ animation: "blobFloat2 11s ease-in-out infinite" }} />
+        <div className="hero-blob blob-3 absolute w-[400px] h-[400px] bg-pink-400/20 top-[40%] left-[40%] rounded-full blur-[90px]" style={{ animation: "blobFloat3 8s ease-in-out infinite" }} />
 
         {/* Floating Emojis */}
-        <div className="sparkle" style={{ top: "12%", left: "8%", "--s-dur": "3s", "--s-delay": "0s" } as React.CSSProperties}>✨</div>
-        <div className="sparkle" style={{ top: "20%", right: "10%", "--s-dur": "4s", "--s-delay": "0.7s" } as React.CSSProperties}>🌸</div>
-        <div className="sparkle" style={{ bottom: "25%", left: "8%", "--s-dur": "3.5s", "--s-delay": "1.2s" } as React.CSSProperties}>💖</div>
-        <div className="sparkle" style={{ bottom: "12%", right: "12%", "--s-dur": "5s", "--s-delay": "0.3s" } as React.CSSProperties}>⭐</div>
-        <div className="sparkle" style={{ top: "50%", right: "5%", "--s-dur": "3.2s", "--s-delay": "1.8s" } as React.CSSProperties}>🎀</div>
+        <div className="sparkle" style={{ top: "15%", left: "10%", "--s-dur": "3.5s", "--s-delay": "0s" } as React.CSSProperties}>✨</div>
+        <div className="sparkle" style={{ top: "25%", right: "12%", "--s-dur": "4.5s", "--s-delay": "0.5s" } as React.CSSProperties}>🌸</div>
+        <div className="sparkle" style={{ bottom: "28%", left: "10%", "--s-dur": "4s", "--s-delay": "1s" } as React.CSSProperties}>💖</div>
+        <div className="sparkle" style={{ bottom: "15%", right: "15%", "--s-dur": "5.5s", "--s-delay": "0.2s" } as React.CSSProperties}>⭐</div>
+        <div className="sparkle" style={{ top: "52%", right: "8%", "--s-dur": "3.8s", "--s-delay": "1.5s" } as React.CSSProperties}>🎀</div>
 
-        <div className="max-w-4xl w-full text-center relative z-20 mx-auto">
-          <div className="hero-badge inline-flex items-center gap-2 bg-white/70 border border-pink-500/20 text-[var(--pink-600)] text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full shadow-md backdrop-blur-md mb-6">
+        <div className="max-w-4xl w-full text-center relative z-20 mx-auto px-2">
+          <div className="hero-badge inline-flex items-center gap-2.5 bg-white/70 border border-pink-500/25 text-[var(--pink-600)] text-[10px] sm:text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-md backdrop-blur-md mb-8">
             <span className="badge-dot w-2 h-2 rounded-full bg-[var(--pink-500)] animate-pulse-dot" />
             Handmade · FSD Based · Black Luxury Boxes
           </div>
 
-          <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl font-extrabold text-[var(--dark-2)] leading-[1.15] tracking-tight mb-6">
-            <span className="bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
+          <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[var(--dark-2)] leading-[1.1] tracking-tight mb-8">
+            <span className="bg-gradient-to-r from-[var(--pink-500)] via-pink-600 to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
             <br />
-            with <span className="font-dancing text-pink-500 font-bold block sm:inline mt-2">Love</span>
+            with <span className="font-dancing text-[var(--pink-500)] font-bold block sm:inline mt-2 hover:scale-105 transition-transform duration-300 cursor-default">Love</span>
           </h1>
 
-          <p className="text-[var(--text-mid)] text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-8">
+          <p className="text-[var(--text-mid)] text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10 font-medium">
             Sometimes the words written on the box mean more than the gift inside...... 💕
-            <span className="block text-sm font-semibold mt-3 text-[var(--pink-600)]">
+            <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2 px-4 rounded-xl max-w-max mx-auto shadow-sm">
               📸 Visit our Instagram{" "}
               <a
                 href="https://instagram.com/box.love.pk"
                 target="_blank"
                 rel="noreferrer"
-                className="underline hover:opacity-85"
+                className="underline hover:opacity-85 font-black"
               >
                 highlights section
               </a>{" "}
@@ -476,31 +476,29 @@ export default function Home() {
             </span>
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            <div className="bg-white/50 backdrop-blur-sm border border-pink-100 rounded-2xl px-6 py-3 min-w-[110px]">
-              <div className="text-2xl font-bold text-[var(--pink-600)]">100+</div>
-              <div className="text-[10px] uppercase tracking-wider text-[var(--text-light)] font-bold">Happy Customers</div>
-            </div>
-            <div className="bg-white/50 backdrop-blur-sm border border-pink-100 rounded-2xl px-6 py-3 min-w-[110px]">
-              <div className="text-2xl font-bold text-yellow-600">5★</div>
-              <div className="text-[10px] uppercase tracking-wider text-[var(--text-light)] font-bold">Rating</div>
-            </div>
-            <div className="bg-white/50 backdrop-blur-sm border border-pink-100 rounded-2xl px-6 py-3 min-w-[110px]">
-              <div className="text-2xl font-bold text-[var(--dark-2)]">🖤</div>
-              <div className="text-[10px] uppercase tracking-wider text-[var(--text-light)] font-bold">Black & Gold / Silver</div>
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-5 mb-14">
+            {[
+              { num: "100+", label: "Happy Customers", color: "text-[var(--pink-600)]" },
+              { num: "5★", label: "Rating", color: "text-amber-600" },
+              { num: "🖤", label: "Luxury Velvet", color: "text-[var(--dark-2)]" },
+            ].map((stat, idx) => (
+              <div key={idx} className="bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl px-8 py-4 shadow-lg shadow-pink-500/5 hover:translate-y-[-2px] transition-all duration-300">
+                <div className={`text-3xl font-extrabold ${stat.color}`}>{stat.num}</div>
+                <div className="text-[9px] uppercase tracking-widest text-[var(--text-light)] font-black mt-1">{stat.label}</div>
+              </div>
+            ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <div className="flex flex-col sm:flex-row gap-5 items-center justify-center max-w-md mx-auto">
             <a
               href="#builder"
-              className="w-full sm:w-auto bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-3.5 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
+              className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-4.5 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 hover:-translate-y-1 hover:brightness-105 active:translate-y-0 transition-all duration-300 text-center"
             >
               ✨ Build Your Box
             </a>
             <a
               href="#showcase"
-              className="w-full sm:w-auto bg-white/70 border border-pink-100 text-[var(--text-mid)] px-8 py-3.5 rounded-2xl text-sm font-bold tracking-wider hover:bg-white/95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
+              className="w-full bg-white/60 border border-white/50 text-[var(--text-mid)] px-8 py-4.5 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-1 active:translate-y-0 transition-all duration-300 text-center"
             >
               See Our Work →
             </a>
@@ -509,20 +507,20 @@ export default function Home() {
       </section>
 
       {/* ========== SHOWCASE SECTION ========== */}
-      <section id="showcase" className="py-24 px-6 max-w-7xl mx-auto z-10 relative bg-white rounded-3xl shadow-2xl shadow-pink-600/5 my-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+      <section id="showcase" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative bg-white rounded-[32px] shadow-2xl shadow-pink-600/5 my-8 border border-pink-50/20">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             💝 Our Collection
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
-            Boxes Made with <span className="font-dancing text-pink-500 text-4xl block sm:inline">Love</span>
+          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
+            Boxes Made with <span className="font-dancing text-pink-500 text-4xl sm:text-5xl block sm:inline">Love</span>
           </h2>
-          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-3">
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-lg mx-auto leading-relaxed">
             Every box is a black luxury keepsake with golden or silver handwritten messages — real boxes, real feelings, real love. 🖤✨
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {[
             {
               title: "My Man",
@@ -545,26 +543,26 @@ export default function Home() {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="box-card bg-white border border-pink-100 rounded-3xl p-5 shadow-lg shadow-pink-500/5 group hover:shadow-pink-500/15 transition-all duration-300"
+              className="box-card bg-white border border-pink-50 rounded-[28px] p-6 shadow-xl shadow-pink-500/5 group hover:shadow-pink-500/20 transition-all duration-500"
               onMouseMove={handleCardMouseMove}
               onMouseLeave={handleCardMouseLeave}
             >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5">
-                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-[var(--pink-600)] font-bold text-[10px] uppercase tracking-wider py-1 px-3.5 rounded-full shadow-md z-10">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-inner border border-pink-100/10">
+                <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-[var(--pink-600)] font-black text-[10px] uppercase tracking-widest py-1.5 px-4 rounded-full shadow-lg z-10 border border-pink-100/40">
                   {item.badge}
                 </span>
                 <Image
                   src={item.img}
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-all duration-500"
+                  className="object-cover group-hover:scale-105 transition-all duration-700"
                 />
               </div>
               <div className="card-info">
-                <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mb-2 group-hover:text-[var(--pink-500)] transition-all">
+                <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mb-3 group-hover:text-[var(--pink-500)] transition-all">
                   {item.title}
                 </h3>
-                <p className="text-[var(--text-mid)] text-xs sm:text-sm leading-relaxed">
+                <p className="text-[var(--text-mid)] text-xs sm:text-sm leading-relaxed font-medium">
                   {item.desc}
                 </p>
               </div>
@@ -577,62 +575,62 @@ export default function Home() {
       <div className="lights-strip h-5 relative overflow-hidden" aria-hidden="true" />
 
       {/* ========== BUILDER SECTION ========== */}
-      <section id="builder" className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+      <section id="builder" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             🎁 Make Your Own
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
             Build Your <span className="text-[var(--pink-500)]">Custom Box</span>
           </h2>
-          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-3">
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4">
             Choose your order type, personalise, and see your box come to life in real-time! 🖤✨
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Builder Options - Left Column */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="lg:col-span-7 flex flex-col gap-8">
             {/* Step 1: Order Type */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5">
-              <div className="flex gap-4 mb-6 items-start">
-                <div className="w-8 h-8 rounded-full bg-[var(--pink-500)] text-white flex items-center justify-center font-bold text-sm shrink-0">
+            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
+              <div className="flex gap-4 mb-8 items-start">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
                   1
                 </div>
                 <div>
-                  <h3 className="font-playfair text-lg sm:text-xl font-bold text-[var(--dark-2)]">
+                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
                     Choose Your Order Type
                   </h3>
-                  <p className="text-[var(--text-light)] text-xs sm:text-sm">
+                  <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
                     Just a box, or a personalised masterpiece?
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Simple Card */}
                 <button
                   type="button"
                   onClick={() => setOrderType("simple")}
-                  className={`relative border text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`relative border-2 text-left rounded-3xl p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
                     orderType === "simple"
-                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-2 ring-[var(--pink-200)]"
-                      : "border-pink-100 bg-white hover:border-pink-300"
+                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/45 ring-4 ring-[var(--pink-100)]/40 shadow-lg shadow-pink-500/5"
+                      : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
                   }`}
                 >
                   {orderType === "simple" && (
-                    <span className="absolute top-3 right-3 bg-[var(--pink-500)] text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold">
+                    <span className="absolute top-4 right-4 bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shadow-md">
                       ✓
                     </span>
                   )}
-                  <span className="text-3xl block mb-2">🖤</span>
-                  <div className="font-bold text-sm text-[var(--dark-2)] mb-1">
+                  <span className="text-4xl block mb-3 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
+                  <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Simple Black Box
                   </div>
-                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-3">
+                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-4 font-medium">
                     Just the premium black box with delivery. Add optional lights or ribbon.
                   </div>
-                  <div className="font-bold text-[var(--pink-600)] text-xs sm:text-sm">
+                  <div className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base bg-white/80 inline-block px-3 py-1 rounded-xl shadow-inner border border-pink-100/50">
                     Rs. 1,600 + DC
                   </div>
                 </button>
@@ -641,44 +639,44 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setOrderType("custom")}
-                  className={`relative border text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`relative border-2 text-left rounded-3xl p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
                     orderType === "custom"
-                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-2 ring-[var(--pink-200)]"
-                      : "border-pink-100 bg-white hover:border-pink-300"
+                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/45 ring-4 ring-[var(--pink-100)]/40 shadow-lg shadow-pink-500/5"
+                      : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
                   }`}
                 >
                   {orderType === "custom" && (
-                    <span className="absolute top-3 right-3 bg-[var(--pink-500)] text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold">
+                    <span className="absolute top-4 right-4 bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shadow-md">
                       ✓
                     </span>
                   )}
-                  <span className="text-3xl block mb-2">✍️</span>
-                  <div className="font-bold text-sm text-[var(--dark-2)] mb-1">
+                  <span className="text-4xl block mb-3 animate-[floatIcon_3.5s_ease-in-out_infinite]">✍️</span>
+                  <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Personalised Box
                   </div>
-                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-3">
+                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-4 font-medium">
                     Write your message in golden or silver ink on top and/or inside the box.
                   </div>
-                  <div className="font-bold text-[var(--pink-600)] text-xs sm:text-sm">
+                  <div className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base bg-white/80 inline-block px-3 py-1 rounded-xl shadow-inner border border-pink-100/50">
                     Rs. 1,600 + writing
                   </div>
                 </button>
               </div>
 
               {orderType === "simple" && (
-                <div className="bg-pink-50/20 border border-pink-100/50 rounded-2xl p-4 mt-5 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-black border border-pink-200/20 shrink-0" />
+                <div className="bg-pink-50/20 border border-pink-100/50 rounded-2xl p-5 mt-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-black border border-pink-200/20 shrink-0 shadow-md shadow-black/10" />
                   <div className="grow">
-                    <strong className="block text-xs sm:text-sm text-[var(--dark-2)]">
+                    <strong className="block text-sm text-[var(--dark-2)]">
                       🖤 Simple Black Luxury Box
                     </strong>
-                    <span className="text-[var(--text-light)] text-[11px]">
+                    <span className="text-[var(--text-light)] text-xs font-medium">
                       Clean, elegant — ready for your gift. Add lights or ribbon below.
                     </span>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="block text-xs font-bold text-[var(--pink-600)]">Rs. 1,600</span>
-                    <span className="text-[10px] text-[var(--text-light)]">Base Price</span>
+                    <span className="block text-sm font-black text-[var(--pink-600)]">Rs. 1,600</span>
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">Base Price</span>
                   </div>
                 </div>
               )}
@@ -686,33 +684,33 @@ export default function Home() {
 
             {/* Step 2: Personalisation (Custom only) */}
             {orderType === "custom" && (
-              <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5">
-                <div className="flex gap-4 mb-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-[var(--pink-500)] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
+                <div className="flex gap-4 mb-8 items-start">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
                     2
                   </div>
                   <div>
-                    <h3 className="font-playfair text-lg sm:text-xl font-bold text-[var(--dark-2)]">
+                    <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
                       Write Your Messages
                     </h3>
-                    <p className="text-[var(--text-light)] text-xs sm:text-sm">
+                    <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
                       Type and watch your words appear live on the box →
                     </p>
                   </div>
                 </div>
 
                 {/* Ink Color Selection */}
-                <div className="mb-6">
-                  <div className="text-xs sm:text-sm font-bold text-[var(--dark-2)] mb-3">
+                <div className="mb-8">
+                  <div className="text-xs sm:text-sm font-black text-[var(--dark-2)] mb-4">
                     🖊️ Choose Ink Colour
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-5">
                     {/* Gold Ink Option */}
                     <label
-                      className={`flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer hover:border-pink-300 transition-colors ${
+                      className={`flex items-center gap-4 border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all ${
                         inkColor === "gold"
-                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/20"
-                          : "border-pink-100 bg-white"
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 shadow-md"
+                          : "border-pink-100/60 bg-white"
                       }`}
                     >
                       <input
@@ -723,23 +721,23 @@ export default function Home() {
                         onChange={() => setInkColor("gold")}
                         className="hidden"
                       />
-                      <div className="w-8 h-8 rounded-lg bg-[#F0C97A] border border-black/10 flex items-center justify-center text-xs font-bold text-black/70 shadow-sm">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFE08A] to-[#D4A853] border border-black/10 flex items-center justify-center text-xs font-black text-black/80 shadow-md">
                         Au
                       </div>
                       <div>
-                        <span className="block font-bold text-xs sm:text-sm text-[var(--dark-2)]">
+                        <span className="block font-black text-xs sm:text-sm text-[var(--dark-2)]">
                           Golden
                         </span>
-                        <span className="text-[10px] text-[var(--text-light)]">Golden Ink</span>
+                        <span className="text-[10px] text-[var(--text-light)] font-bold">Golden Ink</span>
                       </div>
                     </label>
 
                     {/* Silver Ink Option */}
                     <label
-                      className={`flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer hover:border-pink-300 transition-colors ${
+                      className={`flex items-center gap-4 border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all ${
                         inkColor === "silver"
-                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/20"
-                          : "border-pink-100 bg-white"
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 shadow-md"
+                          : "border-pink-100/60 bg-white"
                       }`}
                     >
                       <input
@@ -750,29 +748,29 @@ export default function Home() {
                         onChange={() => setInkColor("silver")}
                         className="hidden"
                       />
-                      <div className="w-8 h-8 rounded-lg bg-[#E0EAF5] border border-black/10 flex items-center justify-center text-xs font-bold text-black/70 shadow-sm">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F5F8FC] to-[#C8D4E0] border border-black/10 flex items-center justify-center text-xs font-black text-black/80 shadow-md">
                         Ag
                       </div>
                       <div>
-                        <span className="block font-bold text-xs sm:text-sm text-[var(--dark-2)]">
+                        <span className="block font-black text-xs sm:text-sm text-[var(--dark-2)]">
                           Silver
                         </span>
-                        <span className="text-[10px] text-[var(--text-light)]">Silver Ink</span>
+                        <span className="text-[10px] text-[var(--text-light)] font-bold">Silver Ink</span>
                       </div>
                     </label>
                   </div>
                 </div>
 
                 {/* Top of Box Message */}
-                <div className="border border-pink-100 rounded-2xl p-4 mb-4">
-                  <div className="flex items-center justify-between mb-3">
+                <div className="border border-pink-100/70 rounded-2xl p-5 mb-5 hover:shadow-md transition-all duration-300 bg-white">
+                  <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
                       onClick={toggleTopMsg}
                       className="flex items-center gap-3 text-left focus:outline-none font-bold text-xs sm:text-sm text-[var(--dark-2)]"
                     >
                       <div
-                        className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] text-white transition-all ${
+                        className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white transition-all shadow-inner ${
                           hasTopMsg
                             ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
                             : "border-pink-200 bg-white"
@@ -782,7 +780,7 @@ export default function Home() {
                       </div>
                       ✍️ Write on Top of Box
                     </button>
-                    <span className="text-xs font-bold text-[var(--pink-500)] bg-[var(--pink-50)] px-2.5 py-1 rounded-full shadow-inner">
+                    <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
                       Rs. 2,300
                     </span>
                   </div>
@@ -793,21 +791,21 @@ export default function Home() {
                     onChange={(e) => handleTopTextInput(e.target.value)}
                     maxLength={200}
                     rows={3}
-                    placeholder={hasTopMsg ? "Write something beautiful..." : "Enable writing first"}
-                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50"
+                    placeholder={hasTopMsg ? "Type your customized top text here..." : "Check box to enable writing"}
+                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50"
                   />
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-[10px] text-[var(--text-light)]">
+                  <div className="flex justify-between items-center mt-3">
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">
                       {topText.length} / 200 chars
                     </span>
                     {hasTopMsg && topText.trim().length > 0 && (
                       <button
                         type="button"
                         onClick={() => handleSaveText("top")}
-                        className={`text-[10px] font-bold py-1 px-3 rounded-full transition-all ${
+                        className={`text-[10px] font-bold py-1.5 px-4 rounded-full shadow-md transition-all ${
                           isSavedMsgTop
                             ? "bg-green-500 text-white"
-                            : "bg-[var(--pink-500)] hover:bg-[var(--pink-600)] text-white"
+                            : "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white hover:brightness-105"
                         }`}
                       >
                         {isSavedMsgTop ? "✅ Saved!" : "💾 Save Message"}
@@ -817,15 +815,15 @@ export default function Home() {
                 </div>
 
                 {/* Inside of Box Message */}
-                <div className="border border-pink-100 rounded-2xl p-4">
-                  <div className="flex items-center justify-between mb-3">
+                <div className="border border-pink-100/70 rounded-2xl p-5 hover:shadow-md transition-all duration-300 bg-white">
+                  <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
                       onClick={toggleInsideMsg}
                       className="flex items-center gap-3 text-left focus:outline-none font-bold text-xs sm:text-sm text-[var(--dark-2)]"
                     >
                       <div
-                        className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] text-white transition-all ${
+                        className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white transition-all shadow-inner ${
                           hasInsideMsg
                             ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
                             : "border-pink-200 bg-white"
@@ -835,7 +833,7 @@ export default function Home() {
                       </div>
                       📖 Also Write Inside the Box
                     </button>
-                    <span className="text-xs font-bold text-[var(--pink-500)] bg-[var(--pink-50)] px-2.5 py-1 rounded-full shadow-inner">
+                    <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
                       Rs. 2,600
                     </span>
                   </div>
@@ -846,21 +844,21 @@ export default function Home() {
                     onChange={(e) => handleInsideTextInput(e.target.value)}
                     maxLength={400}
                     rows={4}
-                    placeholder={hasInsideMsg ? "Write your inside message here..." : "Enable writing first"}
-                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50"
+                    placeholder={hasInsideMsg ? "Type your customized inside text here..." : "Check box to enable writing"}
+                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50"
                   />
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-[10px] text-[var(--text-light)]">
+                  <div className="flex justify-between items-center mt-3">
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">
                       {insideText.length} / 400 chars
                     </span>
                     {hasInsideMsg && insideText.trim().length > 0 && (
                       <button
                         type="button"
                         onClick={() => handleSaveText("inside")}
-                        className={`text-[10px] font-bold py-1 px-3 rounded-full transition-all ${
+                        className={`text-[10px] font-bold py-1.5 px-4 rounded-full shadow-md transition-all ${
                           isSavedMsgInside
                             ? "bg-green-500 text-white"
-                            : "bg-[var(--pink-500)] hover:bg-[var(--pink-600)] text-white"
+                            : "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white hover:brightness-105"
                         }`}
                       >
                         {isSavedMsgInside ? "✅ Saved!" : "💾 Save Message"}
@@ -872,34 +870,34 @@ export default function Home() {
             )}
 
             {/* Step 3: Add-ons */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5">
-              <div className="flex gap-4 mb-6 items-start">
-                <div className="w-8 h-8 rounded-full bg-[var(--pink-500)] text-white flex items-center justify-center font-bold text-sm shrink-0">
+            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
+              <div className="flex gap-4 mb-8 items-start">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
                   3
                 </div>
                 <div>
-                  <h3 className="font-playfair text-lg sm:text-xl font-bold text-[var(--dark-2)]">
+                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
                     Optional Add-ons
                   </h3>
-                  <p className="text-[var(--text-light)] text-xs sm:text-sm">
+                  <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
                     Make it even more magical ✨
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Fairy Lights Card */}
                 <button
                   type="button"
                   onClick={() => setAddons((prev) => ({ ...prev, fairy: !prev.fairy }))}
-                  className={`flex items-center gap-4 border text-left rounded-2xl p-4.5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
                     addons.fairy
-                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]"
-                      : "border-pink-100 bg-white hover:border-pink-300"
+                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                      : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] text-white shrink-0 transition-all ${
+                    className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white shrink-0 transition-all ${
                       addons.fairy
                         ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
                         : "border-pink-200 bg-white"
@@ -912,7 +910,7 @@ export default function Home() {
                       Fairy Lights
                     </strong>
                   </div>
-                  <div className="font-bold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
+                  <div className="font-extrabold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
                     + Rs. 300
                   </div>
                 </button>
@@ -921,14 +919,14 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setAddons((prev) => ({ ...prev, ribbon: !prev.ribbon }))}
-                  className={`flex items-center gap-4 border text-left rounded-2xl p-4.5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
                     addons.ribbon
-                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]"
-                      : "border-pink-100 bg-white hover:border-pink-300"
+                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                      : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] text-white shrink-0 transition-all ${
+                    className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white shrink-0 transition-all ${
                       addons.ribbon
                         ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
                         : "border-pink-200 bg-white"
@@ -941,7 +939,7 @@ export default function Home() {
                       Ribbon Bow
                     </strong>
                   </div>
-                  <div className="font-bold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
+                  <div className="font-extrabold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
                     + Rs. 100
                   </div>
                 </button>
@@ -950,20 +948,20 @@ export default function Home() {
           </div>
 
           {/* Preview Panel & Cart Summary - Right Column */}
-          <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24">
+          <div className="lg:col-span-5 flex flex-col gap-8 lg:sticky lg:top-24">
             {/* LIVE PREVIEW CONTAINER */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-5 shadow-xl shadow-pink-500/5">
-              <div className="flex bg-[var(--pink-50)] p-1 rounded-xl mb-4">
+            <div className="bg-white border border-pink-100 rounded-3xl p-6 shadow-xl shadow-pink-500/5">
+              <div className="flex bg-[var(--pink-50)] p-1 rounded-xl mb-5 border border-pink-100/20">
                 <button
                   type="button"
                   onClick={() => setPreviewTab("top")}
-                  className={`flex-1 font-bold text-[11px] sm:text-xs py-2 rounded-lg transition-all ${
+                  className={`flex-1 font-extrabold text-[11px] sm:text-xs py-2.5 rounded-lg transition-all ${
                     previewTab === "top"
-                      ? "bg-white text-[var(--pink-600)] shadow-sm"
+                      ? "bg-white text-[var(--pink-600)] shadow-md"
                       : "text-[var(--text-light)]"
                   }`}
                 >
-                  Box Top
+                  🖤 Box Top
                 </button>
                 <button
                   type="button"
@@ -976,33 +974,39 @@ export default function Home() {
                       alert("Inside writing is only available on Personalised Boxes!");
                     }
                   }}
-                  className={`flex-1 font-bold text-[11px] sm:text-xs py-2 rounded-lg transition-all ${
+                  className={`flex-1 font-extrabold text-[11px] sm:text-xs py-2.5 rounded-lg transition-all ${
                     orderType === "custom" && hasInsideMsg ? "opacity-100" : "opacity-35"
                   } ${
                     previewTab === "inside"
-                      ? "bg-white text-[var(--pink-600)] shadow-sm"
+                      ? "bg-white text-[var(--pink-600)] shadow-md"
                       : "text-[var(--text-light)]"
                   }`}
                 >
-                  Inside
+                  📖 Inside
                 </button>
               </div>
 
               {orderType === "simple" ? (
                 /* Simple box preview display */
-                <div className="flex flex-col items-center justify-center min-h-[180px] bg-zinc-50 border border-zinc-100 rounded-xl p-5">
-                  <span className="text-5xl mb-3 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
-                  <span className="font-dancing text-sm text-[var(--pink-500)] font-semibold italic text-center">
+                <div className="flex flex-col items-center justify-center min-h-[220px] bg-gradient-to-br from-[#FFF8FA] to-white border border-pink-100/40 rounded-2xl p-6 shadow-inner text-center">
+                  <span className="text-6xl mb-4 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
+                  <span className="font-dancing text-lg text-[var(--pink-600)] font-black italic">
                     Simple Luxury Black Box
+                  </span>
+                  <span className="text-[10px] text-[var(--text-light)] uppercase tracking-wider font-bold mt-2">
+                    Ready for delivery
                   </span>
                 </div>
               ) : (
                 /* Custom box preview mockup */
-                <div className="relative">
+                <div className="relative overflow-hidden rounded-2xl shadow-inner bg-[#FFF8FA]">
+                  {/* Spotlight container */}
+                  <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 0%, rgba(194,51,106,0.01) 100%) pointer-events-none" />
+
                   {/* Top pane view */}
                   {previewTab === "top" ? (
-                    <div className="box-face-flat">
-                      <div className="absolute top-3 left-3 bg-white/15 border border-white/10 backdrop-blur-sm rounded-lg px-2.5 py-0.5 text-[9px] font-bold text-white/70 uppercase tracking-widest">
+                    <div className="box-face-flat border-2 border-[var(--gold)]/35">
+                      <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
                         Top of Box
                       </div>
                       <div className="relative text-center p-6 w-full z-10">
@@ -1025,8 +1029,8 @@ export default function Home() {
                     </div>
                   ) : (
                     /* Inside pane view */
-                    <div className="box-face-flat box-face-inside">
-                      <div className="absolute top-3 left-3 bg-white/15 border border-white/10 backdrop-blur-sm rounded-lg px-2.5 py-0.5 text-[9px] font-bold text-white/70 uppercase tracking-widest">
+                    <div className="box-face-flat box-face-inside border-2 border-[var(--gold)]/35">
+                      <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
                         Inside of Box
                       </div>
                       <div className="relative text-center p-6 w-full z-10">
@@ -1053,66 +1057,66 @@ export default function Home() {
             </div>
 
             {/* CART CONTAINER */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 shadow-xl shadow-pink-500/5">
-              <div className="flex items-center justify-between mb-5">
-                <div className="font-playfair font-bold text-lg text-[var(--dark-2)] flex items-center gap-2">
+            <div className="bg-gradient-to-b from-white to-[#FFFDFE] border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5">
+              <div className="flex items-center justify-between mb-6">
+                <div className="font-playfair font-black text-xl text-[var(--dark-2)] flex items-center gap-2">
                   <span>🛒</span> Your Order
                 </div>
-                <div className="bg-[var(--pink-50)] text-[var(--pink-600)] font-bold text-[10px] uppercase tracking-wider py-1 px-3.5 rounded-full shadow-inner">
+                <div className="bg-[var(--pink-50)] text-[var(--pink-600)] font-black text-[10px] uppercase tracking-widest py-1.5 px-4 rounded-full shadow-inner border border-pink-100/30">
                   {orderType === "simple" ? "1 Item" : "Personalised"}
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3.5 mb-5 text-sm">
+              <div className="flex flex-col gap-4 mb-6 text-sm font-medium">
                 <div className="flex justify-between items-center text-[var(--text-mid)]">
                   <span>🖤 Black Luxury Box</span>
-                  <span className="font-semibold">Rs. 1,600</span>
+                  <span className="font-extrabold text-[var(--dark-2)]">Rs. 1,600</span>
                 </div>
 
                 {orderType === "custom" && hasTopMsg && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>✍️ Writing on Top ({inkColor === "silver" ? "Silver" : "Gold"})</span>
-                    <span className="font-semibold">Rs. 300</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 300</span>
                   </div>
                 )}
 
                 {orderType === "custom" && hasInsideMsg && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>📖 Writing Inside ({inkColor === "silver" ? "Silver" : "Gold"})</span>
-                    <span className="font-semibold">Rs. 300</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 300</span>
                   </div>
                 )}
 
                 {addons.fairy && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>🌟 Fairy Lights</span>
-                    <span className="font-semibold">Rs. 300</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 300</span>
                   </div>
                 )}
 
                 {addons.ribbon && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>🎀 Ribbon &amp; Bow</span>
-                    <span className="font-semibold">Rs. 100</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 100</span>
                   </div>
                 )}
 
-                <div className="h-px bg-pink-100/60 my-1" />
+                <div className="h-px border-t border-dashed border-pink-100 my-2" />
 
                 <div className="flex justify-between items-center text-[var(--text-mid)]">
                   <span>📦 Delivery Charges</span>
-                  <span className="font-bold text-[var(--pink-600)]">Rs. 400</span>
+                  <span className="font-extrabold text-[var(--pink-600)]">Rs. 400</span>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center border-t border-pink-100 pt-4 mb-5">
-                <span className="font-bold text-base text-[var(--dark-2)]">Total</span>
-                <span className="font-playfair font-extrabold text-2xl text-[var(--pink-600)]">
+              <div className="flex justify-between items-center border-t border-pink-100 pt-5 mb-6">
+                <span className="font-bold text-base text-[var(--dark-2)]">Total Amount</span>
+                <span className="font-playfair font-extrabold text-2xl sm:text-3xl text-[var(--pink-600)] bg-[var(--pink-50)]/45 px-4 py-1.5 rounded-2xl shadow-inner border border-pink-100/20">
                   Rs. {calculateTotal().toLocaleString()}
                 </span>
               </div>
 
-              <div className="bg-[var(--pink-50)]/40 border border-pink-100/60 rounded-2xl p-4 text-xs text-stone-700 leading-relaxed mb-6">
+              <div className="bg-pink-50/20 border border-pink-100/40 rounded-2xl p-4.5 text-xs text-stone-700 leading-relaxed mb-6 font-medium">
                 💳 <strong>Advance payment via JazzCash required.</strong> Order confirms **ONLY** after
                 you send the payment receipt screenshot on Instagram DM! 📸
               </div>
@@ -1120,7 +1124,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4 rounded-2xl text-center font-bold text-sm shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
               >
                 Place Order →
               </button>
@@ -1130,21 +1134,21 @@ export default function Home() {
       </section>
 
       {/* ========== PRICING TABLE SECTION ========== */}
-      <section id="pricing" className="py-24 px-6 max-w-4xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+      <section id="pricing" className="py-28 px-6 max-w-4xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             Price Breakdown
           </div>
-          <h2 className="font-playfair text-3xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
             What's <span className="text-[var(--pink-500)]">Included</span>
           </h2>
-          <p className="text-[var(--text-mid)] text-sm mt-3">
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 font-medium">
             Clear, honest pricing — no hidden charges
           </p>
         </div>
 
-        <div className="bg-white border border-pink-100 rounded-3xl overflow-hidden shadow-xl shadow-pink-500/5">
-          <div className="flex justify-between items-center bg-gradient-to-r from-[var(--pink-50)] to-[#FFFFFF] p-4.5 font-bold text-xs uppercase tracking-wider text-[var(--text-mid)] border-b border-pink-100">
+        <div className="bg-white border border-pink-100 rounded-3xl overflow-hidden shadow-2xl shadow-pink-500/5">
+          <div className="flex justify-between items-center bg-gradient-to-r from-[var(--pink-50)] to-[#FFFFFF] p-5 font-bold text-xs uppercase tracking-widest text-[var(--text-mid)] border-b border-pink-100/70">
             <span>Item</span>
             <span>Price</span>
           </div>
@@ -1166,25 +1170,25 @@ export default function Home() {
           ].map((row, idx) => (
             <div
               key={idx}
-              className={`flex justify-between items-center px-6 py-4.5 text-sm border-b border-pink-50/50 last:border-none ${
-                row.highlight ? "bg-[var(--pink-50)]/50" : ""
+              className={`flex justify-between items-center px-6 py-5 text-xs sm:text-sm border-b border-pink-50/50 last:border-none ${
+                row.highlight ? "bg-[var(--pink-50)]/45" : ""
               }`}
             >
-              <span className="font-medium text-[var(--dark-2)] flex flex-wrap items-center gap-2">
+              <span className="font-bold text-[var(--dark-2)] flex flex-wrap items-center gap-2">
                 {row.name}
-                <span className="text-[9px] font-bold text-[var(--text-light)] border border-pink-200/50 bg-white px-2 py-0.5 rounded-full">
+                <span className="text-[9px] font-black text-[var(--text-light)] border border-pink-200/50 bg-white px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                   {row.label}
                 </span>
               </span>
-              <span className="font-bold text-[var(--text-mid)]">{row.price}</span>
+              <span className="font-extrabold text-[var(--text-mid)]">{row.price}</span>
             </div>
           ))}
 
-          <div className="flex justify-between items-center bg-[var(--pink-100)]/40 px-6 py-5 border-t border-pink-200/50">
+          <div className="flex justify-between items-center bg-[var(--pink-100)]/30 px-6 py-6 border-t border-pink-200/60">
             <span className="font-bold text-sm sm:text-base text-[var(--pink-600)]">
               Simple Box (Min Order)
             </span>
-            <span className="font-playfair font-extrabold text-lg sm:text-xl text-[var(--dark-2)]">
+            <span className="font-playfair font-black text-xl sm:text-2xl text-[var(--dark-2)]">
               Rs. 2,000
             </span>
           </div>
@@ -1192,51 +1196,51 @@ export default function Home() {
       </section>
 
       {/* ========== PAYMENT & GUIDE SECTION ========== */}
-      <section id="payment" className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+      <section id="payment" className="py-28 px-6 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             How to Order
           </div>
-          <h2 className="font-playfair text-3xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
             Simple <span className="text-[var(--pink-500)]">Payment</span> Process
           </h2>
-          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-3 max-w-xl mx-auto">
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
             Advance payment is required. Order confirms **ONLY** after you send the payment receipt
             screenshot on Instagram DM! 📸💕
           </p>
         </div>
 
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-14">
           {/* JazzCash Info Block */}
-          <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/30 border border-pink-100 rounded-3xl p-6 sm:p-10 max-w-xl w-full mx-auto shadow-xl shadow-pink-500/5">
-            <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mb-4 text-center">
+          <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/45 border-2 border-pink-100/60 rounded-[32px] p-6 sm:p-12 max-w-xl w-full mx-auto shadow-2xl shadow-pink-500/5">
+            <h3 className="font-playfair text-2xl font-black text-[var(--dark-2)] mb-5 text-center">
               JazzCash
             </h3>
-            <p className="text-stone-700 text-xs sm:text-sm leading-relaxed mb-6 text-center">
+            <p className="text-stone-700 text-xs sm:text-sm leading-relaxed mb-8 text-center font-medium">
               Send your advance payment via JazzCash to the number below. Confirm the account name
               matches before executing the transaction. 🟢
             </p>
 
-            <div className="flex flex-col gap-3 mb-6">
-              <div className="flex justify-between items-center bg-white border border-pink-100 rounded-2xl px-5 py-4 shadow-sm">
-                <span className="text-[10px] font-bold text-[var(--text-light)] uppercase tracking-wider">
+            <div className="flex flex-col gap-4 mb-8">
+              <div className="flex justify-between items-center bg-white border border-pink-100/70 rounded-2xl px-6 py-4.5 shadow-sm">
+                <span className="text-[10px] font-black text-[var(--text-light)] uppercase tracking-wider">
                   Number
                 </span>
-                <span className="font-playfair font-extrabold text-lg text-[var(--pink-600)] tracking-widest">
+                <span className="font-playfair font-black text-xl text-[var(--pink-600)] tracking-widest">
                   0300-6600178
                 </span>
               </div>
-              <div className="flex justify-between items-center bg-white border border-pink-100 rounded-2xl px-5 py-4 shadow-sm">
-                <span className="text-[10px] font-bold text-[var(--text-light)] uppercase tracking-wider">
+              <div className="flex justify-between items-center bg-white border border-pink-100/70 rounded-2xl px-6 py-4.5 shadow-sm">
+                <span className="text-[10px] font-black text-[var(--text-light)] uppercase tracking-wider">
                   Account Name
                 </span>
-                <span className="font-playfair font-extrabold text-sm sm:text-base text-[var(--dark-2)] tracking-wide">
+                <span className="font-playfair font-black text-base sm:text-lg text-[var(--dark-2)] tracking-wide">
                   NAZI YAQOOB
                 </span>
               </div>
             </div>
 
-            <div className="bg-white/95 border border-pink-100 rounded-2xl p-4 text-xs text-stone-700 leading-relaxed shadow-sm">
+            <div className="bg-white/95 border border-pink-100 rounded-2xl p-5 text-xs text-stone-700 leading-relaxed shadow-sm">
               ✅ <strong className="text-[var(--pink-600)]">Confirmation tip:</strong> When you enter
               the number in JazzCash, the name <strong className="text-[var(--pink-500)]">NAZI YAQOOB</strong>{" "}
               will display automatically — verifying you've entered the correct account.
@@ -1244,8 +1248,8 @@ export default function Home() {
           </div>
 
           {/* Steps List */}
-          <div className="w-full bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
-            <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mb-8 text-center">
+          <div className="w-full bg-white border border-pink-100 rounded-[32px] p-6 sm:p-12 shadow-2xl shadow-pink-500/5 border-pink-100/40">
+            <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mb-10 text-center">
               🎀 How Your Order Works
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -1255,11 +1259,11 @@ export default function Home() {
                 "Take a screenshot of the JazzCash receipt and send it via Instagram DM to @box.love.pk",
                 "Once verified, your order confirms and goes into handmade production. No refund after confirmation.",
               ].map((step, idx) => (
-                <div key={idx} className="flex flex-col gap-4 relative">
-                  <div className="w-12 h-12 rounded-2xl bg-[var(--pink-50)] text-[var(--pink-500)] flex items-center justify-center font-bold text-lg shadow-inner">
+                <div key={idx} className="flex flex-col gap-5 relative bg-pink-50/10 border border-pink-100/20 rounded-2xl p-5">
+                  <div className="w-12 h-12 rounded-2xl bg-[var(--pink-50)] text-[var(--pink-500)] flex items-center justify-center font-extrabold text-lg shadow-inner">
                     0{idx + 1}
                   </div>
-                  <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">{step}</p>
+                  <p className="text-stone-700 text-xs sm:text-sm leading-relaxed font-semibold">{step}</p>
                 </div>
               ))}
             </div>
@@ -1268,39 +1272,39 @@ export default function Home() {
       </section>
 
       {/* ========== FOOTER SECTION ========== */}
-      <footer className="bg-[#FFF0F4]/60 border-t border-pink-100/60 py-12 px-6 text-center text-xs sm:text-sm relative z-10">
-        <span className="font-dancing text-2xl font-bold text-[var(--pink-500)] tracking-wide block mb-3">
+      <footer className="bg-[#FFF0F4]/60 border-t border-pink-100/60 py-16 px-6 text-center text-xs sm:text-sm relative z-10">
+        <span className="font-dancing text-3xl font-black text-[var(--pink-500)] tracking-wide block mb-4">
           box.love.pk
         </span>
-        <p className="text-[var(--text-mid)] font-medium max-w-md mx-auto mb-2.5 leading-relaxed">
+        <p className="text-[var(--text-mid)] font-black max-w-md mx-auto mb-3 leading-relaxed">
           Customized Black Luxury Boxes with Golden &amp; Silver Writing ♥ Handmade in Faisalabad, Pakistan
         </p>
-        <p className="text-[var(--text-light)]">
+        <p className="text-[var(--text-light)] font-bold">
           <a
             href="https://instagram.com/box.love.pk"
             target="_blank"
             rel="noreferrer"
-            className="underline font-bold hover:text-[var(--pink-500)]"
+            className="underline hover:text-[var(--pink-500)]"
           >
             @box.love.pk
           </a>{" "}
           · Advance payment only · No refund after order confirmation
         </p>
-        <p className="text-[var(--text-light)] opacity-60 text-[10px] mt-6">
+        <p className="text-[var(--text-light)] opacity-60 text-[10px] mt-8 font-bold">
           © 2026 box.love.pk — All Rights Reserved
         </p>
       </footer>
 
       {/* ========== CHECKOUT MODAL ========== */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
-          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative p-6 sm:p-8 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
+          <div className="bg-white rounded-[32px] max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
             <button
               onClick={() => {
                 setModalOpen(false);
                 setCheckoutStep("form");
               }}
-              className="absolute top-4 right-4 text-stone-500 hover:text-stone-800 p-2 text-lg focus:outline-none"
+              className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2.5 text-xl focus:outline-none hover:bg-pink-50 rounded-xl transition-all"
               aria-label="Close modal"
             >
               ✕
@@ -1309,8 +1313,8 @@ export default function Home() {
             {checkoutStep === "form" ? (
               /* --- Step 1: Checkout Form --- */
               <form onSubmit={handleSubmitCheckout} className="space-y-6">
-                <div className="text-center border-b border-pink-100 pb-4">
-                  <span className="font-dancing text-2xl font-bold text-[var(--pink-500)]">
+                <div className="text-center border-b border-pink-100 pb-5">
+                  <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">
                     box.love.pk
                   </span>
                   <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mt-1">
@@ -1319,20 +1323,20 @@ export default function Home() {
                 </div>
 
                 {/* Collapsible Order Summary */}
-                <div className="border border-pink-100 rounded-2xl overflow-hidden">
+                <div className="border border-pink-100 rounded-2xl overflow-hidden shadow-sm">
                   <button
                     type="button"
                     onClick={() => setSummaryOpen(!summaryOpen)}
-                    className="w-full flex justify-between items-center bg-pink-50/35 px-4 py-3 text-xs font-bold text-[var(--text-mid)] focus:outline-none"
+                    className="w-full flex justify-between items-center bg-pink-50/40 px-4 py-3.5 text-xs font-bold text-[var(--text-mid)] focus:outline-none"
                   >
                     <span>{summaryOpen ? "▼ Hide" : "▶ Show"} Order Summary</span>
-                    <span className="text-[var(--pink-600)]">
+                    <span className="text-[var(--pink-600)] font-extrabold">
                       Rs. {calculateTotal().toLocaleString()}
                     </span>
                   </button>
 
                   {summaryOpen && (
-                    <div className="p-4 bg-white border-t border-pink-50 text-xs space-y-2.5">
+                    <div className="p-4 bg-white border-t border-pink-50 text-xs space-y-2.5 font-medium">
                       <div className="flex justify-between">
                         <span>Black Luxury Box</span>
                         <span>Rs. 1,600</span>
@@ -1362,7 +1366,7 @@ export default function Home() {
                         </div>
                       )}
                       <div className="h-px bg-pink-50" />
-                      <div className="flex justify-between font-semibold">
+                      <div className="flex justify-between font-extrabold text-[var(--pink-600)]">
                         <span>Shipping (Faisalabad Standard)</span>
                         <span>Rs. 400</span>
                       </div>
@@ -1372,7 +1376,7 @@ export default function Home() {
 
                 {/* Contact Section */}
                 <div className="space-y-3">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--text-mid)]">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
                     Contact Details
                   </h4>
                   <input
@@ -1382,15 +1386,15 @@ export default function Home() {
                     placeholder="Email Address"
                     value={formInputs.email}
                     onChange={handleInputChange}
-                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                   />
-                  <label className="flex items-center gap-2 text-xs text-stone-700 cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-stone-700 cursor-pointer font-semibold">
                     <input
                       type="checkbox"
                       id="chk-newsletter"
                       checked={formInputs.newsletter}
                       onChange={handleInputChange}
-                      className="accent-[var(--pink-500)]"
+                      className="accent-[var(--pink-500)] w-4 h-4 rounded"
                     />
                     <span>Email me with news and special offers</span>
                   </label>
@@ -1398,14 +1402,14 @@ export default function Home() {
 
                 {/* Delivery Address Section */}
                 <div className="space-y-3">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--text-mid)]">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
                     Delivery Address
                   </h4>
                   <select
                     id="chk-country"
                     value={formInputs.country}
                     onChange={handleInputChange}
-                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none bg-white"
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none bg-white font-semibold"
                   >
                     <option value="Pakistan">Pakistan</option>
                   </select>
@@ -1417,7 +1421,7 @@ export default function Home() {
                       placeholder="First name (optional)"
                       value={formInputs.fname}
                       onChange={handleInputChange}
-                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                     />
                     <input
                       type="text"
@@ -1426,7 +1430,7 @@ export default function Home() {
                       placeholder="Last name"
                       value={formInputs.lname}
                       onChange={handleInputChange}
-                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                     />
                   </div>
 
@@ -1437,7 +1441,7 @@ export default function Home() {
                     placeholder="Address"
                     value={formInputs.address}
                     onChange={handleInputChange}
-                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                   />
 
                   <input
@@ -1446,7 +1450,7 @@ export default function Home() {
                     placeholder="Apartment, suite, unit (optional)"
                     value={formInputs.apartment}
                     onChange={handleInputChange}
-                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                   />
 
                   <div className="grid grid-cols-2 gap-3">
@@ -1457,7 +1461,7 @@ export default function Home() {
                       placeholder="City"
                       value={formInputs.city}
                       onChange={handleInputChange}
-                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                     />
                     <input
                       type="text"
@@ -1465,7 +1469,7 @@ export default function Home() {
                       placeholder="Postal Code (optional)"
                       value={formInputs.postal}
                       onChange={handleInputChange}
-                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                     />
                   </div>
 
@@ -1473,54 +1477,54 @@ export default function Home() {
                     type="tel"
                     id="chk-phone"
                     required
-                    placeholder="Mobile Number (e.g. 03xx-xxxxxxx)"
+                    placeholder="Mobile Number (e.g. 03001234567)"
                     value={formInputs.phone}
                     onChange={handleInputChange}
-                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none"
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
                   />
 
-                  <label className="flex items-center gap-2 text-xs text-stone-700 cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-stone-700 cursor-pointer font-semibold">
                     <input
                       type="checkbox"
                       id="chk-saveInfo"
                       checked={formInputs.saveInfo}
                       onChange={handleInputChange}
-                      className="accent-[var(--pink-500)]"
+                      className="accent-[var(--pink-500)] w-4 h-4 rounded"
                     />
                     <span>Save this information for next time</span>
                   </label>
                 </div>
 
                 {/* Shipping Method display */}
-                <div className="space-y-2">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--text-mid)]">
+                <div className="space-y-2.5">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
                     Shipping Method
                   </h4>
-                  <div className="flex justify-between items-center bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3 text-sm font-semibold">
+                  <div className="flex justify-between items-center bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3.5 text-sm font-semibold">
                     <span className="text-stone-700">Standard Delivery (Pakistan)</span>
                     <span className="text-[var(--pink-600)]">Rs. 400</span>
                   </div>
                 </div>
 
                 {/* Payment method info */}
-                <div className="space-y-2.5">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--text-mid)]">
+                <div className="space-y-3">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
                     Payment Info
                   </h4>
-                  <div className="border border-pink-100 rounded-2xl overflow-hidden">
-                    <div className="flex justify-between items-center bg-pink-50/20 px-4 py-3 text-sm font-bold text-stone-700 border-b border-pink-50">
+                  <div className="border border-pink-100 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="flex justify-between items-center bg-pink-50/20 px-4 py-3.5 text-sm font-bold text-stone-750 border-b border-pink-50">
                       <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-[var(--pink-500)]" />
+                        <span className="w-3 h-3 rounded-full bg-[var(--pink-500)] animate-pulse" />
                         <span>Advance Payment (JazzCash)</span>
                       </div>
                       <span>🔒 Secure</span>
                     </div>
-                    <div className="p-4 bg-white text-xs text-stone-700 space-y-1.5">
+                    <div className="p-4 bg-white text-xs text-stone-700 space-y-2 leading-relaxed">
                       <p>
                         Advance payment only via JazzCash to <strong>0300-6600178</strong> (Account Name:{" "}
                         <strong>NAZI YAQOOB</strong>).
                       </p>
-                      <p className="text-red-600 font-semibold">
+                      <p className="text-red-600 font-extrabold">
                         ❌ Cash on Delivery (COD) is not available.
                       </p>
                     </div>
@@ -1530,7 +1534,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4 rounded-2xl text-center font-bold text-sm shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:translate-y-0 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:translate-y-0 transition-all duration-300"
                 >
                   {isSubmitting ? "⏳ Processing Order..." : "Complete Order →"}
                 </button>
@@ -1538,34 +1542,34 @@ export default function Home() {
             ) : (
               /* --- Step 2: Post-Checkout Confirmation --- */
               <div className="space-y-6 text-center animate-[successBounce_0.4s_ease-out_forwards]">
-                <div className="text-5xl">🎁</div>
+                <div className="text-6xl animate-bounce">🎁</div>
                 <h3 className="font-playfair text-2xl sm:text-3xl font-extrabold text-[var(--dark-2)]">
                   Order Placed!
                 </h3>
-                <p className="text-stone-700 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
+                <p className="text-stone-700 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
                   Your order is received.
-                  <strong className="block text-[var(--pink-600)] mt-3.5">
+                  <strong className="block text-[var(--pink-600)] mt-4 font-black">
                     ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot on
                     Instagram DM! 📸
                   </strong>
                 </p>
 
                 {/* JazzCash Info Box */}
-                <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/30 border border-pink-100 rounded-2xl p-5 text-left text-xs space-y-2.5">
+                <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/45 border-2 border-pink-100 rounded-2xl p-5 text-left text-xs space-y-2.5 shadow-sm">
                   <div className="font-bold text-[var(--pink-500)] text-sm border-b border-pink-100 pb-2">
                     JazzCash Account details:
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--text-light)]">Number</span>
+                    <span className="text-[var(--text-light)] font-bold">Number</span>
                     <strong className="text-sm tracking-wider text-[var(--pink-600)]">0300-6600178</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--text-light)]">Account Name</span>
-                    <strong className="text-stone-800">NAZI YAQOOB</strong>
+                    <span className="text-[var(--text-light)] font-bold">Account Name</span>
+                    <strong className="text-stone-850">NAZI YAQOOB</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--text-light)]">Amount to Send</span>
+                    <span className="text-[var(--text-light)] font-bold">Amount to Send</span>
                     <strong className="text-sm text-[var(--pink-600)]">
                       Rs. {calculateTotal().toLocaleString()}
                     </strong>
@@ -1573,12 +1577,12 @@ export default function Home() {
                 </div>
 
                 {/* Instagram Direct Link */}
-                <div className="bg-pink-50/20 border border-pink-100 rounded-2xl p-5 flex flex-col items-center gap-3 text-center">
-                  <span className="text-2xl">📸</span>
-                  <strong className="text-xs sm:text-sm text-[var(--pink-600)] block">
+                <div className="bg-pink-50/20 border border-pink-100/60 rounded-2xl p-6 flex flex-col items-center gap-3.5 text-center">
+                  <span className="text-3xl animate-[floatIcon_3s_ease-in-out_infinite]">📸</span>
+                  <strong className="text-xs sm:text-sm text-[var(--pink-600)] block font-extrabold">
                     Send Payment Screenshot
                   </strong>
-                  <p className="text-stone-700 text-[11px] leading-relaxed">
+                  <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
                     Take a screenshot of your successful transaction receipt and send it to us on Instagram
                     so we can confirm your order immediately! 💕
                   </p>
@@ -1586,7 +1590,7 @@ export default function Home() {
                     href="https://instagram.com/box.love.pk"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-2.5 px-6 rounded-full font-bold text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 transition-all mt-1"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-3 px-7 rounded-full font-black text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-1"
                   >
                     📩 Send screenshot @box.love.pk
                   </a>
