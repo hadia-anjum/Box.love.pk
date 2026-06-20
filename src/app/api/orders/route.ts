@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { saveOrder } from "@/lib/orderStore";
+import { sendThankYouEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -19,8 +20,15 @@ export async function POST(request: Request) {
       console.log(`Order saved successfully! Source: ${dbResult.source}`);
     } catch (dbErr: any) {
       console.error("Failed to save order:", dbErr);
-      // We will still try to send the email notification even if DB saving fails
     }
+
+    // 3. Send automated thank-you receipt email to customer (non-blocking)
+    try {
+      await sendThankYouEmail(orderData);
+    } catch (emailErr: any) {
+      console.error("Failed to trigger automated thank-you email:", emailErr);
+    }
+
 
 
     // 3. Build the request body for Web3Forms API
