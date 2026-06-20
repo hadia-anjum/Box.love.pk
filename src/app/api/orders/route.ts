@@ -50,25 +50,36 @@ export async function POST(request: Request) {
                `Total Amount: Rs. ${orderData.total}`
     };
 
-    // 4. Forward the order details securely to Web3Forms
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(web3formsBody)
-    });
+    // 4. Forward the order details securely to Web3Forms (non-blocking)
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(web3formsBody)
+      });
 
-    const resData = await response.json();
+      const responseText = await response.text();
+      let resData: any = {};
+      try {
+        resData = JSON.parse(responseText);
+      } catch (jsonErr) {
+        console.warn("Web3Forms response was not JSON:", responseText);
+      }
 
-    if (response.ok && resData.success) {
-      return NextResponse.json({ success: true });
-    } else {
-      console.error("Web3Forms submission failed:", resData);
-      // If we saved to DB but email failed, we still return success to the user so their order is recorded
-      return NextResponse.json({ success: true, warning: "Email delivery failed, but order saved." });
+      if (response.ok && resData.success) {
+        console.log("Web3Forms email alert sent successfully!");
+      } else {
+        console.error("Web3Forms submission failed:", resData);
+      }
+    } catch (emailErr: any) {
+      console.error("Failed to send Web3Forms email alert:", emailErr);
     }
+
+    // Always return success if the order was successfully saved
+    return NextResponse.json({ success: true });
   } catch (err: any) {
     console.error("Node.js order processing backend error:", err);
     return NextResponse.json(
