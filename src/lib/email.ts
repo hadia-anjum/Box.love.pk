@@ -132,3 +132,84 @@ export async function sendThankYouEmail(orderData: any) {
     console.error("Failed to send customer thank-you email:", err);
   }
 }
+
+export async function sendNewOrderAlertToAdmin(orderData: any) {
+  const EMAIL_USER = process.env.EMAIL_USER;
+  const EMAIL_PASS = process.env.EMAIL_PASS;
+
+  if (!EMAIL_USER || !EMAIL_PASS) {
+    return;
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
+      },
+    });
+
+    const hasCustomText = orderData.topText || orderData.insideText;
+    const customTextSummary = hasCustomText
+      ? `\n- Lid Message: "${orderData.topText || 'None'}"\n- Inside Message: "${orderData.insideText || 'None'}"`
+      : "";
+
+    const mailOptions = {
+      from: `"box.love.pk Store Alert" <${EMAIL_USER}>`,
+      to: EMAIL_USER, // Send to yourself
+      subject: `🚨 NEW ORDER RECEIVED - Rs. ${orderData.total} from ${orderData.name}`,
+      text: `You have received a new order on box.love.pk!\n\n` +
+            `Customer Details:\n` +
+            `- Name: ${orderData.name}\n` +
+            `- Email: ${orderData.email}\n` +
+            `- Phone: ${orderData.phone}\n` +
+            `- Shipping Address: ${orderData.address}\n\n` +
+            `Order Details:\n` +
+            `- Box Type: ${orderData.boxType}\n` +
+            `- Ink Color: ${orderData.inkColor || "N/A"}${customTextSummary}\n` +
+            `- Addons: ${orderData.addons}\n` +
+            `- Total Price: Rs. ${orderData.total}\n\n` +
+            `Open the Admin Dashboard to manage this order: https://box-love-pk.vercel.app/admin`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #b5224d; border-radius: 12px; background-color: #fff9fa; color: #3d202c;">
+          <h2 style="color: #b5224d; border-bottom: 2px solid #ffd6e3; padding-bottom: 10px; margin-top: 0; text-align: center;">
+            🚨 New Order Alert!
+          </h2>
+          
+          <p style="font-size: 15px;">You have received a new order on <strong>box.love.pk</strong>. Here are the details:</p>
+          
+          <h3 style="color: #e03e6d; margin-top: 20px; border-bottom: 1px solid #ffd6e3; padding-bottom: 5px;">Customer Info</h3>
+          <p style="font-size: 14px; line-height: 1.5; margin: 5px 0;">
+            <strong>Name:</strong> ${orderData.name}<br/>
+            <strong>Phone:</strong> <a href="tel:${orderData.phone}">${orderData.phone}</a><br/>
+            <strong>Email:</strong> <a href="mailto:${orderData.email}">${orderData.email}</a><br/>
+            <strong>Address:</strong> ${orderData.address}
+          </p>
+
+          <h3 style="color: #e03e6d; margin-top: 20px; border-bottom: 1px solid #ffd6e3; padding-bottom: 5px;">Order Specifications</h3>
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0;">
+            <tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; width: 120px;">Box Type:</td><td style="padding: 6px 0;">${orderData.boxType}</td></tr>
+            <tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold;">Ink Color:</td><td style="padding: 6px 0;">${orderData.inkColor}</td></tr>
+            ${orderData.topText ? `<tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; vertical-align: top;">Lid Message:</td><td style="padding: 6px 0; font-style: italic; white-space: pre-wrap;">"${orderData.topText}"</td></tr>` : ''}
+            ${orderData.insideText ? `<tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; vertical-align: top;">Inside Message:</td><td style="padding: 6px 0; font-style: italic; white-space: pre-wrap;">"${orderData.insideText}"</td></tr>` : ''}
+            <tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold;">Add-ons:</td><td style="padding: 6px 0;">${orderData.addons}</td></tr>
+            <tr><td style="padding: 10px 0 0 0; font-weight: bold; color: #b5224d; font-size: 16px;">Total Price:</td><td style="padding: 10px 0 0 0; color: #b5224d; font-weight: bold; font-size: 16px;">Rs. ${orderData.total}</td></tr>
+          </table>
+
+          <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #ffd6e3;">
+            <a href="https://box-love-pk.vercel.app/admin" style="display: inline-block; padding: 10px 20px; background-color: #b5224d; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px;">
+              Open Admin Dashboard
+            </a>
+          </div>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("Admin new order alert email sent successfully to:", EMAIL_USER);
+  } catch (err) {
+    console.error("Failed to send admin new order alert email:", err);
+  }
+}
+

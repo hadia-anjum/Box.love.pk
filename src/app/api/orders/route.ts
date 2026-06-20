@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { saveOrder } from "@/lib/orderStore";
-import { sendThankYouEmail } from "@/lib/email";
+import { sendThankYouEmail, sendNewOrderAlertToAdmin } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -28,6 +28,14 @@ export async function POST(request: Request) {
     } catch (emailErr: any) {
       console.error("Failed to trigger automated thank-you email:", emailErr);
     }
+
+    // 3.5 Send new order alert email to admin (non-blocking)
+    try {
+      await sendNewOrderAlertToAdmin(orderData);
+    } catch (alertErr: any) {
+      console.error("Failed to trigger admin order alert email:", alertErr);
+    }
+
 
 
 
