@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig = {
+  devIndicators: {
+    appIsrStatus: false,
+  },
+} as any;
 
 export default nextConfig;

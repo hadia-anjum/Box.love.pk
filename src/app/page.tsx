@@ -141,13 +141,6 @@ export default function Home() {
     return total;
   };
 
-  const getAddonsText = () => {
-    const list: string[] = [];
-    if (addons.fairy) list.push("Fairy Lights");
-    if (addons.ribbon) list.push("Ribbon Bow");
-    return list.length > 0 ? list.join(", ") : "None";
-  };
-
   // Auto-switch tabs based on user input
   const handleTopTextInput = (val: string) => {
     setTopText(val);
@@ -204,9 +197,9 @@ export default function Home() {
     const r = card.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;
-    const ry = x * 15; // max 15 deg
-    const rx = -y * 12; // max 12 deg
-    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+    const ry = x * 12; // max 12 deg
+    const rx = -y * 10; // max 10 deg
+    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.015, 1.015, 1.015)`;
   };
 
   const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -230,7 +223,6 @@ export default function Home() {
   const handleSubmitCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate inputs
     if (
       !formInputs.email ||
       !formInputs.lname ||
@@ -244,7 +236,6 @@ export default function Home() {
 
     setIsSubmitting(true);
 
-    // Save info if checked
     if (formInputs.saveInfo) {
       localStorage.setItem(
         "saved_checkout_details",
@@ -264,7 +255,6 @@ export default function Home() {
       localStorage.removeItem("saved_checkout_details");
     }
 
-    // Compile order details
     const orderTotal = calculateTotal();
     const addonsList: string[] = [];
     if (addons.fairy) addonsList.push("Fairy Lights");
@@ -299,7 +289,6 @@ export default function Home() {
       const resJson = await response.json();
       if (response.ok && resJson.success) {
         setCheckoutStep("confirmation");
-        // Clear saved messages
         localStorage.removeItem("saved_top");
         localStorage.removeItem("saved_inside");
       } else {
@@ -313,17 +302,16 @@ export default function Home() {
     }
   };
 
-  // Font size calculation for mockup preview text
   const getMockupFontSize = (text: string, isInside = false) => {
     const len = text.length;
     if (isInside) {
-      return len < 25 ? "text-2xl" : len < 80 ? "text-xl" : len < 160 ? "text-base" : "text-sm";
+      return len < 25 ? "text-xl sm:text-2xl" : len < 80 ? "text-lg sm:text-xl" : "text-sm sm:text-base";
     }
-    return len < 25 ? "text-3xl" : len < 55 ? "text-2xl" : len < 100 ? "text-lg" : "text-sm";
+    return len < 25 ? "text-2xl sm:text-3xl" : len < 55 ? "text-xl sm:text-2xl" : "text-base sm:text-lg";
   };
 
   return (
-    <div className="relative overflow-x-hidden min-h-screen font-sans-inter selection:bg-[var(--pink-200)] selection:text-[var(--pink-600)]">
+    <div className="relative overflow-x-hidden min-h-screen font-sans-inter selection:bg-[var(--pink-200)] selection:text-[var(--pink-600)] bg-[#FFF9FA]">
       {/* ========== PARTICLES ========== */}
       <div id="particles" className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {particles.map((p) => (
@@ -346,13 +334,13 @@ export default function Home() {
       {/* ========== HEADER NAV ========== */}
       <nav
         id="mainNav"
-        className={`fixed top-0 left-0 right-0 z-50 px-6 sm:px-12 py-5 flex items-center justify-between transition-all duration-500 border-b ${
+        className={`fixed top-0 left-0 right-0 z-50 px-6 sm:px-16 py-5 flex items-center justify-between transition-all duration-500 ${
           scrolled
-            ? "bg-white/80 shadow-xl shadow-pink-600/5 backdrop-blur-xl border-pink-100/40 py-3"
-            : "bg-transparent border-transparent py-5"
+            ? "bg-white/80 shadow-xl shadow-pink-600/5 backdrop-blur-xl border-b border-pink-100/40 py-3.5"
+            : "bg-transparent py-6"
         }`}
       >
-        <a href="#" className="font-dancing text-3xl font-extrabold text-[var(--pink-500)] tracking-wide hover:opacity-90 transition-all">
+        <a href="#" className="font-dancing text-3xl font-black text-[var(--pink-500)] tracking-wide hover:opacity-90 transition-all">
           box<span className="text-[var(--dark-2)]">.</span>love
           <span className="text-[var(--dark-2)]">.</span>pk
         </a>
@@ -431,83 +419,112 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ========== HERO SECTION ========== */}
+      {/* ========== HERO SECTION (REDESIGNED: 2-COLUMN PREMIUM LAYOUT) ========== */}
       <section
         id="home"
-        className="relative min-h-screen bg-gradient-to-br from-[#FFF3F7] via-[#FDDAED] to-[#F3CDE1] flex items-center justify-center px-6 pt-32 pb-20 overflow-hidden z-10"
+        className="relative min-h-screen bg-gradient-to-br from-[#FFF3F7] via-[#FDDAED] to-[#F1CBE0] flex items-center justify-center px-6 sm:px-12 md:px-16 pt-32 pb-24 overflow-hidden z-10"
       >
-        {/* Glowing Background Blobs */}
-        <div className="hero-blob blob-1 absolute w-[600px] h-[600px] bg-pink-500/20 top-[-100px] right-[-100px] rounded-full blur-[90px]" style={{ animation: "blobFloat1 9s ease-in-out infinite" }} />
-        <div className="hero-blob blob-2 absolute w-[500px] h-[500px] bg-amber-500/10 bottom-[-50px] left-[-80px] rounded-full blur-[90px]" style={{ animation: "blobFloat2 11s ease-in-out infinite" }} />
-        <div className="hero-blob blob-3 absolute w-[400px] h-[400px] bg-pink-400/20 top-[40%] left-[40%] rounded-full blur-[90px]" style={{ animation: "blobFloat3 8s ease-in-out infinite" }} />
+        {/* Floating background graphics */}
+        <div className="hero-blob absolute w-[600px] h-[600px] bg-pink-500/20 top-[-100px] right-[-100px] rounded-full blur-[90px]" style={{ animation: "blobFloat1 9s ease-in-out infinite" }} />
+        <div className="hero-blob absolute w-[500px] h-[500px] bg-amber-500/10 bottom-[-50px] left-[-80px] rounded-full blur-[90px]" style={{ animation: "blobFloat2 11s ease-in-out infinite" }} />
 
-        {/* Floating Emojis */}
+        {/* Sparkles */}
         <div className="sparkle" style={{ top: "15%", left: "10%", "--s-dur": "3.5s", "--s-delay": "0s" } as React.CSSProperties}>✨</div>
         <div className="sparkle" style={{ top: "25%", right: "12%", "--s-dur": "4.5s", "--s-delay": "0.5s" } as React.CSSProperties}>🌸</div>
         <div className="sparkle" style={{ bottom: "28%", left: "10%", "--s-dur": "4s", "--s-delay": "1s" } as React.CSSProperties}>💖</div>
-        <div className="sparkle" style={{ bottom: "15%", right: "15%", "--s-dur": "5.5s", "--s-delay": "0.2s" } as React.CSSProperties}>⭐</div>
-        <div className="sparkle" style={{ top: "52%", right: "8%", "--s-dur": "3.8s", "--s-delay": "1.5s" } as React.CSSProperties}>🎀</div>
 
-        <div className="max-w-4xl w-full text-center relative z-20 mx-auto px-2">
-          <div className="hero-badge inline-flex items-center gap-2.5 bg-white/70 border border-pink-500/25 text-[var(--pink-600)] text-[10px] sm:text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-md backdrop-blur-md mb-8">
-            <span className="badge-dot w-2 h-2 rounded-full bg-[var(--pink-500)] animate-pulse-dot" />
-            Handmade · FSD Based · Black Luxury Boxes
-          </div>
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20 mx-auto">
+          {/* Hero Left Column (Content) */}
+          <div className="lg:col-span-7 text-center lg:text-left">
+            <div className="hero-badge inline-flex items-center gap-2 bg-white/80 border border-pink-500/20 text-[var(--pink-600)] text-[10px] sm:text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-md backdrop-blur-md mb-8">
+              <span className="badge-dot w-2 h-2 rounded-full bg-[var(--pink-500)] animate-pulse-dot" />
+              Handmade · FSD Based · Black Luxury Boxes
+            </div>
 
-          <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[var(--dark-2)] leading-[1.1] tracking-tight mb-8">
-            <span className="bg-gradient-to-r from-[var(--pink-500)] via-pink-600 to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
-            <br />
-            with <span className="font-dancing text-[var(--pink-500)] font-bold block sm:inline mt-2 hover:scale-105 transition-transform duration-300 cursor-default">Love</span>
-          </h1>
+            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[var(--dark-2)] leading-[1.1] tracking-tight mb-8">
+              <span className="bg-gradient-to-r from-[var(--pink-500)] via-pink-600 to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
+              <br />
+              with <span className="font-dancing text-[var(--pink-500)] font-bold block sm:inline mt-2 hover:scale-105 transition-transform duration-300 cursor-default">Love</span>
+            </h1>
 
-          <p className="text-[var(--text-mid)] text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10 font-medium">
-            Sometimes the words written on the box mean more than the gift inside...... 💕
-            <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2 px-4 rounded-xl max-w-max mx-auto shadow-sm">
-              📸 Visit our Instagram{" "}
+            <p className="text-[var(--text-mid)] text-base sm:text-lg max-w-xl lg:mx-0 mx-auto leading-relaxed mb-10 font-medium">
+              Sometimes the words written on the box mean more than the gift inside...... 💕
+              <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2.5 px-5 rounded-2xl max-w-max shadow-sm lg:mx-0 mx-auto">
+                📸 Visit our Instagram{" "}
+                <a
+                  href="https://instagram.com/box.love.pk"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:opacity-85 font-black"
+                >
+                  highlights section
+                </a>{" "}
+                to get more ideas!
+              </span>
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
+              {[
+                { num: "100+", label: "Happy Customers", color: "text-[var(--pink-600)]" },
+                { num: "5★", label: "Rating", color: "text-amber-600" },
+                { num: "🖤", label: "Luxury Velvet", color: "text-[var(--dark-2)]" },
+              ].map((stat, idx) => (
+                <div key={idx} className="bg-white/70 border border-white/40 rounded-2xl px-6 py-3.5 shadow-lg shadow-pink-500/5">
+                  <div className={`text-2xl font-black ${stat.color}`}>{stat.num}</div>
+                  <div className="text-[9px] uppercase tracking-widest text-[var(--text-light)] font-black mt-0.5">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start max-w-md lg:mx-0 mx-auto">
               <a
-                href="https://instagram.com/box.love.pk"
-                target="_blank"
-                rel="noreferrer"
-                className="underline hover:opacity-85 font-black"
+                href="#builder"
+                className="w-full sm:w-auto bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
               >
-                highlights section
-              </a>{" "}
-              to get more ideas!
-            </span>
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-5 mb-14">
-            {[
-              { num: "100+", label: "Happy Customers", color: "text-[var(--pink-600)]" },
-              { num: "5★", label: "Rating", color: "text-amber-600" },
-              { num: "🖤", label: "Luxury Velvet", color: "text-[var(--dark-2)]" },
-            ].map((stat, idx) => (
-              <div key={idx} className="bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl px-8 py-4 shadow-lg shadow-pink-500/5 hover:translate-y-[-2px] transition-all duration-300">
-                <div className={`text-3xl font-extrabold ${stat.color}`}>{stat.num}</div>
-                <div className="text-[9px] uppercase tracking-widest text-[var(--text-light)] font-black mt-1">{stat.label}</div>
-              </div>
-            ))}
+                ✨ Build Your Box
+              </a>
+              <a
+                href="#showcase"
+                className="w-full sm:w-auto bg-white/70 border border-white/50 text-[var(--text-mid)] px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
+              >
+                See Our Work →
+              </a>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-5 items-center justify-center max-w-md mx-auto">
-            <a
-              href="#builder"
-              className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-4.5 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 hover:-translate-y-1 hover:brightness-105 active:translate-y-0 transition-all duration-300 text-center"
+          {/* Hero Right Column (Sleek 3D Card Display) */}
+          <div className="lg:col-span-5 flex justify-center mt-8 lg:mt-0 relative">
+            <div className="absolute inset-0 bg-pink-300/10 blur-[80px] rounded-full" />
+            <div
+              className="relative w-full max-w-[340px] bg-white border border-pink-100 rounded-[32px] p-6 shadow-2xl hover:shadow-pink-500/10 transition-all duration-500 group"
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              ✨ Build Your Box
-            </a>
-            <a
-              href="#showcase"
-              className="w-full bg-white/60 border border-white/50 text-[var(--text-mid)] px-8 py-4.5 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-1 active:translate-y-0 transition-all duration-300 text-center"
-            >
-              See Our Work →
-            </a>
+              <div className="relative aspect-square rounded-2xl overflow-hidden mb-5 shadow-inner border border-pink-100/10">
+                <span className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md text-[var(--pink-600)] font-black text-[9px] uppercase tracking-widest py-1.5 px-3.5 rounded-full shadow-md z-10">
+                  ⚡ Preview
+                </span>
+                <Image
+                  src="/myman.jpg"
+                  alt="Luxury Black Box with gold lettering"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-all duration-500"
+                />
+              </div>
+              <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mb-1">
+                Luxury Black Box
+              </h3>
+              <p className="text-[var(--text-mid)] text-xs leading-relaxed font-semibold">
+                Customized handwritten messages in sparkling gold ink. Built with love in Faisalabad.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ========== SHOWCASE SECTION ========== */}
-      <section id="showcase" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative bg-white rounded-[32px] shadow-2xl shadow-pink-600/5 my-8 border border-pink-50/20">
+      <section id="showcase" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative bg-white rounded-[32px] shadow-2xl shadow-pink-600/5 my-10 border border-pink-100/20">
         <div className="text-center max-w-2xl mx-auto mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             💝 Our Collection
@@ -792,7 +809,14 @@ export default function Home() {
                     maxLength={200}
                     rows={3}
                     placeholder={hasTopMsg ? "Type your customized top text here..." : "Check box to enable writing"}
-                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50"
+                    style={{
+                      borderColor: hasTopMsg
+                        ? inkColor === "gold"
+                          ? "var(--gold)"
+                          : "var(--silver)"
+                        : "var(--pink-100)",
+                    }}
+                    className="w-full bg-pink-50/10 border-2 focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors"
                   />
                   <div className="flex justify-between items-center mt-3">
                     <span className="text-[10px] text-[var(--text-light)] font-bold">
@@ -845,7 +869,14 @@ export default function Home() {
                     maxLength={400}
                     rows={4}
                     placeholder={hasInsideMsg ? "Type your customized inside text here..." : "Check box to enable writing"}
-                    className="w-full bg-pink-50/10 border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50"
+                    style={{
+                      borderColor: hasInsideMsg
+                        ? inkColor === "gold"
+                          ? "var(--gold)"
+                          : "var(--silver)"
+                        : "var(--pink-100)",
+                    }}
+                    className="w-full bg-pink-50/10 border-2 focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors"
                   />
                   <div className="flex justify-between items-center mt-3">
                     <span className="text-[10px] text-[var(--text-light)] font-bold">
@@ -1000,7 +1031,6 @@ export default function Home() {
               ) : (
                 /* Custom box preview mockup */
                 <div className="relative overflow-hidden rounded-2xl shadow-inner bg-[#FFF8FA]">
-                  {/* Spotlight container */}
                   <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 0%, rgba(194,51,106,0.01) 100%) pointer-events-none" />
 
                   {/* Top pane view */}
@@ -1195,7 +1225,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== PAYMENT & GUIDE SECTION ========== */}
+      {/* ========== PAYMENT & GUIDE SECTION (REDESIGNED LUXURY CREDIT CARD CARD) ========== */}
       <section id="payment" className="py-28 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center max-w-2xl mx-auto mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
@@ -1211,39 +1241,44 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-14">
-          {/* JazzCash Info Block */}
-          <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/45 border-2 border-pink-100/60 rounded-[32px] p-6 sm:p-12 max-w-xl w-full mx-auto shadow-2xl shadow-pink-500/5">
-            <h3 className="font-playfair text-2xl font-black text-[var(--dark-2)] mb-5 text-center">
-              JazzCash
-            </h3>
-            <p className="text-stone-700 text-xs sm:text-sm leading-relaxed mb-8 text-center font-medium">
-              Send your advance payment via JazzCash to the number below. Confirm the account name
-              matches before executing the transaction. 🟢
-            </p>
+          {/* Metal Credit Card design for JazzCash */}
+          <div className="relative w-full max-w-[420px] aspect-[1.58/1] bg-gradient-to-tr from-[#1a1a1a] via-[#2d2d2d] to-[#0a0a0a] border border-[#d4a853]/45 rounded-3xl p-6 sm:p-8 mx-auto shadow-2xl shadow-black/55 text-white overflow-hidden group">
+            {/* Holographic reflection lines */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="absolute bottom-[-50px] right-[-50px] w-48 h-48 bg-yellow-500/5 blur-[50px] rounded-full" />
 
-            <div className="flex flex-col gap-4 mb-8">
-              <div className="flex justify-between items-center bg-white border border-pink-100/70 rounded-2xl px-6 py-4.5 shadow-sm">
-                <span className="text-[10px] font-black text-[var(--text-light)] uppercase tracking-wider">
-                  Number
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <span className="block text-[8px] sm:text-[10px] tracking-widest text-[#d4a853] uppercase font-black">
+                  JazzCash Account
                 </span>
-                <span className="font-playfair font-black text-xl text-[var(--pink-600)] tracking-widest">
-                  0300-6600178
-                </span>
+                <span className="font-dancing text-xl sm:text-2xl font-bold text-white/90">Nazi Yaqoob</span>
               </div>
-              <div className="flex justify-between items-center bg-white border border-pink-100/70 rounded-2xl px-6 py-4.5 shadow-sm">
-                <span className="text-[10px] font-black text-[var(--text-light)] uppercase tracking-wider">
-                  Account Name
-                </span>
-                <span className="font-playfair font-black text-base sm:text-lg text-[var(--dark-2)] tracking-wide">
-                  NAZI YAQOOB
-                </span>
+              {/* Gold Chip */}
+              <div className="w-10 h-8 rounded-lg bg-gradient-to-br from-[#ffe08a] to-[#cba34f] border border-black/10 shadow-sm relative overflow-hidden flex flex-col justify-between p-1.5">
+                <div className="h-px bg-black/20 w-full" />
+                <div className="h-px bg-black/20 w-full" />
+                <div className="h-px bg-black/20 w-full" />
               </div>
             </div>
 
-            <div className="bg-white/95 border border-pink-100 rounded-2xl p-5 text-xs text-stone-700 leading-relaxed shadow-sm">
-              ✅ <strong className="text-[var(--pink-600)]">Confirmation tip:</strong> When you enter
-              the number in JazzCash, the name <strong className="text-[var(--pink-500)]">NAZI YAQOOB</strong>{" "}
-              will display automatically — verifying you've entered the correct account.
+            {/* Account Number */}
+            <div className="my-5">
+              <span className="block text-[8px] uppercase tracking-wider text-white/40 mb-1">Account Number</span>
+              <div className="font-playfair text-xl sm:text-2xl font-black text-[#d4a853] tracking-widest text-center">
+                0300 6600 178
+              </div>
+            </div>
+
+            <div className="flex justify-between items-end mt-4">
+              <div>
+                <span className="block text-[8px] uppercase tracking-wider text-white/40">Status</span>
+                <span className="text-[10px] sm:text-xs font-bold text-green-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  Active &amp; Verified
+                </span>
+              </div>
+              <span className="font-dancing text-lg text-white/60">box.love.pk</span>
             </div>
           </div>
 
