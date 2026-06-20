@@ -36,8 +36,12 @@ export async function sendThankYouEmail(orderData: any) {
             `- Ink Color: ${orderData.inkColor || "N/A"}${customTextSummary}\n` +
             `- Addons: ${orderData.addons}\n` +
             `- Total Amount: Rs. ${orderData.total}\n\n` +
-            `Payment Reminder:\n` +
-            `Please send the advance payment of Rs. ${orderData.total} to our JazzCash account (0300-6600178 - Account Name: NAZI YAQOOB) to confirm your order. After sending, please share the screenshot with us.\n\n` +
+            `Payment & Confirmation Instructions:\n` +
+            `1. Please send the advance payment of Rs. ${orderData.total} to our JazzCash account:\n` +
+            `   - Number: 0300-6600178\n` +
+            `   - Account Name: NAZI YAQOOB\n` +
+            `2. Take a screenshot of the transaction receipt.\n` +
+            `3. Send the screenshot to our Instagram DM (@box.love.pk) to verify and confirm your order!\n\n` +
             `We really hope you love our box as much as we loved making it for you. We would be so happy to design for you again, so please shop with us again in the future! 😊\n\n` +
             `With love,\n` +
             `The box.love.pk Team\n` +
@@ -94,14 +98,20 @@ export async function sendThankYouEmail(orderData: any) {
 
             <div style="background-color: #fff3f6; border: 1px dashed #ffaec7; border-radius: 12px; padding: 18px; margin: 25px 0; text-align: center;">
               <h4 style="color: #b5224d; margin: 0 0 10px 0; font-size: 15px; font-weight: bold;">💸 Payment Instructions</h4>
-              <p style="font-size: 13.5px; line-height: 1.5; margin: 0; color: #522a3b;">
-                Please send the advance payment of <strong>Rs. ${orderData.total}</strong> to our JazzCash account:<br/>
-                <span style="font-size: 16px; font-weight: bold; color: #b5224d; display: inline-block; margin: 8px 0;">0300-6600178</span><br/>
+              <p style="font-size: 14px; line-height: 1.6; margin: 0; color: #522a3b;">
+                Please make the advance payment of <strong>Rs. ${orderData.total}</strong> to our JazzCash account:<br/>
+                <span style="font-size: 18px; font-weight: bold; color: #b5224d; display: inline-block; margin: 8px 0;">0300-6600178</span><br/>
                 Account Name: <strong>NAZI YAQOOB</strong>
               </p>
-              <p style="font-size: 12px; color: #854e62; margin-top: 10px; font-style: italic;">
-                After making the payment, please share the transaction screenshot with us via WhatsApp or Instagram to confirm your order.
-              </p>
+              
+              <div style="background-color: #ffffff; border: 1px solid #ffd6e3; border-radius: 8px; padding: 10px; margin-top: 15px; text-align: left;">
+                <p style="font-size: 13px; line-height: 1.5; margin: 0; color: #e03e6d; font-weight: bold; text-align: center;">📸 How to Confirm Your Order:</p>
+                <ol style="font-size: 12.5px; line-height: 1.6; margin: 8px 0 0 15px; padding: 0; color: #522a3b;">
+                  <li>Send the payment of Rs. ${orderData.total} to the JazzCash account above.</li>
+                  <li>Take a screenshot of the transaction receipt.</li>
+                  <li>Send the screenshot to our Instagram DM <a href="https://instagram.com/box.love.pk" style="color: #e03e6d; font-weight: bold; text-decoration: underline;" target="_blank">@box.love.pk</a> to verify and confirm your order!</li>
+                </ol>
+              </div>
             </div>
             
             <p style="font-size: 15px; line-height: 1.6; margin-top: 25px;">We really hope you love our box as much as we loved making it for you. We would be so happy to craft for you again, so please shop with us again in the future! 😊</p>
