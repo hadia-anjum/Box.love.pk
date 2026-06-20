@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/db";
-import Order from "@/models/Order";
+import { getOrders, updateOrderStatus } from "@/lib/orderStore";
 
 export async function GET(request: Request) {
   try {
@@ -16,10 +15,8 @@ export async function GET(request: Request) {
       );
     }
 
-    await dbConnect();
-    const orders = await Order.find().sort({ createdAt: -1 });
-
-    return NextResponse.json({ success: true, orders });
+    const result = await getOrders();
+    return NextResponse.json({ success: true, orders: result.orders, source: result.source });
   } catch (err: any) {
     console.error("Admin orders backend error:", err);
     return NextResponse.json(
@@ -60,21 +57,16 @@ export async function PATCH(request: Request) {
       );
     }
 
-    await dbConnect();
-    const updatedOrder = await Order.findByIdAndUpdate(
-      orderId,
-      { status },
-      { new: true }
-    );
+    const result = await updateOrderStatus(orderId, status);
 
-    if (!updatedOrder) {
+    if (!result.success) {
       return NextResponse.json(
-        { success: false, error: "Order not found." },
+        { success: false, error: result.error || "Order not found." },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true, order: updatedOrder });
+    return NextResponse.json({ success: true, order: result.order, source: result.source });
   } catch (err: any) {
     console.error("Admin orders PATCH backend error:", err);
     return NextResponse.json(
@@ -83,4 +75,5 @@ export async function PATCH(request: Request) {
     );
   }
 }
+
 

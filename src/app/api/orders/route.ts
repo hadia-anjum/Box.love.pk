@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/db";
-import Order from "@/models/Order";
+import { saveOrder } from "@/lib/orderStore";
 
 export async function POST(request: Request) {
   try {
@@ -14,27 +13,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Connect to MongoDB and save the order
+    // 2. Save the order to DB or local fallback
     try {
-      await dbConnect();
-      await Order.create({
-        name: orderData.name,
-        email: orderData.email,
-        phone: orderData.phone,
-        address: orderData.address,
-        boxType: orderData.boxType,
-        inkColor: orderData.inkColor,
-        topText: orderData.topText || "",
-        insideText: orderData.insideText || "",
-        addons: orderData.addons || "None",
-        total: orderData.total,
-        status: "pending",
-      });
-      console.log("Order saved to MongoDB successfully!");
+      const dbResult = await saveOrder(orderData);
+      console.log(`Order saved successfully! Source: ${dbResult.source}`);
     } catch (dbErr: any) {
-      console.error("Failed to save order to MongoDB:", dbErr);
+      console.error("Failed to save order:", dbErr);
       // We will still try to send the email notification even if DB saving fails
     }
+
 
     // 3. Build the request body for Web3Forms API
     const web3formsBody = {
