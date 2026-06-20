@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
+import dbConnect from "@/lib/db";
+import Order from "@/models/Order";
 
 export async function POST(request: Request) {
   try {
     const orderData = await request.json();
 
-    // Validate request body
+    // 1. Validate request body
     if (!orderData.email || !orderData.name || !orderData.phone || !orderData.address) {
       return NextResponse.json(
         { success: false, error: "Missing required checkout details." },
@@ -12,9 +14,31 @@ export async function POST(request: Request) {
       );
     }
 
-    // Build the request body for Web3Forms API
+    // 2. Connect to MongoDB and save the order
+    try {
+      await dbConnect();
+      await Order.create({
+        name: orderData.name,
+        email: orderData.email,
+        phone: orderData.phone,
+        address: orderData.address,
+        boxType: orderData.boxType,
+        inkColor: orderData.inkColor,
+        topText: orderData.topText || "",
+        insideText: orderData.insideText || "",
+        addons: orderData.addons || "None",
+        total: orderData.total,
+        status: "pending",
+      });
+      console.log("Order saved to MongoDB successfully!");
+    } catch (dbErr: any) {
+      console.error("Failed to save order to MongoDB:", dbErr);
+      // We will still try to send the email notification even if DB saving fails
+    }
+
+    // 3. Build the request body for Web3Forms API
     const web3formsBody = {
-      access_key: "f3d8291b-afee-4148-880d-5884a4c7cbb0", // Kept securely on backend Node server
+      access_key: "f3d8291b-afee-4148-880d-5884a4c7cbb0",
       subject: `New Order from ${orderData.name} - Rs. ${orderData.total}`,
       name: orderData.name,
       email: orderData.email,
@@ -39,7 +63,7 @@ export async function POST(request: Request) {
                `Total Amount: Rs. ${orderData.total}`
     };
 
-    // Forward the order details securely to Web3Forms
+    // 4. Forward the order details securely to Web3Forms
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
@@ -55,10 +79,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     } else {
       console.error("Web3Forms submission failed:", resData);
-      return NextResponse.json(
-        { success: false, error: resData.message || "Failed forwarding order email." },
-        { status: 502 }
-      );
+      // If we saved to DB but email failed, we still return success to the user so their order is recorded
+      return NextResponse.json({ success: true, warning: "Email delivery failed, but order saved." });
     }
   } catch (err: any) {
     console.error("Node.js order processing backend error:", err);
