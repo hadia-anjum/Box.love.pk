@@ -44,8 +44,7 @@ export async function sendThankYouEmail(orderData: any) {
             `3. Send the screenshot to my Instagram DM (@box.love.pk) so I can verify and start crafting your box right away!\n\n` +
             `Thank you again for supporting my small handmade business. I really hope you love the box as much as I will love making it for you. I would be so happy to design for you again, so please shop with us again in the future! 😊\n\n` +
             `With love,\n` +
-            `Hadia Anjum\n` +
-            `box.love.pk`,
+            `The box.love.pk Team`,
       html: `
         <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 550px; margin: 0 auto; line-height: 1.6; color: #3d202c; font-size: 15px;">
           <p>Hi <strong>${orderData.name}</strong>,</p>
@@ -77,8 +76,7 @@ export async function sendThankYouEmail(orderData: any) {
           
           <p style="margin-top: 30px; border-top: 1px solid #ffd6e3; padding-top: 15px; font-size: 14px; color: #854e62;">
             With love and care,<br/>
-            <strong>Hadia Anjum</strong><br/>
-            <span style="font-family: cursive; font-size: 16px; color: #e03e6d; font-weight: bold;">box.love.pk</span><br/>
+            <strong>The box.love.pk Team</strong><br/>
             Faisalabad, Pakistan
           </p>
         </div>
