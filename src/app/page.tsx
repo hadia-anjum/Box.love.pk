@@ -1418,13 +1418,13 @@ export default function Home() {
             },
             {
               name: "H******",
-              text: "Gold lid handwriting is very neat. The ribbon bow decoration is tied perfectly. Worth ordering from box.love.pk!",
+              text: "Happy Birthday inside hanging banner with black ribbons order kiya tha surprise box ke liye. Execution is top class and lights make it look magical!",
               rating: 5,
               img: "/rev8.jpg",
             },
             {
               name: "R******",
-              text: "Destiny quote writing lid stands out beautiful. The luxury black velvet box touch feels super premium.",
+              text: "Inside box lid gold writing for Humsafar quote was absolutely perfect and emotional! Ink quality was premium. Thank you box.love.pk!",
               rating: 5,
               img: "/rev9.jpg",
             },
