@@ -9,6 +9,7 @@ export interface IOrder extends Document {
   inkColor: string;
   topText: string;
   insideText: string;
+  bannerText?: string;
   addons: string;
   total: string;
   status: "pending" | "confirmed" | "shipped" | "cancelled";
@@ -25,6 +26,7 @@ const OrderSchema: Schema = new Schema(
     inkColor: { type: String, required: true },
     topText: { type: String, default: "" },
     insideText: { type: String, default: "" },
+    bannerText: { type: String, default: "" },
     addons: { type: String, default: "None" },
     total: { type: String, required: true },
     status: {

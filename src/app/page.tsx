@@ -282,7 +282,7 @@ export default function Home() {
       inkColor: orderType === "custom" ? inkColor : "N/A",
       topText: orderType === "custom" && hasTopMsg ? topText : "",
       insideText: orderType === "custom" && hasInsideMsg ? insideText : "",
-      bannerText: orderType === "custom" && hasBanner ? bannerText : "",
+      bannerText: hasBanner ? bannerText : "",
       addons: addonsList.join(", ") || "None",
       total: orderTotal.toLocaleString(),
     };
@@ -813,119 +813,172 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Inside of Box Message */}
-                <div className="border border-pink-100/70 rounded-2xl p-4 mb-4 hover:shadow-md transition-all duration-300 bg-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <button
-                      type="button"
-                      onClick={toggleInsideMsg}
-                      className="flex items-center gap-3 text-left focus:outline-none font-bold text-xs sm:text-sm text-[var(--dark-2)]"
-                    >
-                      <div
-                        className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white transition-all shadow-inner ${
-                          hasInsideMsg
-                            ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
-                            : "border-pink-200 bg-white"
-                        }`}
-                      >
-                        {hasInsideMsg && "✓"}
-                      </div>
-                      📖 Also Write Inside the Box
-                    </button>
-                    <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
-                      Rs. 2,600
-                    </span>
+                {/* Inside of Box Options */}
+                <div className="border border-pink-100/70 rounded-2xl p-5 mb-5 hover:shadow-md transition-all duration-300 bg-white">
+                  <div className="text-xs sm:text-sm font-black text-[var(--dark-2)] mb-3">
+                    📖 Choose Inside Option
                   </div>
-                  <textarea
-                    ref={insideTextareaRef}
-                    disabled={!hasInsideMsg}
-                    value={insideText}
-                    onChange={(e) => handleInsideTextInput(e.target.value)}
-                    maxLength={400}
-                    rows={4}
-                    placeholder={hasInsideMsg ? "Type your customized inside text here..." : "Check box to enable writing"}
-                    style={{
-                      borderColor: hasInsideMsg
-                        ? inkColor === "gold"
-                          ? "var(--gold)"
-                          : "var(--silver)"
-                        : "var(--pink-100)",
-                    }}
-                    className="w-full bg-pink-50/10 border-2 focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors"
-                  />
-                  <div className="flex justify-between items-center mt-3">
-                    <span className="text-[10px] text-[var(--text-light)] font-bold">
-                      {insideText.length} / 400 chars
-                    </span>
-                    {hasInsideMsg && insideText.trim().length > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => handleSaveText("inside")}
-                        className={`text-[10px] font-bold py-1.5 px-4 rounded-full shadow-md transition-all ${
-                          isSavedMsgInside
-                            ? "bg-green-500 text-white"
-                            : "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white hover:brightness-105"
-                        }`}
-                      >
-                        {isSavedMsgInside ? "✅ Saved!" : "💾 Save Message"}
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Hanging Banner */}
-                <div className="border-2 border-dashed border-pink-200 rounded-2xl p-5 hover:shadow-md transition-all duration-300 bg-gradient-to-br from-white to-pink-50/30">
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                    {/* Option 1: Blank Inside */}
                     <button
                       type="button"
                       onClick={() => {
-                        const next = !hasBanner;
-                        setHasBanner(next);
-                        if (!next) setBannerText("");
+                        setHasInsideMsg(false);
+                        setHasBanner(false);
+                        setInsideText("");
+                        setBannerText("");
                       }}
-                      className="flex items-center gap-3 text-left focus:outline-none font-bold text-xs sm:text-sm text-[var(--dark-2)]"
+                      className={`flex flex-col border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all text-left focus:outline-none ${
+                        !hasInsideMsg && !hasBanner
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-2 ring-[var(--pink-100)]"
+                          : "border-pink-100/60 bg-white"
+                      }`}
                     >
-                      <div
-                        className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white transition-all shadow-inner ${
-                          hasBanner
-                            ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
-                            : "border-pink-200 bg-white"
-                        }`}
-                      >
-                        {hasBanner && "✓"}
+                      <div className="flex justify-between items-center w-full mb-1">
+                        <span className="font-black text-xs text-[var(--dark-2)]">
+                          Blank Inside
+                        </span>
+                        <span className="text-[10px] text-[var(--text-light)] font-bold">Free</span>
                       </div>
-                      🎏 Add Hanging Banner on Box
+                      <span className="text-[10px] text-[var(--text-light)] leading-tight font-medium">
+                        Inside lid will be left empty
+                      </span>
                     </button>
-                    <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
-                      + Rs. 350
-                    </span>
+
+                    {/* Option 2: Handwritten Message */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHasInsideMsg(true);
+                        setHasBanner(false);
+                        setBannerText("");
+                        setPreviewTab("inside");
+                        setTimeout(() => insideTextareaRef.current?.focus(), 100);
+                      }}
+                      className={`flex flex-col border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all text-left focus:outline-none ${
+                        hasInsideMsg
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-2 ring-[var(--pink-100)]"
+                          : "border-pink-100/60 bg-white"
+                      }`}
+                    >
+                      <div className="flex justify-between items-center w-full mb-1">
+                        <span className="font-black text-xs text-[var(--dark-2)]">
+                          Handwritten Msg
+                        </span>
+                        <span className="text-[10px] text-[var(--pink-600)] font-black">+ Rs. 300</span>
+                      </div>
+                      <span className="text-[10px] text-[var(--text-light)] leading-tight font-medium">
+                        Golden or silver writing on inside lid
+                      </span>
+                    </button>
+
+                    {/* Option 3: Hanging Banner */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHasInsideMsg(false);
+                        setHasBanner(true);
+                        setInsideText("");
+                        setPreviewTab("inside");
+                      }}
+                      className={`flex flex-col border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all text-left focus:outline-none ${
+                        hasBanner
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-2 ring-[var(--pink-100)]"
+                          : "border-pink-100/60 bg-white"
+                      }`}
+                    >
+                      <div className="flex justify-between items-center w-full mb-1">
+                        <span className="font-black text-xs text-[var(--dark-2)]">
+                          Hanging Banner
+                        </span>
+                        <span className="text-[10px] text-[var(--pink-600)] font-bold">+ Rs. 350</span>
+                      </div>
+                      <span className="text-[10px] text-[var(--text-light)] leading-tight font-medium">
+                        Hanging letter-flag bunting inside
+                      </span>
+                    </button>
                   </div>
-                  <p className="text-[10px] text-[var(--text-light)] font-semibold mb-1 ml-8">
-                    Letter-flag bunting hung on the box — great alternative to inside writing or as an extra!
-                  </p>
-                  <p className="text-[10px] text-pink-400 font-semibold mb-3 ml-8">
-                    💡 Tip: Press Enter for a new line (e.g. &quot;HAPPY&quot; then &quot;BIRTHDAY&quot;)
-                  </p>
-                  <textarea
-                    disabled={!hasBanner}
-                    value={bannerText}
-                    onChange={(e) => {
-                      // Allow letters, spaces, newlines only — uppercase
-                      const val = e.target.value.toUpperCase();
-                      // Count only non-newline chars toward limit
-                      const nonBreakChars = val.replace(/\n/g, "").length;
-                      if (nonBreakChars <= 35) setBannerText(val);
-                    }}
-                    rows={3}
-                    placeholder={hasBanner ? "E.g.\nHAPPY\nBIRTHDAY" : "Check box to add banner"}
-                    className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal resize-none"
-                  />
-                  <div className="flex justify-between mt-2">
-                    <span className="text-[10px] text-[var(--text-light)] font-bold">
-                      {bannerText.replace(/\n/g, "").length} / 35 chars
-                    </span>
-                    <span className="text-[10px] text-pink-400 font-semibold">Each letter = 1 flag tile</span>
-                  </div>
+
+                  {/* Textarea for Handwritten Message */}
+                  {hasInsideMsg && (
+                    <div className="animate-[fadeIn_0.2s_ease-out_forwards]">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-[var(--dark-2)]">
+                          ✍️ Write Inside Message
+                        </span>
+                        <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
+                          + Rs. 300
+                        </span>
+                      </div>
+                      <textarea
+                        ref={insideTextareaRef}
+                        value={insideText}
+                        onChange={(e) => handleInsideTextInput(e.target.value)}
+                        maxLength={400}
+                        rows={4}
+                        placeholder="Type your customized inside message here..."
+                        style={{
+                          borderColor: inkColor === "gold" ? "var(--gold)" : "var(--silver)",
+                        }}
+                        className="w-full bg-pink-50/10 border-2 focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] transition-colors"
+                      />
+                      <div className="flex justify-between items-center mt-3">
+                        <span className="text-[10px] text-[var(--text-light)] font-bold">
+                          {insideText.length} / 400 chars
+                        </span>
+                        {insideText.trim().length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => handleSaveText("inside")}
+                            className={`text-[10px] font-bold py-1.5 px-4 rounded-full shadow-md transition-all ${
+                              isSavedMsgInside
+                                ? "bg-green-500 text-white"
+                                : "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white hover:brightness-105"
+                            }`}
+                          >
+                            {isSavedMsgInside ? "✅ Saved!" : "💾 Save Message"}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Textarea for Hanging Banner */}
+                  {hasBanner && (
+                    <div className="animate-[fadeIn_0.2s_ease-out_forwards] border-2 border-dashed border-pink-100 rounded-2xl p-4 bg-gradient-to-br from-white to-pink-50/30">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-[var(--dark-2)]">
+                          🎏 Configure Hanging Banner
+                        </span>
+                        <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
+                          + Rs. 350
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-[var(--text-light)] font-semibold mb-1">
+                        Letter-flag bunting hung inside the box lid.
+                      </p>
+                      <p className="text-[10px] text-pink-400 font-semibold mb-3">
+                        💡 Tip: Press Enter for a new line (e.g. &quot;HAPPY&quot; then &quot;BIRTHDAY&quot;)
+                      </p>
+                      <textarea
+                        value={bannerText}
+                        onChange={(e) => {
+                          const val = e.target.value.toUpperCase();
+                          const nonBreakChars = val.replace(/\n/g, "").length;
+                          if (nonBreakChars <= 35) setBannerText(val);
+                        }}
+                        rows={3}
+                        placeholder="E.g.\nHAPPY\nBIRTHDAY"
+                        className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal resize-none"
+                      />
+                      <div className="flex justify-between mt-2">
+                        <span className="text-[10px] text-[var(--text-light)] font-bold">
+                          {bannerText.replace(/\n/g, "").length} / 35 chars
+                        </span>
+                        <span className="text-[10px] text-pink-400 font-semibold">Each letter = 1 flag tile</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -1005,46 +1058,48 @@ export default function Home() {
                   </div>
                 </button>
 
-                {/* Hanging Banner Card — full width */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    const next = !hasBanner;
-                    setHasBanner(next);
-                    if (next) setPreviewTab("inside");
-                    if (!next) setBannerText("");
-                  }}
-                  className={`col-span-1 sm:col-span-2 flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
-                    hasBanner
-                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
-                      : "border-dashed border-pink-200 bg-white hover:border-pink-400 hover:shadow-md"
-                  }`}
-                >
-                  <div
-                    className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white shrink-0 transition-all ${
+                {/* Hanging Banner Card — full width (Only shown for Simple Box) */}
+                {orderType === "simple" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = !hasBanner;
+                      setHasBanner(next);
+                      if (next) setPreviewTab("inside");
+                      if (!next) setBannerText("");
+                    }}
+                    className={`col-span-1 sm:col-span-2 flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
                       hasBanner
-                        ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
-                        : "border-pink-200 bg-white"
+                        ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                        : "border-dashed border-pink-200 bg-white hover:border-pink-400 hover:shadow-md"
                     }`}
                   >
-                    {hasBanner && "✓"}
-                  </div>
-                  <div className="grow">
-                    <strong className="block text-xs sm:text-sm text-[var(--dark-2)]">
-                      🎏 Hanging Banner on Box
-                    </strong>
-                    <span className="text-[10px] text-[var(--text-light)] font-medium">
-                      Letter-flag bunting — e.g. &quot;HAPPY BIRTHDAY&quot; or &quot;I LOVE YOU&quot;
-                    </span>
-                  </div>
-                  <div className="font-extrabold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
-                    + Rs. 350
-                  </div>
-                </button>
+                    <div
+                      className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white shrink-0 transition-all ${
+                        hasBanner
+                          ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
+                          : "border-pink-200 bg-white"
+                      }`}
+                    >
+                      {hasBanner && "✓"}
+                    </div>
+                    <div className="grow">
+                      <strong className="block text-xs sm:text-sm text-[var(--dark-2)]">
+                        🎏 Hanging Banner on Box
+                      </strong>
+                      <span className="text-[10px] text-[var(--text-light)] font-medium">
+                        Letter-flag bunting — e.g. &quot;HAPPY BIRTHDAY&quot; or &quot;I LOVE YOU&quot;
+                      </span>
+                    </div>
+                    <div className="font-extrabold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
+                      + Rs. 350
+                    </div>
+                  </button>
+                )}
               </div>
 
-              {/* Banner text input — shown when banner is selected */}
-              {hasBanner && (
+              {/* Banner text input — shown when banner is selected (Only for Simple Box) */}
+              {orderType === "simple" && hasBanner && (
                 <div className="mt-5 border-2 border-pink-200 rounded-2xl p-4 bg-gradient-to-br from-white to-pink-50/30">
                   <p className="text-[11px] font-bold text-[var(--dark-2)] mb-1">
                     🎏 What should the banner say?
@@ -1640,6 +1695,12 @@ export default function Home() {
                         <div className="flex justify-between">
                           <span>Inside Writing ({inkColor === "silver" ? "Silver" : "Gold"})</span>
                           <span>Rs. 300</span>
+                        </div>
+                      )}
+                      {hasBanner && (
+                        <div className="flex justify-between">
+                          <span>Hanging Banner</span>
+                          <span>Rs. 350</span>
                         </div>
                       )}
                       {addons.fairy && (

@@ -12,6 +12,7 @@ interface OrderItem {
   inkColor: string;
   topText: string;
   insideText: string;
+  bannerText?: string;
   addons: string;
   total: string;
   status: "pending" | "confirmed" | "shipped" | "cancelled";
@@ -691,13 +692,13 @@ export default function AdminDashboard() {
               </div>
 
               {/* Custom Writing Visual Mockups */}
-              {(selectedOrder.topText || selectedOrder.insideText) && (
+              {(selectedOrder.topText || selectedOrder.insideText || selectedOrder.bannerText) && (
                 <div className="space-y-4 pt-4">
                   <h4 className="text-xs font-extrabold text-[#3D202C] uppercase tracking-wider border-b border-pink-100 pb-2">
-                    Visual Design Mockup (Golden/Silver Ink)
+                    Visual Design Mockup (Golden/Silver Ink / Hanging Banner)
                   </h4>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Top of Box Mockup */}
                     {selectedOrder.topText ? (
                       <div className="space-y-2">
@@ -745,6 +746,35 @@ export default function AdminDashboard() {
                         No Inside Message
                       </div>
                     )}
+
+                    {/* Hanging Banner Mockup */}
+                    {selectedOrder.bannerText ? (
+                      <div className="space-y-2">
+                        <div className="text-xs font-semibold text-[#854E62] text-center">Hanging Banner Preview</div>
+                        <div className="aspect-square w-full max-w-[280px] mx-auto bg-stone-900 border-4 border-stone-800 rounded-2xl shadow-xl flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+                          {/* Inner box liner border */}
+                          <div className="absolute inset-2.5 border border-stone-850 rounded-lg pointer-events-none" />
+                          <div className="flex flex-col gap-1 w-full items-center justify-center">
+                            {selectedOrder.bannerText.split("\n").filter(l => l.trim().length > 0).map((line, lineIdx) => (
+                              <div key={lineIdx} className="flex gap-0.5 flex-wrap justify-center max-w-full">
+                                {line.split("").map((letter, i) => (
+                                  <div key={i} className="flex flex-col items-center">
+                                    <div className="w-4 h-5 bg-white border border-gray-300 flex items-center justify-center text-[9px] font-black text-gray-800 shadow-sm"
+                                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%)" }}>
+                                      {letter === " " ? "\u00A0" : letter}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-6 flex items-center justify-center text-xs text-[#B07D93] text-center aspect-square max-w-[280px] mx-auto">
+                        No Hanging Banner
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -775,7 +805,7 @@ export default function AdminDashboard() {
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => {
-                    const text = `BOX ORDER DETAIL:\n\n- Name: ${selectedOrder.name}\n- Phone: ${selectedOrder.phone}\n- Address: ${selectedOrder.address}\n- Box Type: ${selectedOrder.boxType}\n- Ink Color: ${selectedOrder.inkColor}\n- Lid Text: ${selectedOrder.topText || "N/A"}\n- Inside Text: ${selectedOrder.insideText || "N/A"}\n- Addons: ${selectedOrder.addons}\n- Total: Rs. ${selectedOrder.total}`;
+                    const text = `BOX ORDER DETAIL:\n\n- Name: ${selectedOrder.name}\n- Phone: ${selectedOrder.phone}\n- Address: ${selectedOrder.address}\n- Box Type: ${selectedOrder.boxType}\n- Ink Color: ${selectedOrder.inkColor}\n- Lid Text: ${selectedOrder.topText || "N/A"}\n- Inside Text: ${selectedOrder.insideText || "N/A"}\n- Banner Text: ${selectedOrder.bannerText || "N/A"}\n- Addons: ${selectedOrder.addons}\n- Total: Rs. ${selectedOrder.total}`;
                     navigator.clipboard.writeText(text);
                     alert("Order details copied to clipboard!");
                   }}
