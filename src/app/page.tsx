@@ -426,10 +426,10 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ========== HERO SECTION (REDESIGNED: 2-COLUMN PREMIUM LAYOUT) ========== */}
+      {/* ========== HERO SECTION (REDESIGNED: CENTERED PREMIUM LAYOUT) ========== */}
       <section
         id="home"
-        className="relative min-h-screen bg-gradient-to-br from-[#FFF3F7] via-[#FDDAED] to-[#F1CBE0] flex items-center justify-center px-6 sm:px-12 md:px-16 pt-32 pb-24 overflow-hidden z-10"
+        className="relative min-h-screen bg-gradient-to-br from-[#FFF3F7] via-[#FDDAED] to-[#F1CBE0] flex items-center justify-center px-4 sm:px-12 md:px-16 pt-24 pb-12 sm:pt-32 sm:pb-24 overflow-hidden z-10"
       >
         {/* Floating background graphics */}
         <div className="hero-blob absolute w-[600px] h-[600px] bg-pink-500/20 top-[-100px] right-[-100px] rounded-full blur-[90px]" style={{ animation: "blobFloat1 9s ease-in-out infinite" }} />
@@ -440,111 +440,78 @@ export default function Home() {
         <div className="sparkle" style={{ top: "25%", right: "12%", "--s-dur": "4.5s", "--s-delay": "0.5s" } as React.CSSProperties}>🌸</div>
         <div className="sparkle" style={{ bottom: "28%", left: "10%", "--s-dur": "4s", "--s-delay": "1s" } as React.CSSProperties}>💖</div>
 
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20 mx-auto">
-          {/* Hero Left Column (Content) */}
-          <div className="lg:col-span-7 text-center lg:text-left">
-            <div className="hero-badge inline-flex items-center gap-2 bg-white/80 border border-pink-500/20 text-[var(--pink-600)] text-[10px] sm:text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-md backdrop-blur-md mb-8">
-              <span className="badge-dot w-2 h-2 rounded-full bg-[var(--pink-500)] animate-pulse-dot" />
-              Handmade · FSD Based · Black Luxury Boxes
-            </div>
-
-            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[var(--dark-2)] leading-[1.1] tracking-tight mb-8">
-              <span className="bg-gradient-to-r from-[var(--pink-500)] via-pink-600 to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
-              <br />
-              with <span className="font-dancing text-[var(--pink-500)] font-bold block sm:inline mt-2 hover:scale-105 transition-transform duration-300 cursor-default">Love</span>
-            </h1>
-
-            <p className="text-[var(--text-mid)] text-base sm:text-lg max-w-xl lg:mx-0 mx-auto leading-relaxed mb-10 font-medium">
-              Sometimes the words written on the box mean more than the gift inside...... 💕
-              <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2.5 px-5 rounded-2xl max-w-max shadow-sm lg:mx-0 mx-auto">
-                📸 Visit our Instagram{" "}
-                <a
-                  href="https://instagram.com/box.love.pk"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline hover:opacity-85 font-black"
-                >
-                  highlights section
-                </a>{" "}
-                to get more ideas!
-              </span>
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
-              {[
-                { num: "100+", label: "Happy Customers", color: "text-[var(--pink-600)]" },
-                { num: "5★", label: "Rating", color: "text-amber-600" },
-                { num: "🖤", label: "Luxury Velvet", color: "text-[var(--dark-2)]" },
-              ].map((stat, idx) => (
-                <div key={idx} className="bg-white/70 border border-white/40 rounded-2xl px-6 py-3.5 shadow-lg shadow-pink-500/5">
-                  <div className={`text-2xl font-black ${stat.color}`}>{stat.num}</div>
-                  <div className="text-[9px] uppercase tracking-widest text-[var(--text-light)] font-black mt-0.5">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start max-w-md lg:mx-0 mx-auto">
-              <a
-                href="#builder"
-                className="w-full sm:w-auto bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
-              >
-                ✨ Build Your Box
-              </a>
-              <a
-                href="#showcase"
-                className="w-full sm:w-auto bg-white/70 border border-white/50 text-[var(--text-mid)] px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
-              >
-                See Our Work →
-              </a>
-            </div>
+        <div className="max-w-4xl w-full flex flex-col items-center justify-center text-center relative z-20 mx-auto">
+          <div className="hero-badge inline-flex items-center gap-2 bg-white/80 border border-pink-500/20 text-[var(--pink-600)] text-[10px] sm:text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-md backdrop-blur-md mb-6">
+            <span className="badge-dot w-2 h-2 rounded-full bg-[var(--pink-500)] animate-pulse-dot" />
+            Handmade · FSD Based · Black Luxury Boxes
           </div>
 
-          {/* Hero Right Column (Sleek 3D Card Display) */}
-          <div className="lg:col-span-5 flex justify-center mt-8 lg:mt-0 relative">
-            <div className="absolute inset-0 bg-pink-300/10 blur-[80px] rounded-full" />
-            <div
-              className="relative w-full max-w-[340px] bg-white border border-pink-100 rounded-[32px] p-6 shadow-2xl hover:shadow-pink-500/10 transition-all duration-500 group"
-              onMouseMove={handleCardMouseMove}
-              onMouseLeave={handleCardMouseLeave}
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              <div className="relative aspect-square rounded-2xl overflow-hidden mb-5 shadow-inner border border-pink-100/10">
-                <span className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md text-[var(--pink-600)] font-black text-[9px] uppercase tracking-widest py-1.5 px-3.5 rounded-full shadow-md z-10">
-                  ⚡ Preview
-                </span>
-                <Image
-                  src="/myman.jpg"
-                  alt="Luxury Black Box with gold lettering"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-all duration-500"
-                />
+          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[var(--dark-2)] leading-[1.1] tracking-tight mb-8">
+            <span className="bg-gradient-to-r from-[var(--pink-500)] via-pink-600 to-[var(--pink-600)] bg-clip-text text-transparent">Boxes Made</span>
+            <br />
+            with <span className="font-dancing text-[var(--pink-500)] font-bold block sm:inline mt-2 hover:scale-105 transition-transform duration-300 cursor-default">Love</span>
+          </h1>
+
+          <p className="text-[var(--text-mid)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-semibold">
+            Sometimes the words written on the box mean more than the gift inside...... 💕
+            <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2.5 px-5 rounded-2xl max-w-max shadow-sm mx-auto">
+              📸 Visit our Instagram{" "}
+              <a
+                href="https://instagram.com/box.love.pk"
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:opacity-85 font-black"
+              >
+                highlights section
+              </a>{" "}
+              to get more ideas!
+            </span>
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+            {[
+              { num: "100+", label: "Happy Customers", color: "text-[var(--pink-600)]" },
+              { num: "5★", label: "Rating", color: "text-amber-600" },
+            ].map((stat, idx) => (
+              <div key={idx} className="bg-white/70 border border-white/40 rounded-2xl px-6 py-3.5 shadow-lg shadow-pink-500/5">
+                <div className={`text-2xl font-black ${stat.color}`}>{stat.num}</div>
+                <div className="text-[9px] uppercase tracking-widest text-[var(--text-light)] font-black mt-0.5">{stat.label}</div>
               </div>
-              <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mb-1">
-                Luxury Black Box
-              </h3>
-              <p className="text-[var(--text-mid)] text-xs leading-relaxed font-semibold">
-                Customized handwritten messages in sparkling gold ink. Built with love in Faisalabad.
-              </p>
-            </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center max-w-md mx-auto">
+            <a
+              href="#builder"
+              className="w-full sm:w-auto bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-lg shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center font-bold"
+            >
+              ✨ Build Your Box
+            </a>
+            <a
+              href="#showcase"
+              className="w-full sm:w-auto bg-white/70 border border-white/50 text-[var(--text-mid)] px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center font-bold"
+            >
+              See Our Work →
+            </a>
           </div>
         </div>
       </section>
 
       {/* ========== SHOWCASE SECTION ========== */}
-      <section id="showcase" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative bg-white rounded-[32px] shadow-2xl shadow-pink-600/5 my-10 border border-pink-100/20">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+      <section id="showcase" className="py-12 sm:py-28 px-4 sm:px-12 max-w-7xl mx-auto z-10 relative bg-white rounded-[32px] shadow-2xl shadow-pink-600/5 my-6 sm:my-10 border border-pink-100/20">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             💝 Our Collection
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
-            Boxes Made with <span className="font-dancing text-pink-500 text-4xl sm:text-5xl block sm:inline">Love</span>
+          <h2 className="font-playfair text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
+            Boxes Made with <span className="font-dancing text-pink-500 text-3xl sm:text-5xl block sm:inline">Love</span>
           </h2>
           <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-lg mx-auto leading-relaxed">
             Every box is a black luxury keepsake with golden or silver handwritten messages — real boxes, real feelings, real love. 🖤✨
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
           {[
             {
               title: "My Man",
@@ -599,30 +566,30 @@ export default function Home() {
       <div className="lights-strip h-5 relative overflow-hidden" aria-hidden="true" />
 
       {/* ========== BUILDER SECTION ========== */}
-      <section id="builder" className="py-28 px-6 sm:px-12 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+      <section id="builder" className="py-12 sm:py-28 px-4 sm:px-12 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             🎁 Make Your Own
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
             Build Your <span className="text-[var(--pink-500)]">Custom Box</span>
           </h2>
-          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4">
+          <p className="text-[var(--text-mid)] text-xs sm:text-base mt-2 sm:mt-4">
             Choose your order type, personalise, and see your box come to life in real-time! 🖤✨
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
           {/* Builder Options - Left Column */}
           <div className="lg:col-span-7 flex flex-col gap-8">
             {/* Step 1: Order Type */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
+            <div className="bg-white border border-pink-100 rounded-3xl p-4 sm:p-10 shadow-xl shadow-pink-500/5">
               <div className="flex gap-4 mb-8 items-start">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-sm sm:text-base shrink-0 shadow-md shadow-pink-500/20">
                   1
                 </div>
                 <div>
-                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
+                  <h3 className="font-playfair text-lg sm:text-xl font-bold text-[var(--dark-2)]">
                     Choose Your Order Type
                   </h3>
                   <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
@@ -631,12 +598,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Simple Card */}
                 <button
                   type="button"
                   onClick={() => setOrderType("simple")}
-                  className={`relative border-2 text-left rounded-3xl p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`relative border-2 text-left rounded-2xl p-4 sm:p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
                     orderType === "simple"
                       ? "border-[var(--pink-500)] bg-[var(--pink-50)]/45 ring-4 ring-[var(--pink-100)]/40 shadow-lg shadow-pink-500/5"
                       : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
@@ -663,7 +630,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setOrderType("custom")}
-                  className={`relative border-2 text-left rounded-3xl p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`relative border-2 text-left rounded-2xl p-4 sm:p-6 cursor-pointer transition-all duration-300 focus:outline-none ${
                     orderType === "custom"
                       ? "border-[var(--pink-500)] bg-[var(--pink-50)]/45 ring-4 ring-[var(--pink-100)]/40 shadow-lg shadow-pink-500/5"
                       : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
@@ -708,30 +675,30 @@ export default function Home() {
 
             {/* Step 2: Personalisation (Custom only) */}
             {orderType === "custom" && (
-              <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
-                <div className="flex gap-4 mb-8 items-start">
-                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
+              <div className="bg-white border border-pink-100 rounded-3xl p-4 sm:p-8 shadow-xl shadow-pink-500/5">
+                <div className="flex gap-3 mb-6 items-start">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-pink-500/20">
                     2
                   </div>
                   <div>
-                    <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
+                    <h3 className="font-playfair text-base sm:text-xl font-bold text-[var(--dark-2)]">
                       Write Your Messages
                     </h3>
-                    <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
+                    <p className="text-[var(--text-light)] text-[11px] sm:text-sm mt-0.5">
                       Type and watch your words appear live on the box →
                     </p>
                   </div>
                 </div>
 
                 {/* Ink Color Selection */}
-                <div className="mb-8">
-                  <div className="text-xs sm:text-sm font-black text-[var(--dark-2)] mb-4">
+                <div className="mb-6">
+                  <div className="text-xs sm:text-sm font-black text-[var(--dark-2)] mb-3">
                     🖊️ Choose Ink Colour
                   </div>
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-5">
                     {/* Gold Ink Option */}
                     <label
-                      className={`flex items-center gap-4 border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all ${
+                      className={`flex items-center gap-3 sm:gap-4 border-2 rounded-2xl p-3 sm:p-4 cursor-pointer hover:border-pink-300 transition-all ${
                         inkColor === "gold"
                           ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 shadow-md"
                           : "border-pink-100/60 bg-white"
@@ -758,7 +725,7 @@ export default function Home() {
 
                     {/* Silver Ink Option */}
                     <label
-                      className={`flex items-center gap-4 border-2 rounded-2xl p-4 cursor-pointer hover:border-pink-300 transition-all ${
+                      className={`flex items-center gap-3 sm:gap-4 border-2 rounded-2xl p-3 sm:p-4 cursor-pointer hover:border-pink-300 transition-all ${
                         inkColor === "silver"
                           ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 shadow-md"
                           : "border-pink-100/60 bg-white"
@@ -846,7 +813,7 @@ export default function Home() {
                 </div>
 
                 {/* Inside of Box Message */}
-                <div className="border border-pink-100/70 rounded-2xl p-5 mb-5 hover:shadow-md transition-all duration-300 bg-white">
+                <div className="border border-pink-100/70 rounded-2xl p-4 mb-4 hover:shadow-md transition-all duration-300 bg-white">
                   <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
@@ -963,22 +930,22 @@ export default function Home() {
             )}
 
             {/* Step 3: Add-ons */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-pink-500/5">
-              <div className="flex gap-4 mb-8 items-start">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md shadow-pink-500/20">
+            <div className="bg-white border border-pink-100 rounded-3xl p-4 sm:p-8 shadow-xl shadow-pink-500/5">
+              <div className="flex gap-3 mb-6 items-start">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--pink-500)] to-[var(--pink-600)] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-pink-500/20">
                   3
                 </div>
                 <div>
-                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)]">
+                  <h3 className="font-playfair text-base sm:text-xl font-bold text-[var(--dark-2)]">
                     Optional Add-ons
                   </h3>
-                  <p className="text-[var(--text-light)] text-xs sm:text-sm mt-0.5">
+                  <p className="text-[var(--text-light)] text-[11px] sm:text-sm mt-0.5">
                     Make it even more magical ✨
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {/* Fairy Lights Card */}
                 <button
                   type="button"
@@ -1012,7 +979,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setAddons((prev) => ({ ...prev, ribbon: !prev.ribbon }))}
-                  className={`flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                  className={`flex items-center gap-3 sm:gap-4 border-2 text-left rounded-2xl p-3.5 sm:p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
                     addons.ribbon
                       ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
                       : "border-pink-100/60 bg-white hover:border-pink-300 hover:shadow-md"
@@ -1109,7 +1076,7 @@ export default function Home() {
           {/* Preview Panel & Cart Summary - Right Column */}
           <div className="lg:col-span-5 flex flex-col gap-8 lg:sticky lg:top-24">
             {/* LIVE PREVIEW CONTAINER */}
-            <div className="bg-white border border-pink-100 rounded-3xl p-6 shadow-xl shadow-pink-500/5">
+            <div className="bg-white border border-pink-100 rounded-3xl p-4 sm:p-6 shadow-xl shadow-pink-500/5">
               <div className="flex bg-[var(--pink-50)] p-1 rounded-xl mb-5 border border-pink-100/20">
                 <button
                   type="button"
@@ -1275,7 +1242,7 @@ export default function Home() {
             </div>
 
             {/* CART CONTAINER */}
-            <div className="bg-gradient-to-b from-white to-[#FFFDFE] border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5">
+            <div className="bg-gradient-to-b from-white to-[#FFFDFE] border border-pink-100 rounded-3xl p-4 sm:p-6 shadow-xl shadow-pink-500/5">
               <div className="flex items-center justify-between mb-6">
                 <div className="font-playfair font-black text-xl text-[var(--dark-2)] flex items-center gap-2">
                   <span>🛒</span> Your Order
@@ -1336,7 +1303,7 @@ export default function Home() {
 
               <div className="flex justify-between items-center border-t border-pink-100 pt-5 mb-6">
                 <span className="font-bold text-base text-[var(--dark-2)]">Total Amount</span>
-                <span className="font-playfair font-extrabold text-2xl sm:text-3xl text-[var(--pink-600)] bg-[var(--pink-50)]/45 px-4 py-1.5 rounded-2xl shadow-inner border border-pink-100/20">
+                <span className="font-playfair font-extrabold text-xl sm:text-3xl text-[var(--pink-600)] bg-[var(--pink-50)]/45 px-3 py-1 sm:px-4 sm:py-1.5 rounded-2xl shadow-inner border border-pink-100/20">
                   Rs. {calculateTotal().toLocaleString()}
                 </span>
               </div>
@@ -1349,7 +1316,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-3.5 sm:py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
               >
                 Place Order →
               </button>
@@ -1359,12 +1326,12 @@ export default function Home() {
       </section>
 
       {/* ========== REVIEWS SECTION ========== */}
-      <section id="reviews" className="py-28 px-6 max-w-6xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+      <section id="reviews" className="py-12 sm:py-28 px-4 sm:px-6 max-w-6xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             Customer Reviews
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-2xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
             What Our <span className="text-[var(--pink-500)]">Customers Say</span>
           </h2>
           <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 font-medium">
@@ -1431,7 +1398,7 @@ export default function Home() {
           ].map((rev, idx) => (
             <div
               key={idx}
-              className="flex gap-4 items-start bg-white border border-pink-100 rounded-3xl p-5 sm:p-6 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
+              className="flex gap-3 sm:gap-4 items-start bg-white border border-pink-100 rounded-3xl p-4 sm:p-6 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
             >
               {/* Left Column: Quote Icon & Content */}
               <div className="flex-1 flex gap-3 items-start">
@@ -1474,12 +1441,12 @@ export default function Home() {
       </section>
 
       {/* ========== PAYMENT & GUIDE SECTION (REDESIGNED LUXURY CREDIT CARD CARD) ========== */}
-      <section id="payment" className="py-28 px-6 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+      <section id="payment" className="py-12 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
             How to Order
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
+          <h2 className="font-playfair text-2xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
             Simple <span className="text-[var(--pink-500)]">Payment</span> Process
           </h2>
           <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
@@ -1531,7 +1498,7 @@ export default function Home() {
           </div>
 
           {/* Steps List */}
-          <div className="w-full bg-white border border-pink-100 rounded-[32px] p-6 sm:p-12 shadow-2xl shadow-pink-500/5 border-pink-100/40">
+          <div className="w-full bg-white border border-pink-100 rounded-[32px] p-4 sm:p-8 shadow-2xl shadow-pink-500/5 border-pink-100/40">
             <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mb-10 text-center">
               🎀 How Your Order Works
             </h3>
@@ -1542,7 +1509,7 @@ export default function Home() {
                 "Take a screenshot of the JazzCash receipt and send it via Instagram DM to @box.love.pk",
                 "Once verified, your order confirms and goes into handmade production. No refund after confirmation.",
               ].map((step, idx) => (
-                <div key={idx} className="flex flex-col gap-5 relative bg-pink-50/10 border border-pink-100/20 rounded-2xl p-5">
+                <div key={idx} className="flex flex-col gap-4 relative bg-pink-50/10 border border-pink-100/20 rounded-2xl p-4">
                   <div className="w-12 h-12 rounded-2xl bg-[var(--pink-50)] text-[var(--pink-500)] flex items-center justify-center font-extrabold text-lg shadow-inner">
                     0{idx + 1}
                   </div>
