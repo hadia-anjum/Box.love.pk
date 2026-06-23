@@ -54,6 +54,7 @@ export default function Home() {
   // Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<"form" | "confirmation">("form");
+  const [activeReviewImg, setActiveReviewImg] = useState<string | null>(null);
 
   // Checkout form inputs
   const [formInputs, setFormInputs] = useState({
@@ -1405,13 +1406,13 @@ export default function Home() {
             },
             {
               name: "K******",
-              text: "Inside hanging banner + fairy lights option ordered ki thi. It looks highly premium. Quality was beyond my expectations!",
+              text: "Inside gold handwriting order kiya tha 'always and forever' quote ke sath. It was incredibly beautiful and my fiance loved it!",
               rating: 5,
               img: "/rev6.jpg",
             },
             {
               name: "N******",
-              text: "Silver handwritten box is so elegant and unique. Perfect anniversary gift. Customer support Nazi was really helpful.",
+              text: "Hassan name box with fiance tag and date was customized on top. The ribbon and gold writing are exceptionally neat. Perfect gift choice!",
               rating: 5,
               img: "/rev7.jpg",
             },
@@ -1454,13 +1455,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Right Column: Small Box Image */}
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0">
+              {/* Right Column: Small Box Image with Click to Zoom */}
+              <div
+                onClick={() => setActiveReviewImg(rev.img)}
+                className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0 cursor-zoom-in hover:brightness-95 hover:shadow-md transition-all duration-300"
+                title="Click to zoom image"
+              >
                 <Image
                   src={rev.img}
                   alt="Reviewed box"
                   fill
-                  className="object-cover hover:scale-105 transition-all duration-300"
+                  className="object-cover hover:scale-105 transition-all duration-500"
                 />
               </div>
             </div>
@@ -1572,6 +1577,32 @@ export default function Home() {
           © 2026 box.love.pk — All Rights Reserved
         </p>
       </footer>
+
+      {/* ========== IMAGE LIGHTBOX MODAL ========== */}
+      {activeReviewImg && (
+        <div
+          onClick={() => setActiveReviewImg(null)}
+          className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-zoom-out animate-[modalFadeIn_0.2s_ease-out_forwards]"
+        >
+          <div className="relative max-w-3xl w-full max-h-[90vh] flex items-center justify-center animate-[modalSlideUp_0.25s_ease-out_forwards]">
+            <button
+              onClick={() => setActiveReviewImg(null)}
+              className="absolute top-[-40px] right-0 text-white hover:text-pink-200 text-sm font-black focus:outline-none p-2 bg-black/40 px-4 py-1.5 rounded-full"
+              aria-label="Close image"
+            >
+              ✕ Close
+            </button>
+            <div className="relative w-full h-[70vh] sm:h-[80vh]">
+              <Image
+                src={activeReviewImg}
+                alt="Enlarged box preview"
+                fill
+                className="object-contain rounded-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ========== FLOATING REVIEWS TAB ========== */}
       <a
