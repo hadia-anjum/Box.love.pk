@@ -1042,6 +1042,7 @@ export default function Home() {
                   onClick={() => {
                     const next = !hasBanner;
                     setHasBanner(next);
+                    if (next) setPreviewTab("inside");
                     if (!next) setBannerText("");
                   }}
                   className={`col-span-1 sm:col-span-2 flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
@@ -1123,16 +1124,16 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => {
-                    if (orderType === "custom" && hasInsideMsg) {
+                    if (hasBanner || (orderType === "custom" && hasInsideMsg)) {
                       setPreviewTab("inside");
                     } else if (orderType === "custom") {
                       alert("Please check 'Also Write Inside the Box' above to view the inside message!");
                     } else {
-                      alert("Inside writing is only available on Personalised Boxes!");
+                      alert("Enable the Hanging Banner add-on to preview the inside!");
                     }
                   }}
                   className={`flex-1 font-extrabold text-[11px] sm:text-xs py-2.5 rounded-lg transition-all ${
-                    orderType === "custom" && hasInsideMsg ? "opacity-100" : "opacity-35"
+                    hasBanner || (orderType === "custom" && hasInsideMsg) ? "opacity-100" : "opacity-35"
                   } ${
                     previewTab === "inside"
                       ? "bg-white text-[var(--pink-600)] shadow-md"
@@ -1144,40 +1145,87 @@ export default function Home() {
               </div>
 
               {orderType === "simple" ? (
-                /* Simple box preview display */
-                <div className="flex flex-col items-center justify-center min-h-[220px] bg-gradient-to-br from-[#FFF8FA] to-white border border-pink-100/40 rounded-2xl p-6 shadow-inner text-center">
-                  <span className="text-6xl mb-4 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
-                  <span className="font-dancing text-lg text-[var(--pink-600)] font-black italic">
-                    Simple Luxury Black Box
-                  </span>
-                  <span className="text-[10px] text-[var(--text-light)] uppercase tracking-wider font-bold mt-2">
-                    Ready for delivery
-                  </span>
-                </div>
+                /* Simple box preview — shows banner inside if selected */
+                hasBanner && bannerText.trim().length > 0 ? (
+                  <div className="relative overflow-hidden rounded-2xl shadow-inner bg-[#FFF8FA]" style={{ minHeight: "220px" }}>
+                    <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
+                      Inside of Box
+                    </div>
+                    <div className="absolute top-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none pt-12">
+                      {bannerText.split("\n").filter(l => l.trim().length > 0).map((line, lineIdx) => (
+                        <div key={lineIdx} className="relative flex flex-col items-center w-full mb-0.5">
+                          <svg className="w-full h-4" viewBox="0 0 300 14" preserveAspectRatio="none">
+                            <path d="M0,3 Q75,11 150,3 Q225,11 300,3" stroke="#aaa" strokeWidth="1" fill="none" strokeDasharray="4 2" opacity="0.5"/>
+                          </svg>
+                          <div className="flex items-end gap-0.5 flex-wrap justify-center max-w-[92%]">
+                            {line.split("").map((letter, i) => (
+                              <div key={i} className="flex flex-col items-center">
+                                <div className="w-5 h-6 bg-white border border-gray-200 flex items-center justify-center text-[10px] font-black text-gray-800 shadow-sm"
+                                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%)" }}>
+                                  {letter === " " ? "\u00A0" : letter}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center min-h-[220px] bg-gradient-to-br from-[#FFF8FA] to-white border border-pink-100/40 rounded-2xl p-6 shadow-inner text-center">
+                    <span className="text-6xl mb-4 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
+                    <span className="font-dancing text-lg text-[var(--pink-600)] font-black italic">
+                      Simple Luxury Black Box
+                    </span>
+                    <span className="text-[10px] text-[var(--text-light)] uppercase tracking-wider font-bold mt-2">
+                      Ready for delivery
+                    </span>
+                  </div>
+                )
               ) : (
                 /* Custom box preview mockup */
                 <div className="relative overflow-hidden rounded-2xl shadow-inner bg-[#FFF8FA]">
-                  <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 0%, rgba(194,51,106,0.01) 100%) pointer-events-none" />
-
-                  {/* Top pane view */}
+                                {/* Top pane view — no banner here, banner is inside only */}
                   {previewTab === "top" ? (
                     <div className="box-face-flat border-2 border-[var(--gold)]/35">
                       <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
                         Top of Box
                       </div>
+                      <div className="relative text-center p-6 w-full z-10">
+                        {hasTopMsg && topText.trim().length > 0 ? (
+                          <span className={`live-gold-text ${
+                            inkColor === "silver" ? "silver-ink" : "gold-ink"
+                          } ${getMockupFontSize(topText)}`}>
+                            {topText}
+                          </span>
+                        ) : (
+                          <span className="live-gold-text placeholder-gold">
+                            {hasTopMsg
+                              ? "Start typing your top message... ✨"
+                              : hasBanner
+                              ? "Banner is on Inside — click Inside tab 📖"
+                              : 'Enable "Write on Top" above to preview ✨'}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    /* Inside pane view — shows both inside text AND banner */
+                    <div className="box-face-flat box-face-inside border-2 border-[var(--gold)]/35">
+                      <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
+                        Inside of Box
+                      </div>
 
-                      {/* Hanging Banner Preview */}
+                      {/* Banner preview inside the box */}
                       {hasBanner && bannerText.trim().length > 0 && (() => {
                         const lines = bannerText.split("\n").filter(l => l.trim().length > 0);
                         return (
                           <div className="absolute top-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none" style={{ paddingTop: "4px" }}>
                             {lines.map((line, lineIdx) => (
                               <div key={lineIdx} className="relative flex flex-col items-center w-full mb-0.5">
-                                {/* Ribbon string */}
                                 <svg className="w-full h-4" viewBox="0 0 300 14" preserveAspectRatio="none">
-                                  <path d="M0,3 Q75,11 150,3 Q225,11 300,3" stroke="#888" strokeWidth="1" fill="none" strokeDasharray="4 2" opacity="0.55"/>
+                                  <path d="M0,3 Q75,11 150,3 Q225,11 300,3" stroke="#ccc" strokeWidth="1" fill="none" strokeDasharray="4 2" opacity="0.6"/>
                                 </svg>
-                                {/* Flag tiles for this line */}
                                 <div className="flex items-end gap-0.5 flex-wrap justify-center max-w-[92%]">
                                   {line.split("").map((letter, i) => (
                                     <div key={i} className="flex flex-col items-center">
@@ -1196,44 +1244,24 @@ export default function Home() {
                         );
                       })()}
 
-                      <div className="relative text-center p-6 w-full z-10" style={{ paddingTop: hasBanner && bannerText.trim().length > 0 ? `${(bannerText.split("\n").filter(l => l.trim().length > 0).length * 2.2) + 0.5}rem` : "1.5rem" }}>
-                        {hasTopMsg && topText.trim().length > 0 ? (
-                          <span
-                            className={`live-gold-text ${
-                              inkColor === "silver" ? "silver-ink" : "gold-ink"
-                            } ${getMockupFontSize(topText)}`}
-                          >
-                            {topText}
-                          </span>
-                        ) : (
-                          <span className="live-gold-text placeholder-gold">
-                            {hasBanner
-                              ? (bannerText.trim().length === 0 ? "Type banner text above... 🎏" : "")
-                              : hasTopMsg
-                              ? "Start typing your top message... ✨"
-                              : 'Enable "Write on Top" above to preview ✨'}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    /* Inside pane view */
-                    <div className="box-face-flat box-face-inside border-2 border-[var(--gold)]/35">
-                      <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
-                        Inside of Box
-                      </div>
-                      <div className="relative text-center p-6 w-full z-10">
+                      <div className="relative text-center p-6 w-full z-10" style={{
+                        paddingTop: hasBanner && bannerText.trim().length > 0
+                          ? `${(bannerText.split("\n").filter(l => l.trim().length > 0).length * 2.2) + 0.5}rem`
+                          : "1.5rem"
+                      }}>
                         {hasInsideMsg && insideText.trim().length > 0 ? (
-                          <span
-                            className={`live-gold-text ${
-                              inkColor === "silver" ? "silver-ink" : "gold-ink"
-                            } ${getMockupFontSize(insideText, true)}`}
-                          >
+                          <span className={`live-gold-text ${
+                            inkColor === "silver" ? "silver-ink" : "gold-ink"
+                          } ${getMockupFontSize(insideText, true)}`}>
                             {insideText}
                           </span>
                         ) : (
                           <span className="live-gold-text placeholder-gold">
-                            {hasInsideMsg
+                            {hasBanner && bannerText.trim().length === 0
+                              ? "Type banner text in Step 3 above... 🎏"
+                              : hasBanner
+                              ? ""
+                              : hasInsideMsg
                               ? "Type your inside message above... 💕"
                               : 'Enable "Write Inside" above to preview 💕'}
                           </span>
