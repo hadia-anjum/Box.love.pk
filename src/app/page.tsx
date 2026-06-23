@@ -139,8 +139,8 @@ export default function Home() {
     if (orderType === "custom") {
       if (hasTopMsg) total += PRICES.top;
       if (hasInsideMsg) total += PRICES.inside;
-      if (hasBanner) total += PRICES.banner;
     }
+    if (hasBanner) total += PRICES.banner;
     if (addons.fairy) total += PRICES.fairy;
     if (addons.ribbon) total += PRICES.ribbon;
     return total;
@@ -1035,7 +1035,72 @@ export default function Home() {
                     + Rs. 100
                   </div>
                 </button>
+
+                {/* Hanging Banner Card — full width */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = !hasBanner;
+                    setHasBanner(next);
+                    if (!next) setBannerText("");
+                  }}
+                  className={`col-span-1 sm:col-span-2 flex items-center gap-4 border-2 text-left rounded-2xl p-5 cursor-pointer transition-all duration-300 focus:outline-none ${
+                    hasBanner
+                      ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                      : "border-dashed border-pink-200 bg-white hover:border-pink-400 hover:shadow-md"
+                  }`}
+                >
+                  <div
+                    className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white shrink-0 transition-all ${
+                      hasBanner
+                        ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
+                        : "border-pink-200 bg-white"
+                    }`}
+                  >
+                    {hasBanner && "✓"}
+                  </div>
+                  <div className="grow">
+                    <strong className="block text-xs sm:text-sm text-[var(--dark-2)]">
+                      🎏 Hanging Banner on Box
+                    </strong>
+                    <span className="text-[10px] text-[var(--text-light)] font-medium">
+                      Letter-flag bunting — e.g. &quot;HAPPY BIRTHDAY&quot; or &quot;I LOVE YOU&quot;
+                    </span>
+                  </div>
+                  <div className="font-extrabold text-[var(--pink-600)] text-xs sm:text-sm shrink-0">
+                    + Rs. 350
+                  </div>
+                </button>
               </div>
+
+              {/* Banner text input — shown when banner is selected */}
+              {hasBanner && (
+                <div className="mt-5 border-2 border-pink-200 rounded-2xl p-4 bg-gradient-to-br from-white to-pink-50/30">
+                  <p className="text-[11px] font-bold text-[var(--dark-2)] mb-1">
+                    🎏 What should the banner say?
+                  </p>
+                  <p className="text-[10px] text-pink-400 font-semibold mb-3">
+                    💡 Tip: Press Enter for a new line (e.g. &quot;HAPPY&quot; then &quot;BIRTHDAY&quot;)
+                  </p>
+                  <textarea
+                    value={bannerText}
+                    onChange={(e) => {
+                      const val = e.target.value.toUpperCase();
+                      const nonBreakChars = val.replace(/\n/g, "").length;
+                      if (nonBreakChars <= 35) setBannerText(val);
+                    }}
+                    rows={3}
+                    placeholder={"E.g.\nHAPPY\nBIRTHDAY"}
+                    className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal resize-none"
+                  />
+                  <div className="flex justify-between mt-2">
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">
+                      {bannerText.replace(/\n/g, "").length} / 35 chars
+                    </span>
+                    <span className="text-[10px] text-pink-400 font-semibold">Each letter = 1 flag tile</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -1211,7 +1276,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {orderType === "custom" && hasBanner && (
+                {hasBanner && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>🎏 Hanging Banner{bannerText.trim() ? ` — "${bannerText.replace(/\n/g, " / ")}"` : ""}</span>
                     <span className="font-extrabold text-[var(--dark-2)]">Rs. 350</span>
