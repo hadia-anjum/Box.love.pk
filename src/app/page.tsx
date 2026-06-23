@@ -8,7 +8,7 @@ const PRICES = {
   box: 1600,
   top: 300,
   inside: 300,
-  banner: 200,
+  banner: 350,
   fairy: 300,
   ribbon: 100,
   delivery: 400,
@@ -928,24 +928,34 @@ export default function Home() {
                       🎏 Add Hanging Banner on Box
                     </button>
                     <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
-                      + Rs. 200
+                      + Rs. 350
                     </span>
                   </div>
-                  <p className="text-[10px] text-[var(--text-light)] font-semibold mb-3 ml-8">
-                    Letter-flag bunting hung on the box top — perfect for &quot;Happy Birthday&quot;, &quot;I Love You&quot;, names, etc.
+                  <p className="text-[10px] text-[var(--text-light)] font-semibold mb-1 ml-8">
+                    Letter-flag bunting hung on the box — great alternative to inside writing or as an extra!
                   </p>
-                  <input
-                    type="text"
+                  <p className="text-[10px] text-pink-400 font-semibold mb-3 ml-8">
+                    💡 Tip: Press Enter for a new line (e.g. &quot;HAPPY&quot; then &quot;BIRTHDAY&quot;)
+                  </p>
+                  <textarea
                     disabled={!hasBanner}
                     value={bannerText}
-                    onChange={(e) => setBannerText(e.target.value.toUpperCase())}
-                    maxLength={20}
-                    placeholder={hasBanner ? "E.g. HAPPY BIRTHDAY" : "Check box to add banner"}
-                    className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal"
+                    onChange={(e) => {
+                      // Allow letters, spaces, newlines only — uppercase
+                      const val = e.target.value.toUpperCase();
+                      // Count only non-newline chars toward limit
+                      const nonBreakChars = val.replace(/\n/g, "").length;
+                      if (nonBreakChars <= 35) setBannerText(val);
+                    }}
+                    rows={3}
+                    placeholder={hasBanner ? "E.g.\nHAPPY\nBIRTHDAY" : "Check box to add banner"}
+                    className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal resize-none"
                   />
                   <div className="flex justify-between mt-2">
-                    <span className="text-[10px] text-[var(--text-light)] font-bold">{bannerText.length} / 20 chars</span>
-                    <span className="text-[10px] text-pink-400 font-semibold">Letters will appear on individual flag tiles</span>
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">
+                      {bannerText.replace(/\n/g, "").length} / 35 chars
+                    </span>
+                    <span className="text-[10px] text-pink-400 font-semibold">Each letter = 1 flag tile</span>
                   </div>
                 </div>
               </div>
@@ -1092,32 +1102,36 @@ export default function Home() {
                       </div>
 
                       {/* Hanging Banner Preview */}
-                      {hasBanner && bannerText.trim().length > 0 && (
-                        <div className="absolute top-0 left-0 right-0 z-30 flex flex-col items-center pt-3 pointer-events-none">
-                          {/* Ribbon string */}
-                          <svg className="w-full h-6 absolute top-2" viewBox="0 0 300 20" preserveAspectRatio="none">
-                            <path d="M0,4 Q75,16 150,4 Q225,16 300,4" stroke="#888" strokeWidth="1.2" fill="none" strokeDasharray="4 2" opacity="0.6"/>
-                          </svg>
-                          {/* Flag tiles */}
-                          <div className="flex items-end gap-0.5 mt-1 flex-wrap justify-center max-w-[90%]">
-                            {bannerText.split("").map((letter, i) => (
-                              <div
-                                key={i}
-                                className="flex flex-col items-center"
-                                style={{ animationDelay: `${i * 0.05}s` }}
-                              >
-                                <div className="w-5 h-6 bg-white border border-gray-300 flex items-center justify-center text-[10px] font-black text-gray-800 shadow-sm"
-                                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%)" }}
-                                >
-                                  {letter === " " ? "\u00A0" : letter}
+                      {hasBanner && bannerText.trim().length > 0 && (() => {
+                        const lines = bannerText.split("\n").filter(l => l.trim().length > 0);
+                        return (
+                          <div className="absolute top-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none" style={{ paddingTop: "4px" }}>
+                            {lines.map((line, lineIdx) => (
+                              <div key={lineIdx} className="relative flex flex-col items-center w-full mb-0.5">
+                                {/* Ribbon string */}
+                                <svg className="w-full h-4" viewBox="0 0 300 14" preserveAspectRatio="none">
+                                  <path d="M0,3 Q75,11 150,3 Q225,11 300,3" stroke="#888" strokeWidth="1" fill="none" strokeDasharray="4 2" opacity="0.55"/>
+                                </svg>
+                                {/* Flag tiles for this line */}
+                                <div className="flex items-end gap-0.5 flex-wrap justify-center max-w-[92%]">
+                                  {line.split("").map((letter, i) => (
+                                    <div key={i} className="flex flex-col items-center">
+                                      <div
+                                        className="w-4 h-5 bg-white border border-gray-300 flex items-center justify-center text-[9px] font-black text-gray-800 shadow-sm"
+                                        style={{ clipPath: "polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%)" }}
+                                      >
+                                        {letter === " " ? "\u00A0" : letter}
+                                      </div>
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
                             ))}
                           </div>
-                        </div>
-                      )}
+                        );
+                      })()}
 
-                      <div className="relative text-center p-6 w-full z-10" style={{ paddingTop: hasBanner && bannerText.trim().length > 0 ? "3.5rem" : "1.5rem" }}>
+                      <div className="relative text-center p-6 w-full z-10" style={{ paddingTop: hasBanner && bannerText.trim().length > 0 ? `${(bannerText.split("\n").filter(l => l.trim().length > 0).length * 2.2) + 0.5}rem` : "1.5rem" }}>
                         {hasTopMsg && topText.trim().length > 0 ? (
                           <span
                             className={`live-gold-text ${
@@ -1199,8 +1213,8 @@ export default function Home() {
 
                 {orderType === "custom" && hasBanner && (
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
-                    <span>🎏 Hanging Banner{bannerText.trim() ? ` — "${bannerText}"` : ""}</span>
-                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 200</span>
+                    <span>🎏 Hanging Banner{bannerText.trim() ? ` — "${bannerText.replace(/\n/g, " / ")}"` : ""}</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 350</span>
                   </div>
                 )}
 
