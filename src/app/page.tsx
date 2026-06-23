@@ -1377,56 +1377,91 @@ export default function Home() {
               name: "S******",
               text: "The quality of the black box is outstanding. The golden writing looks extremely premium and neat. I ordered one for my husband and he loved it! Worth every rupee!",
               rating: 5,
+              img: "/rev1.jpg",
             },
             {
               name: "A******",
               text: "Bohot pyara box hai. The hanging banner inside is so cute and the fairy lights look magical in the dark. Delivery was also very fast. Thank you box.love.pk!",
               rating: 5,
+              img: "/rev2.jpg",
             },
             {
               name: "F******",
               text: "Ordered a customized anniversary box. The ink quality is top-notch, gold color looks so elegant on black velvet. Nazi was very helpful in customizing the text.",
               rating: 5,
+              img: "/rev3.jpg",
             },
             {
               name: "Z******",
               text: "Literally the best gift option in Faisalabad. Simple box decorated with ribbon was exactly what I wanted. Transparent pricing and secure JazzCash payment.",
               rating: 5,
+              img: "/rev4.jpg",
             },
             {
               name: "M******",
               text: "Inside or outside dono messages perfect likhe hue thy. Character limit bhi abundant hai. Will order more for sure.",
               rating: 5,
+              img: "/rev5.jpg",
             },
             {
               name: "K******",
               text: "Hanging banner and fairy lights option is a game-changer! Pure premium feel and perfect finish. Instagram page guidelines were very clear.",
               rating: 5,
+              img: "/rev6.jpg",
+            },
+            {
+              name: "N******",
+              text: "Mainay customized box order kiya tha black and gold ink mai. It was so elegant. Highly recommend box.love.pk for quality work.",
+              rating: 5,
+              img: "/rev7.jpg",
+            },
+            {
+              name: "H******",
+              text: "The ribbon bows are so neatly tied. The velvet touch of the luxury black box feels extremely premium. Perfect value for money!",
+              rating: 5,
+              img: "/rev8.jpg",
+            },
+            {
+              name: "R******",
+              text: "Fairy lights inside the box created the best vibe when my friend opened it. Writing inside the lid was super neat and beautiful.",
+              rating: 5,
+              img: "/rev9.jpg",
             },
           ].map((rev, idx) => (
             <div
               key={idx}
-              className="flex gap-4 items-start bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
+              className="flex gap-4 items-start bg-white border border-pink-100 rounded-3xl p-5 sm:p-6 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Left Column: Large double quote mark */}
-              <div className="text-[var(--pink-400)]/20 shrink-0 select-none">
-                <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
+              {/* Left Column: Quote Icon & Content */}
+              <div className="flex-1 flex gap-3 items-start">
+                <div className="text-[var(--pink-400)]/20 shrink-0 select-none">
+                  <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <p className="text-[var(--text-mid)] text-xs sm:text-sm leading-relaxed font-semibold">
+                    {rev.text}
+                  </p>
+                  <div className="text-[var(--dark-2)] text-xs font-black tracking-widest uppercase mt-1">
+                    {rev.name}
+                  </div>
+                  <div className="flex gap-0.5 text-amber-500 text-sm">
+                    {Array.from({ length: rev.rating }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              {/* Right Column: Review Content */}
-              <div className="flex flex-col gap-2">
-                <p className="text-[var(--text-mid)] text-sm leading-relaxed font-semibold">
-                  {rev.text}
-                </p>
-                <div className="text-[var(--dark-2)] text-xs font-black tracking-widest uppercase mt-2">
-                  {rev.name}
-                </div>
-                <div className="flex gap-0.5 text-amber-500 text-sm">
-                  {Array.from({ length: rev.rating }).map((_, i) => (
-                    <span key={i}>★</span>
-                  ))}
-                </div>
+
+              {/* Right Column: Small Box Image */}
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0">
+                <Image
+                  src={rev.img}
+                  alt="Reviewed box"
+                  fill
+                  className="object-cover hover:scale-105 transition-all duration-300"
+                />
               </div>
             </div>
           ))}
