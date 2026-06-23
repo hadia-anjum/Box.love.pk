@@ -19,9 +19,9 @@ export async function sendThankYouEmail(orderData: any) {
       },
     });
 
-    const hasCustomText = orderData.topText || orderData.insideText;
+    const hasCustomText = orderData.topText || orderData.insideText || orderData.bannerText;
     const customTextSummary = hasCustomText
-      ? `\n- Lid Message: "${orderData.topText || 'None'}"\n- Inside Message: "${orderData.insideText || 'None'}"`
+      ? `${orderData.topText ? `\n- Lid Message: "${orderData.topText}"` : ''}${orderData.insideText ? `\n- Inside Message: "${orderData.insideText}"` : ''}${orderData.bannerText ? `\n- Hanging Banner: "${orderData.bannerText}"` : ''}`
       : "";
 
     const mailOptions = {
@@ -54,6 +54,7 @@ export async function sendThankYouEmail(orderData: any) {
             ${orderData.inkColor && orderData.inkColor !== "N/A" ? `<li><strong>Ink Color:</strong> ${orderData.inkColor}</li>` : ''}
             ${orderData.topText ? `<li><strong>Lid Message:</strong> "${orderData.topText}"</li>` : ''}
             ${orderData.insideText ? `<li><strong>Inside Message:</strong> "${orderData.insideText}"</li>` : ''}
+            ${orderData.bannerText ? `<li><strong>Hanging Banner Text:</strong> "${orderData.bannerText}"</li>` : ''}
             <li><strong>Add-ons:</strong> ${orderData.addons}</li>
             <li><strong>Total Price:</strong> Rs. ${orderData.total}</li>
           </ul>
@@ -100,9 +101,9 @@ export async function sendNewOrderAlertToAdmin(orderData: any) {
       },
     });
 
-    const hasCustomText = orderData.topText || orderData.insideText;
+    const hasCustomText = orderData.topText || orderData.insideText || orderData.bannerText;
     const customTextSummary = hasCustomText
-      ? `\n- Lid Message: "${orderData.topText || 'None'}"\n- Inside Message: "${orderData.insideText || 'None'}"`
+      ? `${orderData.topText ? `\n- Lid Message: "${orderData.topText}"` : ''}${orderData.insideText ? `\n- Inside Message: "${orderData.insideText}"` : ''}${orderData.bannerText ? `\n- Hanging Banner: "${orderData.bannerText}"` : ''}`
       : "";
 
     const mailOptions = {
@@ -143,6 +144,7 @@ export async function sendNewOrderAlertToAdmin(orderData: any) {
             <tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold;">Ink Color:</td><td style="padding: 6px 0;">${orderData.inkColor}</td></tr>
             ${orderData.topText ? `<tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; vertical-align: top;">Lid Message:</td><td style="padding: 6px 0; font-style: italic; white-space: pre-wrap;">"${orderData.topText}"</td></tr>` : ''}
             ${orderData.insideText ? `<tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; vertical-align: top;">Inside Message:</td><td style="padding: 6px 0; font-style: italic; white-space: pre-wrap;">"${orderData.insideText}"</td></tr>` : ''}
+            ${orderData.bannerText ? `<tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold; vertical-align: top;">Hanging Banner:</td><td style="padding: 6px 0; font-style: italic; font-weight: bold; letter-spacing: 2px;">"${orderData.bannerText}"</td></tr>` : ''}
             <tr style="border-bottom: 1px solid #fff0f4;"><td style="padding: 6px 0; font-weight: bold;">Add-ons:</td><td style="padding: 6px 0;">${orderData.addons}</td></tr>
             <tr><td style="padding: 10px 0 0 0; font-weight: bold; color: #b5224d; font-size: 16px;">Total Price:</td><td style="padding: 10px 0 0 0; color: #b5224d; font-weight: bold; font-size: 16px;">Rs. ${orderData.total}</td></tr>
           </table>

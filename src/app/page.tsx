@@ -8,6 +8,7 @@ const PRICES = {
   box: 1600,
   top: 300,
   inside: 300,
+  banner: 200,
   fairy: 300,
   ribbon: 100,
   delivery: 400,
@@ -26,6 +27,7 @@ interface OrderData {
   inkColor: string;
   topText: string;
   insideText: string;
+  bannerText: string;
   addons: string;
   total: string;
 }
@@ -36,8 +38,10 @@ export default function Home() {
   const [inkColor, setInkColor] = useState<"gold" | "silver">("gold");
   const [hasTopMsg, setHasTopMsg] = useState(false);
   const [hasInsideMsg, setHasInsideMsg] = useState(false);
+  const [hasBanner, setHasBanner] = useState(false);
   const [topText, setTopText] = useState("");
   const [insideText, setInsideText] = useState("");
+  const [bannerText, setBannerText] = useState("");
   const [addons, setAddons] = useState({ fairy: false, ribbon: false });
 
   // Preview tab state
@@ -135,6 +139,7 @@ export default function Home() {
     if (orderType === "custom") {
       if (hasTopMsg) total += PRICES.top;
       if (hasInsideMsg) total += PRICES.inside;
+      if (hasBanner) total += PRICES.banner;
     }
     if (addons.fairy) total += PRICES.fairy;
     if (addons.ribbon) total += PRICES.ribbon;
@@ -275,6 +280,7 @@ export default function Home() {
       inkColor: orderType === "custom" ? inkColor : "N/A",
       topText: orderType === "custom" && hasTopMsg ? topText : "",
       insideText: orderType === "custom" && hasInsideMsg ? insideText : "",
+      bannerText: orderType === "custom" && hasBanner ? bannerText : "",
       addons: addonsList.join(", ") || "None",
       total: orderTotal.toLocaleString(),
     };
@@ -839,7 +845,7 @@ export default function Home() {
                 </div>
 
                 {/* Inside of Box Message */}
-                <div className="border border-pink-100/70 rounded-2xl p-5 hover:shadow-md transition-all duration-300 bg-white">
+                <div className="border border-pink-100/70 rounded-2xl p-5 mb-5 hover:shadow-md transition-all duration-300 bg-white">
                   <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
@@ -895,6 +901,51 @@ export default function Home() {
                         {isSavedMsgInside ? "✅ Saved!" : "💾 Save Message"}
                       </button>
                     )}
+                  </div>
+                </div>
+
+                {/* Hanging Banner */}
+                <div className="border-2 border-dashed border-pink-200 rounded-2xl p-5 hover:shadow-md transition-all duration-300 bg-gradient-to-br from-white to-pink-50/30">
+                  <div className="flex items-center justify-between mb-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const next = !hasBanner;
+                        setHasBanner(next);
+                        if (!next) setBannerText("");
+                      }}
+                      className="flex items-center gap-3 text-left focus:outline-none font-bold text-xs sm:text-sm text-[var(--dark-2)]"
+                    >
+                      <div
+                        className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center text-[11px] text-white transition-all shadow-inner ${
+                          hasBanner
+                            ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
+                            : "border-pink-200 bg-white"
+                        }`}
+                      >
+                        {hasBanner && "✓"}
+                      </div>
+                      🎏 Add Hanging Banner on Box
+                    </button>
+                    <span className="text-xs font-extrabold text-[var(--pink-600)] bg-[var(--pink-50)] px-3.5 py-1 rounded-full shadow-inner border border-pink-100/30">
+                      + Rs. 200
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-[var(--text-light)] font-semibold mb-3 ml-8">
+                    Letter-flag bunting hung on the box top — perfect for &quot;Happy Birthday&quot;, &quot;I Love You&quot;, names, etc.
+                  </p>
+                  <input
+                    type="text"
+                    disabled={!hasBanner}
+                    value={bannerText}
+                    onChange={(e) => setBannerText(e.target.value.toUpperCase())}
+                    maxLength={20}
+                    placeholder={hasBanner ? "E.g. HAPPY BIRTHDAY" : "Check box to add banner"}
+                    className="w-full bg-white border-2 border-pink-100 focus:border-pink-400 focus:ring-1 focus:ring-pink-200 rounded-xl p-3 text-sm focus:outline-none text-[var(--dark-2)] font-bold tracking-widest disabled:opacity-50 disabled:bg-zinc-50/50 transition-colors uppercase placeholder:normal-case placeholder:font-normal placeholder:tracking-normal"
+                  />
+                  <div className="flex justify-between mt-2">
+                    <span className="text-[10px] text-[var(--text-light)] font-bold">{bannerText.length} / 20 chars</span>
+                    <span className="text-[10px] text-pink-400 font-semibold">Letters will appear on individual flag tiles</span>
                   </div>
                 </div>
               </div>
@@ -1039,7 +1090,34 @@ export default function Home() {
                       <div className="absolute top-3.5 left-3.5 bg-white/20 border border-white/10 backdrop-blur-md rounded-lg px-3 py-1 text-[9px] font-bold text-white/80 uppercase tracking-widest z-20 shadow-sm">
                         Top of Box
                       </div>
-                      <div className="relative text-center p-6 w-full z-10">
+
+                      {/* Hanging Banner Preview */}
+                      {hasBanner && bannerText.trim().length > 0 && (
+                        <div className="absolute top-0 left-0 right-0 z-30 flex flex-col items-center pt-3 pointer-events-none">
+                          {/* Ribbon string */}
+                          <svg className="w-full h-6 absolute top-2" viewBox="0 0 300 20" preserveAspectRatio="none">
+                            <path d="M0,4 Q75,16 150,4 Q225,16 300,4" stroke="#888" strokeWidth="1.2" fill="none" strokeDasharray="4 2" opacity="0.6"/>
+                          </svg>
+                          {/* Flag tiles */}
+                          <div className="flex items-end gap-0.5 mt-1 flex-wrap justify-center max-w-[90%]">
+                            {bannerText.split("").map((letter, i) => (
+                              <div
+                                key={i}
+                                className="flex flex-col items-center"
+                                style={{ animationDelay: `${i * 0.05}s` }}
+                              >
+                                <div className="w-5 h-6 bg-white border border-gray-300 flex items-center justify-center text-[10px] font-black text-gray-800 shadow-sm"
+                                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%)" }}
+                                >
+                                  {letter === " " ? "\u00A0" : letter}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="relative text-center p-6 w-full z-10" style={{ paddingTop: hasBanner && bannerText.trim().length > 0 ? "3.5rem" : "1.5rem" }}>
                         {hasTopMsg && topText.trim().length > 0 ? (
                           <span
                             className={`live-gold-text ${
@@ -1050,7 +1128,9 @@ export default function Home() {
                           </span>
                         ) : (
                           <span className="live-gold-text placeholder-gold">
-                            {hasTopMsg
+                            {hasBanner
+                              ? (bannerText.trim().length === 0 ? "Type banner text above... 🎏" : "")
+                              : hasTopMsg
                               ? "Start typing your top message... ✨"
                               : 'Enable "Write on Top" above to preview ✨'}
                           </span>
@@ -1114,6 +1194,13 @@ export default function Home() {
                   <div className="flex justify-between items-center text-[var(--text-mid)]">
                     <span>📖 Writing Inside ({inkColor === "silver" ? "Silver" : "Gold"})</span>
                     <span className="font-extrabold text-[var(--dark-2)]">Rs. 300</span>
+                  </div>
+                )}
+
+                {orderType === "custom" && hasBanner && (
+                  <div className="flex justify-between items-center text-[var(--text-mid)]">
+                    <span>🎏 Hanging Banner{bannerText.trim() ? ` — "${bannerText}"` : ""}</span>
+                    <span className="font-extrabold text-[var(--dark-2)]">Rs. 200</span>
                   </div>
                 )}
 
