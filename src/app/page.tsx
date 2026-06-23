@@ -352,8 +352,8 @@ export default function Home() {
         </a>
 
         <ul className="hidden md:flex items-center gap-10">
-          {["Our Boxes", "Build Yours", "Pricing", "How to Order"].map((section, idx) => {
-            const anchor = ["#showcase", "#builder", "#pricing", "#payment"][idx];
+          {["Our Boxes", "Build Yours", "Our Reviews", "How to Order"].map((section, idx) => {
+            const anchor = ["#showcase", "#builder", "#reviews", "#payment"][idx];
             return (
               <li key={section}>
                 <a
@@ -401,8 +401,8 @@ export default function Home() {
         {/* Mobile menu drop down */}
         {menuOpen && (
           <div className="absolute top-[100%] left-0 right-0 bg-white/95 border-b border-pink-100 shadow-2xl backdrop-blur-2xl flex flex-col p-8 gap-6 md:hidden animate-fade-in z-50 rounded-b-3xl">
-            {["Our Boxes", "Build Yours", "Pricing", "How to Order"].map((section, idx) => {
-              const anchor = ["#showcase", "#builder", "#pricing", "#payment"][idx];
+            {["Our Boxes", "Build Yours", "Our Reviews", "How to Order"].map((section, idx) => {
+              const anchor = ["#showcase", "#builder", "#reviews", "#payment"][idx];
               return (
                 <a
                   key={section}
@@ -1357,65 +1357,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== PRICING TABLE SECTION ========== */}
-      <section id="pricing" className="py-28 px-6 max-w-4xl mx-auto z-10 relative">
+      {/* ========== REVIEWS SECTION ========== */}
+      <section id="reviews" className="py-28 px-6 max-w-6xl mx-auto z-10 relative">
         <div className="text-center max-w-2xl mx-auto mb-20">
           <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
-            Price Breakdown
+            Customer Reviews
           </div>
           <h2 className="font-playfair text-3xl sm:text-4xl font-extrabold text-[var(--dark-2)]">
-            What's <span className="text-[var(--pink-500)]">Included</span>
+            What Our <span className="text-[var(--pink-500)]">Customers Say</span>
           </h2>
           <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 font-medium">
-            Clear, honest pricing — no hidden charges
+            Genuine experiences from people who ordered our customized luxury boxes
           </p>
         </div>
 
-        <div className="bg-white border border-pink-100 rounded-3xl overflow-hidden shadow-2xl shadow-pink-500/5">
-          <div className="flex justify-between items-center bg-gradient-to-r from-[var(--pink-50)] to-[#FFFFFF] p-5 font-bold text-xs uppercase tracking-widest text-[var(--text-mid)] border-b border-pink-100/70">
-            <span>Item</span>
-            <span>Price</span>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { name: "Black Luxury Box", label: "Always Included", price: "Rs. 1,600" },
-            { name: "Writing on Top", label: "Optional", price: "Rs. 300" },
-            { name: "Writing Inside", label: "Optional", price: "Rs. 300" },
-            { name: "Golden Ink", label: "Choose One", price: "Included" },
-            { name: "Silver Ink", label: "Choose One", price: "Included" },
-            { name: "Fairy Lights", label: "Optional", price: "Rs. 300" },
-            { name: "Ribbon Bow", label: "Optional", price: "Rs. 100" },
             {
-              name: "Delivery Charges",
-              label: "Always Added",
-              price: "Rs. 400",
-              highlight: true,
+              name: "S******",
+              text: "The quality of the black box is outstanding. The golden writing looks extremely premium and neat. I ordered one for my husband and he loved it! Worth every rupee!",
+              rating: 5,
             },
-          ].map((row, idx) => (
+            {
+              name: "A******",
+              text: "Bohot pyara box hai. The hanging banner inside is so cute and the fairy lights look magical in the dark. Delivery was also very fast. Thank you box.love.pk!",
+              rating: 5,
+            },
+            {
+              name: "F******",
+              text: "Ordered a customized anniversary box. The ink quality is top-notch, gold color looks so elegant on black velvet. Nazi was very helpful in customizing the text.",
+              rating: 5,
+            },
+            {
+              name: "Z******",
+              text: "Literally the best gift option in Faisalabad. Simple box decorated with ribbon was exactly what I wanted. Transparent pricing and secure JazzCash payment.",
+              rating: 5,
+            },
+            {
+              name: "M******",
+              text: "Inside or outside dono messages perfect likhe hue thy. Character limit bhi abundant hai. Will order more for sure.",
+              rating: 5,
+            },
+            {
+              name: "K******",
+              text: "Hanging banner and fairy lights option is a game-changer! Pure premium feel and perfect finish. Instagram page guidelines were very clear.",
+              rating: 5,
+            },
+          ].map((rev, idx) => (
             <div
               key={idx}
-              className={`flex justify-between items-center px-6 py-5 text-xs sm:text-sm border-b border-pink-50/50 last:border-none ${
-                row.highlight ? "bg-[var(--pink-50)]/45" : ""
-              }`}
+              className="flex gap-4 items-start bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
             >
-              <span className="font-bold text-[var(--dark-2)] flex flex-wrap items-center gap-2">
-                {row.name}
-                <span className="text-[9px] font-black text-[var(--text-light)] border border-pink-200/50 bg-white px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                  {row.label}
-                </span>
-              </span>
-              <span className="font-extrabold text-[var(--text-mid)]">{row.price}</span>
+              {/* Left Column: Large double quote mark */}
+              <div className="text-[var(--pink-400)]/20 shrink-0 select-none">
+                <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+              {/* Right Column: Review Content */}
+              <div className="flex flex-col gap-2">
+                <p className="text-[var(--text-mid)] text-sm leading-relaxed font-semibold">
+                  {rev.text}
+                </p>
+                <div className="text-[var(--dark-2)] text-xs font-black tracking-widest uppercase mt-2">
+                  {rev.name}
+                </div>
+                <div className="flex gap-0.5 text-amber-500 text-sm">
+                  {Array.from({ length: rev.rating }).map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
-
-          <div className="flex justify-between items-center bg-[var(--pink-100)]/30 px-6 py-6 border-t border-pink-200/60">
-            <span className="font-bold text-sm sm:text-base text-[var(--pink-600)]">
-              Simple Box (Min Order)
-            </span>
-            <span className="font-playfair font-black text-xl sm:text-2xl text-[var(--dark-2)]">
-              Rs. 2,000
-            </span>
-          </div>
         </div>
       </section>
 
@@ -1523,6 +1537,18 @@ export default function Home() {
           © 2026 box.love.pk — All Rights Reserved
         </p>
       </footer>
+
+      {/* ========== FLOATING REVIEWS TAB ========== */}
+      <a
+        href="#reviews"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-[var(--pink-600)] text-white font-black text-xs tracking-wider py-4 px-2.5 rounded-l-2xl shadow-xl shadow-pink-600/20 hover:bg-[var(--pink-500)] hover:pl-3.5 transition-all duration-300 cursor-pointer"
+        style={{
+          writingMode: "vertical-rl",
+          textOrientation: "mixed",
+        }}
+      >
+        Our Reviews
+      </a>
 
       {/* ========== CHECKOUT MODAL ========== */}
       {modalOpen && (
