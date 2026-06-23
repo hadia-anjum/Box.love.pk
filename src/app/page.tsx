@@ -231,6 +231,7 @@ export default function Home() {
 
     if (
       !formInputs.email ||
+      !formInputs.fname ||
       !formInputs.lname ||
       !formInputs.address ||
       !formInputs.city ||
@@ -1706,7 +1707,8 @@ export default function Home() {
                     <input
                       type="text"
                       id="chk-fname"
-                      placeholder="First name (optional)"
+                      required
+                      placeholder="First name"
                       value={formInputs.fname}
                       onChange={handleInputChange}
                       className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm"
