@@ -214,3 +214,12 @@ body {
   text-shadow: none;
   font-style: italic;
 }
+
+/* Scrollbar hide utility for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

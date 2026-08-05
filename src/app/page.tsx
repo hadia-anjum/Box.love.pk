@@ -14,6 +14,132 @@ const PRICES = {
   delivery: 400,
 };
 
+// Collections Data
+const COLLECTIONS = [
+  {
+    id: "movies",
+    name: "Movies & Anime",
+    emoji: "🎬",
+    themes: [
+      { name: "Spider-Man", emoji: "🕷️" },
+      { name: "Batman", emoji: "🦇" },
+      { name: "Deadpool", emoji: "❤️" },
+      { name: "Naruto", emoji: "🍥" },
+      { name: "One Piece", emoji: "☠️" },
+      { name: "Jujutsu Kaisen", emoji: "👁️" },
+    ],
+  },
+  {
+    id: "cars",
+    name: "Cars Collection",
+    emoji: "🚗",
+    themes: [
+      { name: "BMW M", emoji: "🏎️" },
+      { name: "Mercedes AMG", emoji: "⭐" },
+      { name: "Porsche", emoji: "🏁" },
+      { name: "Ferrari", emoji: "🐎" },
+      { name: "Bugatti", emoji: "💨" },
+      { name: "Formula 1", emoji: "🏎️" },
+    ],
+  },
+  {
+    id: "gaming",
+    name: "Gaming Collection",
+    emoji: "🎮",
+    themes: [
+      { name: "PlayStation 5", emoji: "🎮" },
+      { name: "Valorant", emoji: "🎯" },
+      { name: "GTA VI", emoji: "🌴" },
+      { name: "Minecraft", emoji: "⛏️" },
+      { name: "Call of Duty", emoji: "🎖️" },
+    ],
+  },
+  {
+    id: "sports",
+    name: "Sports Collection",
+    emoji: "⚽",
+    themes: [
+      { name: "Real Madrid", emoji: "⚪" },
+      { name: "Barcelona", emoji: "🔵" },
+      { name: "Manchester City", emoji: "🩵" },
+      { name: "Ronaldo", emoji: "🐐" },
+      { name: "Messi", emoji: "🏆" },
+    ],
+  },
+  {
+    id: "cute",
+    name: "Cute Collection",
+    emoji: "🍓",
+    themes: [
+      { name: "Hello Kitty", emoji: "🐱" },
+      { name: "Kuromi", emoji: "💜" },
+      { name: "My Melody", emoji: "🐰" },
+      { name: "Cinnamoroll", emoji: "☁️" },
+      { name: "Strawberry", emoji: "🍓" },
+      { name: "Teddy Bear", emoji: "🧸" },
+      { name: "Barbie", emoji: "👛" },
+    ],
+  },
+  {
+    id: "blush",
+    name: "Blush & Bows",
+    emoji: "🎀",
+    themes: [
+      { name: "Coquette", emoji: "🎀" },
+      { name: "Butterfly", emoji: "🦋" },
+      { name: "Cherry", emoji: "🍒" },
+      { name: "Moon & Stars", emoji: "🌙" },
+    ],
+  },
+  {
+    id: "floral",
+    name: "Floral Collection",
+    emoji: "🌸",
+    themes: [
+      { name: "Rose", emoji: "🌹" },
+      { name: "Tulip", emoji: "🌷" },
+      { name: "Sunflower", emoji: "🌻" },
+      { name: "Daisy", emoji: "🌼" },
+      { name: "Lavender", emoji: "💜" },
+      { name: "Lilies", emoji: "🪷" },
+    ],
+  },
+  {
+    id: "beauty",
+    name: "Beauty Collection",
+    emoji: "💄",
+    themes: [
+      { name: "Makeup", emoji: "💄" },
+    ],
+  },
+  {
+    id: "cozy",
+    name: "Cozy Collection",
+    emoji: "☕",
+    themes: [
+      { name: "Coffee", emoji: "☕" },
+      { name: "Books", emoji: "📚" },
+      { name: "Candles", emoji: "🕯️" },
+      { name: "Matcha", emoji: "🍵" },
+    ],
+  },
+  {
+    id: "music",
+    name: "Music Collection",
+    emoji: "🎵",
+    themes: [
+      { name: "BTS", emoji: "💜" },
+      { name: "Lana Del Rey", emoji: "🌊" },
+      { name: "Taylor Swift", emoji: "✨" },
+      { name: "Billie Eilish", emoji: "🖤" },
+      { name: "The Weeknd", emoji: "🌃" },
+    ],
+  },
+];
+
+const COLLECTION_PRICE = 2800;
+const COLLECTION_DELIVERY = 400;
+
 interface OrderData {
   name: string;
   email: string;
@@ -75,6 +201,13 @@ export default function Home() {
   const [isSavedMsgTop, setIsSavedMsgTop] = useState(false);
   const [isSavedMsgInside, setIsSavedMsgInside] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
+
+  // Collections state
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [collectionModalOpen, setCollectionModalOpen] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji: string; category: string; price: number} | null>(null);
+  const [collCheckoutStep, setCollCheckoutStep] = useState<"addons" | "form" | "confirmation">("addons");
+  const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
 
   // Particle effect array
   const [particles, setParticles] = useState<
@@ -144,6 +277,13 @@ export default function Home() {
     if (hasBanner) total += PRICES.banner;
     if (addons.fairy) total += PRICES.fairy;
     if (addons.ribbon) total += PRICES.ribbon;
+    return total;
+  };
+
+  const calculateCollectionTotal = () => {
+    let total = COLLECTION_PRICE + COLLECTION_DELIVERY;
+    if (collAddons.fairy) total += PRICES.fairy;
+    if (collAddons.ribbon) total += PRICES.ribbon;
     return total;
   };
 
@@ -299,6 +439,61 @@ export default function Home() {
         setCheckoutStep("confirmation");
         localStorage.removeItem("saved_top");
         localStorage.removeItem("saved_inside");
+      } else {
+        alert("Failed to place order: " + (resJson.error || "Server error"));
+      }
+    } catch (err) {
+      console.error("Error submitting order:", err);
+      alert("Error sending order. Please check your internet connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCollectionCheckout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formInputs.email || !formInputs.fname || !formInputs.lname || !formInputs.address || !formInputs.city || !formInputs.phone) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+    setIsSubmitting(true);
+    if (formInputs.saveInfo) {
+      localStorage.setItem("saved_checkout_details", JSON.stringify({
+        email: formInputs.email, fname: formInputs.fname, lname: formInputs.lname,
+        address: formInputs.address, apartment: formInputs.apartment, city: formInputs.city,
+        postal: formInputs.postal, phone: formInputs.phone, country: formInputs.country,
+      }));
+    }
+    const collTotal = calculateCollectionTotal();
+    const addonsList: string[] = [];
+    if (collAddons.fairy) addonsList.push("Fairy Lights");
+    if (collAddons.ribbon) addonsList.push("Ribbon Bow");
+    const orderData: OrderData = {
+      name: `${formInputs.fname} ${formInputs.lname}`.trim(),
+      email: formInputs.email,
+      phone: formInputs.phone,
+      address: `${formInputs.address}${formInputs.apartment ? ", " + formInputs.apartment : ""}, ${formInputs.city}, ${formInputs.postal || ""}, ${formInputs.country}`,
+      apartment: formInputs.apartment,
+      city: formInputs.city,
+      postal: formInputs.postal,
+      country: formInputs.country,
+      boxType: `Collection: ${selectedTheme?.category} — ${selectedTheme?.name}`,
+      inkColor: "N/A",
+      topText: "",
+      insideText: "",
+      bannerText: "",
+      addons: addonsList.join(", ") || "None",
+      total: collTotal.toLocaleString(),
+    };
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
+      const resJson = await response.json();
+      if (response.ok && resJson.success) {
+        setCollCheckoutStep("confirmation");
       } else {
         alert("Failed to place order: " + (resJson.error || "Server error"));
       }
@@ -560,6 +755,93 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ========== THEMED COLLECTIONS SECTION ========== */}
+      <section id="collections" className="py-12 sm:py-20 px-4 sm:px-12 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
+            🎁 Themed Gift Boxes
+          </div>
+          <h2 className="font-playfair text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
+            Our <span className="font-dancing text-pink-500 text-3xl sm:text-5xl">Collections</span>
+          </h2>
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-lg mx-auto leading-relaxed">
+            Ready-made themed gift boxes for every personality. Pick a theme, add extras, and checkout — it&apos;s that simple! ✨
+          </p>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div className="flex gap-2.5 overflow-x-auto pb-4 mb-8 sm:mb-12 scrollbar-hide sm:flex-wrap sm:justify-center">
+          <button
+            onClick={() => setActiveCategory("all")}
+            className={`shrink-0 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${
+              activeCategory === "all"
+                ? "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white border-transparent shadow-lg shadow-pink-500/25"
+                : "bg-white text-[var(--text-mid)] border-pink-100 hover:border-pink-300 hover:bg-pink-50/50"
+            }`}
+          >
+            ✨ All
+          </button>
+          {COLLECTIONS.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`shrink-0 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${
+                activeCategory === cat.id
+                  ? "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white border-transparent shadow-lg shadow-pink-500/25"
+                  : "bg-white text-[var(--text-mid)] border-pink-100 hover:border-pink-300 hover:bg-pink-50/50"
+              }`}
+            >
+              {cat.emoji} {cat.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Collection Cards Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {COLLECTIONS
+            .filter((cat) => activeCategory === "all" || cat.id === activeCategory)
+            .flatMap((cat) =>
+              cat.themes.map((theme) => ({ ...theme, category: cat.name, categoryEmoji: cat.emoji, categoryId: cat.id }))
+            )
+            .map((theme, idx) => (
+              <div
+                key={`${theme.categoryId}-${idx}`}
+                className="group bg-white border border-pink-100/60 rounded-[24px] overflow-hidden shadow-md shadow-pink-500/5 hover:shadow-xl hover:shadow-pink-500/15 hover:-translate-y-1 transition-all duration-500 cursor-pointer"
+                onClick={() => {
+                  setSelectedTheme({ name: theme.name, emoji: theme.emoji, category: theme.category, price: COLLECTION_PRICE });
+                  setCollAddons({ fairy: false, ribbon: false });
+                  setCollCheckoutStep("addons");
+                  setCollectionModalOpen(true);
+                }}
+              >
+                {/* Emoji Placeholder Image Area */}
+                <div className="relative aspect-square bg-gradient-to-br from-[var(--pink-50)] via-white to-[var(--pink-100)] flex items-center justify-center">
+                  <span className="text-6xl sm:text-7xl group-hover:scale-110 transition-transform duration-500">
+                    {theme.emoji}
+                  </span>
+                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[var(--pink-600)] font-black text-[9px] uppercase tracking-widest py-1 px-3 rounded-full shadow-sm border border-pink-100/40">
+                    {theme.categoryEmoji} {theme.category}
+                  </span>
+                </div>
+                {/* Card Info */}
+                <div className="p-3.5 sm:p-4">
+                  <h3 className="font-playfair text-sm sm:text-base font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors truncate">
+                    {theme.name}
+                  </h3>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base">
+                      Rs. {COLLECTION_PRICE.toLocaleString()}
+                    </span>
+                    <span className="text-[10px] font-bold text-[var(--text-light)] bg-pink-50 px-2.5 py-1 rounded-full">
+                      + Rs. {COLLECTION_DELIVERY} delivery
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </section>
 
@@ -1943,6 +2225,258 @@ export default function Home() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-3 px-7 rounded-full font-black text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-1"
                   >
+                    📩 Send screenshot @box.love.pk
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ========== COLLECTION CHECKOUT MODAL ========== */}
+      {collectionModalOpen && selectedTheme && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
+          <div className="bg-white rounded-[32px] max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
+            <button
+              onClick={() => { setCollectionModalOpen(false); setCollCheckoutStep("addons"); }}
+              className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2.5 text-xl focus:outline-none hover:bg-pink-50 rounded-xl transition-all"
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+
+            {collCheckoutStep === "addons" ? (
+              /* --- Step 1: Theme Summary + Add-ons --- */
+              <div className="space-y-6">
+                <div className="text-center border-b border-pink-100 pb-5">
+                  <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">
+                    box.love.pk
+                  </span>
+                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mt-1">
+                    Collection Order
+                  </h3>
+                </div>
+
+                {/* Selected Theme Card */}
+                <div className="bg-gradient-to-br from-[var(--pink-50)] via-white to-[var(--pink-100)] rounded-2xl p-6 text-center border border-pink-100/60">
+                  <span className="text-6xl block mb-3">{selectedTheme.emoji}</span>
+                  <h4 className="font-playfair text-2xl font-bold text-[var(--dark-2)]">{selectedTheme.name}</h4>
+                  <p className="text-xs text-[var(--text-mid)] font-bold mt-1">{selectedTheme.category}</p>
+                  <p className="font-extrabold text-xl text-[var(--pink-600)] mt-3">Rs. {COLLECTION_PRICE.toLocaleString()}</p>
+                </div>
+
+                {/* Optional Add-ons */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
+                    ✨ Optional Add-ons
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setCollAddons(prev => ({ ...prev, fairy: !prev.fairy }))}
+                      className={`flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-300 text-left ${
+                        collAddons.fairy
+                          ? "border-[var(--pink-400)] bg-pink-50 shadow-md shadow-pink-500/10"
+                          : "border-pink-100 bg-white hover:border-pink-200"
+                      }`}
+                    >
+                      <span className="text-2xl">✨</span>
+                      <div className="flex-1">
+                        <span className="text-xs font-bold block text-[var(--dark-2)]">Fairy Lights</span>
+                        <span className="text-[10px] text-[var(--text-light)] font-semibold">Add sparkle inside the box</span>
+                      </div>
+                      <span className="text-xs font-extrabold text-[var(--pink-600)]">+Rs. {PRICES.fairy}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCollAddons(prev => ({ ...prev, ribbon: !prev.ribbon }))}
+                      className={`flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-300 text-left ${
+                        collAddons.ribbon
+                          ? "border-[var(--pink-400)] bg-pink-50 shadow-md shadow-pink-500/10"
+                          : "border-pink-100 bg-white hover:border-pink-200"
+                      }`}
+                    >
+                      <span className="text-2xl">🎀</span>
+                      <div className="flex-1">
+                        <span className="text-xs font-bold block text-[var(--dark-2)]">Ribbon Bow</span>
+                        <span className="text-[10px] text-[var(--text-light)] font-semibold">Premium gift wrapping</span>
+                      </div>
+                      <span className="text-xs font-extrabold text-[var(--pink-600)]">+Rs. {PRICES.ribbon}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Order Summary */}
+                <div className="border border-pink-100 rounded-2xl p-4 bg-pink-50/20 space-y-2.5 text-xs font-medium">
+                  <div className="flex justify-between">
+                    <span>{selectedTheme.name} Themed Box</span>
+                    <span>Rs. {COLLECTION_PRICE.toLocaleString()}</span>
+                  </div>
+                  {collAddons.fairy && (
+                    <div className="flex justify-between">
+                      <span>Fairy Lights</span>
+                      <span>Rs. {PRICES.fairy}</span>
+                    </div>
+                  )}
+                  {collAddons.ribbon && (
+                    <div className="flex justify-between">
+                      <span>Ribbon Bow</span>
+                      <span>Rs. {PRICES.ribbon}</span>
+                    </div>
+                  )}
+                  <div className="h-px bg-pink-100" />
+                  <div className="flex justify-between">
+                    <span className="text-[var(--text-light)]">Delivery</span>
+                    <span>Rs. {COLLECTION_DELIVERY}</span>
+                  </div>
+                  <div className="h-px bg-pink-100" />
+                  <div className="flex justify-between font-extrabold text-base text-[var(--pink-600)]">
+                    <span>Total</span>
+                    <span>Rs. {calculateCollectionTotal().toLocaleString()}</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setCollCheckoutStep("form")}
+                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                >
+                  Proceed to Checkout →
+                </button>
+              </div>
+            ) : collCheckoutStep === "form" ? (
+              /* --- Step 2: Collection Checkout Form --- */
+              <form onSubmit={handleCollectionCheckout} className="space-y-6">
+                <div className="text-center border-b border-pink-100 pb-5">
+                  <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">box.love.pk</span>
+                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mt-1">Checkout — {selectedTheme.name}</h3>
+                </div>
+
+                {/* Mini summary */}
+                <div className="flex items-center gap-4 bg-pink-50/40 border border-pink-100 rounded-2xl p-4">
+                  <span className="text-4xl">{selectedTheme.emoji}</span>
+                  <div className="flex-1">
+                    <p className="font-bold text-sm text-[var(--dark-2)]">{selectedTheme.name} Box</p>
+                    <p className="text-[10px] text-[var(--text-mid)] font-semibold">{selectedTheme.category}</p>
+                  </div>
+                  <span className="font-extrabold text-[var(--pink-600)]">Rs. {calculateCollectionTotal().toLocaleString()}</span>
+                </div>
+
+                {/* Contact Section */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Contact Details</h4>
+                  <input type="email" id="chk-email" required placeholder="Email Address" value={formInputs.email} onChange={handleInputChange}
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] focus:ring-1 focus:ring-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                </div>
+
+                {/* Delivery Address Section */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Delivery Address</h4>
+                  <select id="chk-country" value={formInputs.country} onChange={handleInputChange}
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none bg-white font-semibold">
+                    <option value="Pakistan">Pakistan</option>
+                  </select>
+                  <div className="grid grid-cols-2 gap-3">
+                    <input type="text" id="chk-fname" required placeholder="First name" value={formInputs.fname} onChange={handleInputChange}
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                    <input type="text" id="chk-lname" required placeholder="Last name" value={formInputs.lname} onChange={handleInputChange}
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                  </div>
+                  <input type="text" id="chk-address" required placeholder="Address" value={formInputs.address} onChange={handleInputChange}
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                  <input type="text" id="chk-apartment" placeholder="Apartment, suite, unit (optional)" value={formInputs.apartment} onChange={handleInputChange}
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                  <div className="grid grid-cols-2 gap-3">
+                    <input type="text" id="chk-city" required placeholder="City" value={formInputs.city} onChange={handleInputChange}
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                    <input type="text" id="chk-postal" placeholder="Postal Code (optional)" value={formInputs.postal} onChange={handleInputChange}
+                      className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                  </div>
+                  <input type="tel" id="chk-phone" required placeholder="Mobile Number (e.g. 03001234567)" value={formInputs.phone} onChange={handleInputChange}
+                    className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
+                  <label className="flex items-center gap-2.5 text-xs text-stone-700 cursor-pointer font-semibold">
+                    <input type="checkbox" id="chk-saveInfo" checked={formInputs.saveInfo} onChange={handleInputChange}
+                      className="accent-[var(--pink-500)] w-4 h-4 rounded" />
+                    <span>Save this information for next time</span>
+                  </label>
+                </div>
+
+                {/* Shipping */}
+                <div className="space-y-2.5">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Shipping Method</h4>
+                  <div className="flex justify-between items-center bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3.5 text-sm font-semibold">
+                    <span className="text-stone-700">Standard Delivery (Pakistan)</span>
+                    <span className="text-[var(--pink-600)]">Rs. {COLLECTION_DELIVERY}</span>
+                  </div>
+                </div>
+
+                {/* Payment info */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Payment Info</h4>
+                  <div className="border border-pink-100 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="flex justify-between items-center bg-pink-50/20 px-4 py-3.5 text-sm font-bold text-stone-750 border-b border-pink-50">
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[var(--pink-500)] animate-pulse" />
+                        <span>Advance Payment (JazzCash)</span>
+                      </div>
+                      <span>🔒 Secure</span>
+                    </div>
+                    <div className="p-4 bg-white text-xs text-stone-700 space-y-2 leading-relaxed">
+                      <p>Advance payment only via JazzCash to <strong>0300-6600178</strong> (Account Name: <strong>NAZI YAQOOB</strong>).</p>
+                      <p className="text-red-600 font-extrabold">❌ Cash on Delivery (COD) is not available.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setCollCheckoutStep("addons")}
+                    className="px-6 py-4 rounded-2xl border border-pink-100 text-sm font-bold text-[var(--text-mid)] hover:bg-pink-50 transition-all">
+                    ← Back
+                  </button>
+                  <button type="submit" disabled={isSubmitting}
+                    className="flex-1 bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:translate-y-0 transition-all duration-300">
+                    {isSubmitting ? "⏳ Processing Order..." : "Complete Order →"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              /* --- Step 3: Confirmation --- */
+              <div className="space-y-6 text-center animate-[successBounce_0.4s_ease-out_forwards]">
+                <div className="text-6xl animate-bounce">🎁</div>
+                <h3 className="font-playfair text-2xl sm:text-3xl font-extrabold text-[var(--dark-2)]">
+                  Order Placed!
+                </h3>
+                <p className="text-stone-700 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
+                  Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
+                  Your <strong>{selectedTheme.name}</strong> themed box order is received.
+                  <strong className="block text-[var(--pink-600)] mt-4 font-black">
+                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot on Instagram DM! 📸
+                  </strong>
+                </p>
+                <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/45 border-2 border-pink-100 rounded-2xl p-5 text-left text-xs space-y-2.5 shadow-sm">
+                  <div className="font-bold text-[var(--pink-500)] text-sm border-b border-pink-100 pb-2">JazzCash Account details:</div>
+                  <div className="flex justify-between">
+                    <span className="text-[var(--text-light)] font-bold">Number</span>
+                    <strong className="text-sm tracking-wider text-[var(--pink-600)]">0300-6600178</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[var(--text-light)] font-bold">Account Name</span>
+                    <strong className="text-stone-850">NAZI YAQOOB</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[var(--text-light)] font-bold">Amount to Send</span>
+                    <strong className="text-sm text-[var(--pink-600)]">Rs. {calculateCollectionTotal().toLocaleString()}</strong>
+                  </div>
+                </div>
+                <div className="bg-pink-50/20 border border-pink-100/60 rounded-2xl p-6 flex flex-col items-center gap-3.5 text-center">
+                  <span className="text-3xl animate-[floatIcon_3s_ease-in-out_infinite]">📸</span>
+                  <strong className="text-xs sm:text-sm text-[var(--pink-600)] block font-extrabold">Send Payment Screenshot</strong>
+                  <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
+                    Take a screenshot of your successful transaction receipt and send it to us on Instagram so we can confirm your order immediately! 💕
+                  </p>
+                  <a href="https://instagram.com/box.love.pk" target="_blank" rel="noreferrer"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-3 px-7 rounded-full font-black text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-1">
                     📩 Send screenshot @box.love.pk
                   </a>
                 </div>
