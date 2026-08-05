@@ -208,6 +208,9 @@ export default function Home() {
   const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji: string; category: string; price: number} | null>(null);
   const [collCheckoutStep, setCollCheckoutStep] = useState<"addons" | "form" | "confirmation">("addons");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [varietiesModalOpen, setVarietiesModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Particle effect array
   const [particles, setParticles] = useState<
@@ -546,25 +549,87 @@ export default function Home() {
         <a href="#" className="font-dancing text-3xl font-black text-[var(--pink-500)] tracking-wide hover:opacity-90 transition-all">
           box<span className="text-[var(--dark-2)]">.</span>love
           <span className="text-[var(--dark-2)]">.</span>pk
-        </a>
+        </a>        <ul className="hidden md:flex items-center gap-10">
+          <li>
+            <a
+              href="#showcase"
+              className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
+            >
+              Our Boxes
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
+            </a>
+          </li>
 
-        <ul className="hidden md:flex items-center gap-10">
-          {["Our Boxes", "Build Yours", "Our Reviews", "How to Order"].map((section, idx) => {
-            const anchor = ["#showcase", "#builder", "#reviews", "#payment"][idx];
-            return (
-              <li key={section}>
-                <a
-                  href={anchor}
-                  className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
-                >
-                  {section}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
-                </a>
-              </li>
-            );
-          })}
+          {/* Collections Dropdown */}
+          <li
+            className="relative group"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button
+              className="flex items-center gap-1 text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 py-1 focus:outline-none cursor-pointer"
+            >
+              Collections
+              <svg
+                className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                  dropdownOpen ? "rotate-180 text-[var(--pink-500)]" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute top-[100%] left-1/2 -translate-x-1/2 mt-2 w-56 bg-white border border-pink-100/80 rounded-2xl shadow-xl py-2.5 z-50 animate-[modalFadeIn_0.2s_ease-out_forwards]">
+                {COLLECTIONS.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      setSelectedCategory(cat.id);
+                      setVarietiesModalOpen(true);
+                      setDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[var(--text-mid)] hover:bg-pink-50 hover:text-[var(--pink-600)] transition-all flex items-center gap-2.5 cursor-pointer"
+                  >
+                    <span className="text-sm">{cat.emoji}</span>
+                    <span>{cat.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </li>
+
+          <li>
+            <a
+              href="#builder"
+              className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
+            >
+              Build Yours
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="#reviews"
+              className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
+            >
+              Our Reviews
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="#payment"
+              className="relative text-[var(--text-mid)] text-sm font-semibold tracking-wide hover:text-[var(--pink-500)] transition-colors duration-300 group py-1"
+            >
+              How to Order
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--pink-500)] transition-all duration-300 group-hover:w-full rounded-full" />
+            </a>
+          </li>
         </ul>
-
         <div className="flex items-center gap-5">
           <a
             href="#builder"
@@ -597,20 +662,59 @@ export default function Home() {
 
         {/* Mobile menu drop down */}
         {menuOpen && (
-          <div className="absolute top-[100%] left-0 right-0 bg-white/95 border-b border-pink-100 shadow-2xl backdrop-blur-2xl flex flex-col p-8 gap-6 md:hidden animate-fade-in z-50 rounded-b-3xl">
-            {["Our Boxes", "Build Yours", "Our Reviews", "How to Order"].map((section, idx) => {
-              const anchor = ["#showcase", "#builder", "#reviews", "#payment"][idx];
-              return (
-                <a
-                  key={section}
-                  href={anchor}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
-                >
-                  {section}
-                </a>
-              );
-            })}
+          <div className="absolute top-[100%] left-0 right-0 bg-white/95 border-b border-pink-100 shadow-2xl backdrop-blur-2xl flex flex-col p-8 gap-6 md:hidden animate-fade-in z-50 rounded-b-3xl max-h-[80vh] overflow-y-auto">
+            <a
+              href="#showcase"
+              onClick={() => setMenuOpen(false)}
+              className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
+            >
+              Our Boxes
+            </a>
+
+            {/* Mobile Collections Submenu */}
+            <div className="border-b border-pink-50/50 pb-3">
+              <div className="text-[var(--text-mid)] font-bold text-base py-1 mb-2">
+                Our Collections
+              </div>
+              <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+                {COLLECTIONS.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      setSelectedCategory(cat.id);
+                      setVarietiesModalOpen(true);
+                      setMenuOpen(false);
+                    }}
+                    className="text-left px-3 py-2 rounded-xl bg-pink-50/40 text-xs font-semibold text-[var(--text-mid)] hover:bg-pink-50 hover:text-[var(--pink-600)] active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer animate-[floatIcon_3s_ease-in-out_infinite]"
+                  >
+                    <span>{cat.emoji}</span>
+                    <span className="truncate">{cat.name.replace(" Collection", "")}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <a
+              href="#builder"
+              onClick={() => setMenuOpen(false)}
+              className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
+            >
+              Build Yours
+            </a>
+            <a
+              href="#reviews"
+              onClick={() => setMenuOpen(false)}
+              className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
+            >
+              Our Reviews
+            </a>
+            <a
+              href="#payment"
+              onClick={() => setMenuOpen(false)}
+              className="text-[var(--text-mid)] font-bold text-base py-1 hover:text-[var(--pink-500)] transition-all border-b border-pink-50/50"
+            >
+              How to Order
+            </a>
             <a
               href="#builder"
               onClick={() => setMenuOpen(false)}
@@ -758,92 +862,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== THEMED COLLECTIONS SECTION ========== */}
-      <section id="collections" className="py-12 sm:py-20 px-4 sm:px-12 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
-          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
-            🎁 Themed Gift Boxes
-          </div>
-          <h2 className="font-playfair text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--dark-2)]">
-            Our <span className="font-dancing text-pink-500 text-3xl sm:text-5xl">Collections</span>
-          </h2>
-          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-lg mx-auto leading-relaxed">
-            Ready-made themed gift boxes for every personality. Pick a theme, add extras, and checkout — it&apos;s that simple! ✨
-          </p>
-        </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex gap-2.5 overflow-x-auto pb-4 mb-8 sm:mb-12 scrollbar-hide sm:flex-wrap sm:justify-center">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={`shrink-0 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${
-              activeCategory === "all"
-                ? "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white border-transparent shadow-lg shadow-pink-500/25"
-                : "bg-white text-[var(--text-mid)] border-pink-100 hover:border-pink-300 hover:bg-pink-50/50"
-            }`}
-          >
-            ✨ All
-          </button>
-          {COLLECTIONS.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`shrink-0 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${
-                activeCategory === cat.id
-                  ? "bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white border-transparent shadow-lg shadow-pink-500/25"
-                  : "bg-white text-[var(--text-mid)] border-pink-100 hover:border-pink-300 hover:bg-pink-50/50"
-              }`}
-            >
-              {cat.emoji} {cat.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Collection Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {COLLECTIONS
-            .filter((cat) => activeCategory === "all" || cat.id === activeCategory)
-            .flatMap((cat) =>
-              cat.themes.map((theme) => ({ ...theme, category: cat.name, categoryEmoji: cat.emoji, categoryId: cat.id }))
-            )
-            .map((theme, idx) => (
-              <div
-                key={`${theme.categoryId}-${idx}`}
-                className="group bg-white border border-pink-100/60 rounded-[24px] overflow-hidden shadow-md shadow-pink-500/5 hover:shadow-xl hover:shadow-pink-500/15 hover:-translate-y-1 transition-all duration-500 cursor-pointer"
-                onClick={() => {
-                  setSelectedTheme({ name: theme.name, emoji: theme.emoji, category: theme.category, price: COLLECTION_PRICE });
-                  setCollAddons({ fairy: false, ribbon: false });
-                  setCollCheckoutStep("addons");
-                  setCollectionModalOpen(true);
-                }}
-              >
-                {/* Emoji Placeholder Image Area */}
-                <div className="relative aspect-square bg-gradient-to-br from-[var(--pink-50)] via-white to-[var(--pink-100)] flex items-center justify-center">
-                  <span className="text-6xl sm:text-7xl group-hover:scale-110 transition-transform duration-500">
-                    {theme.emoji}
-                  </span>
-                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[var(--pink-600)] font-black text-[9px] uppercase tracking-widest py-1 px-3 rounded-full shadow-sm border border-pink-100/40">
-                    {theme.categoryEmoji} {theme.category}
-                  </span>
-                </div>
-                {/* Card Info */}
-                <div className="p-3.5 sm:p-4">
-                  <h3 className="font-playfair text-sm sm:text-base font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors truncate">
-                    {theme.name}
-                  </h3>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base">
-                      Rs. {COLLECTION_PRICE.toLocaleString()}
-                    </span>
-                    <span className="text-[10px] font-bold text-[var(--text-light)] bg-pink-50 px-2.5 py-1 rounded-full">
-                      + Rs. {COLLECTION_DELIVERY} delivery
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-        </div>
-      </section>
 
       {/* ========== FAIRY LIGHTS DECOR STRIP ========== */}
       <div className="lights-strip h-5 relative overflow-hidden" aria-hidden="true" />
@@ -2482,6 +2501,68 @@ export default function Home() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ========== VARIETIES SELECTION MODAL ========== */}
+      {varietiesModalOpen && selectedCategory && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
+          <div className="bg-white rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
+            <button
+              onClick={() => {
+                setVarietiesModalOpen(false);
+                setSelectedCategory(null);
+              }}
+              className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2.5 text-xl focus:outline-none hover:bg-pink-50 rounded-xl transition-all"
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+
+            <div className="text-center border-b border-pink-100 pb-5 mb-6">
+              <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">
+                box.love.pk
+              </span>
+              <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mt-1">
+                {COLLECTIONS.find(c => c.id === selectedCategory)?.emoji} {COLLECTIONS.find(c => c.id === selectedCategory)?.name}
+              </h3>
+              <p className="text-[var(--text-mid)] text-xs sm:text-sm mt-1">
+                Choose a theme below to configure and place your order
+              </p>
+            </div>
+
+            {/* Varieties Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {COLLECTIONS.find(c => c.id === selectedCategory)?.themes.map((theme, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    setSelectedTheme({
+                      name: theme.name,
+                      emoji: theme.emoji,
+                      category: COLLECTIONS.find(c => c.id === selectedCategory)?.name || "",
+                      price: COLLECTION_PRICE
+                    });
+                    setCollAddons({ fairy: false, ribbon: false });
+                    setCollCheckoutStep("addons");
+                    setVarietiesModalOpen(false);
+                    setCollectionModalOpen(true);
+                  }}
+                  className="group bg-gradient-to-br from-[var(--pink-50)]/30 to-[#FFFDFE] border border-pink-100/60 rounded-[20px] p-4 text-center cursor-pointer hover:shadow-lg hover:shadow-pink-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-pink-300"
+                >
+                  <span className="text-5xl block mb-2 group-hover:scale-110 transition-transform duration-300">
+                    {theme.emoji}
+                  </span>
+                  <span className="font-playfair text-xs sm:text-sm font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors line-clamp-1">
+                    {theme.name}
+                  </span>
+                  <span className="block font-extrabold text-[var(--pink-600)] text-xs mt-1.5">
+                    Rs. {COLLECTION_PRICE.toLocaleString()}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
