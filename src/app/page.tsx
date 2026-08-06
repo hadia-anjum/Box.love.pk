@@ -536,14 +536,33 @@ export default function Home() {
         ))}
       </div>
 
+      {/* ========== ANNOUNCEMENT TICKER BAR ========== */}
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[var(--dark-2)] via-[#2a1520] to-[var(--dark-2)] text-white overflow-hidden" style={{ height: '32px' }}>
+        <div className="flex items-center h-full animate-[tickerScroll_18s_linear_infinite] whitespace-nowrap">
+          {[...Array(4)].map((_, i) => (
+            <span key={i} className="inline-flex items-center gap-3 text-[11px] font-bold tracking-widest uppercase px-8">
+              <span className="text-pink-300">✦</span>
+              <span>New Themed Collections Now Available</span>
+              <span className="text-pink-300">♡</span>
+              <span>Handcrafted Gift Boxes With Love</span>
+              <span className="text-pink-300">✦</span>
+              <span>Order Your Favourite Theme Today</span>
+              <span className="text-pink-300">♡</span>
+              <span>Premium Keepsake Boxes — Starting Rs. 2,800</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ========== HEADER NAV ========== */}
       <nav
         id="mainNav"
-        className={`fixed top-0 left-0 right-0 z-50 px-6 sm:px-16 py-5 flex items-center justify-between transition-all duration-500 ${
+        className={`fixed left-0 right-0 z-50 px-6 sm:px-16 flex items-center justify-between transition-all duration-500 ${
           scrolled
             ? "bg-white/80 shadow-xl shadow-pink-600/5 backdrop-blur-xl border-b border-pink-100/40 py-3.5"
             : "bg-transparent py-6"
         }`}
+        style={{ top: '32px' }}
       >
         <a href="#" className="font-dancing text-3xl font-black text-[var(--pink-500)] tracking-wide hover:opacity-90 transition-all">
           box<span className="text-[var(--dark-2)]">.</span>love
