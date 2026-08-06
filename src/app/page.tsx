@@ -2376,26 +2376,18 @@ export default function Home() {
                 <div 
                   onClick={() => {
                     if (selectedTheme.image) {
-                      setActiveReviewImg(selectedTheme.image);
+                      setActiveReviewImg(selectedTheme.image || null);
                     }
                   }}
-                  className={`relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group ${selectedTheme.image ? 'cursor-zoom-in' : ''}`}
+                  className={`relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group ${selectedTheme.image ? 'cursor-zoom-in hover:brightness-95' : ''}`}
                 >
                   {selectedTheme.image ? (
-                    <>
-                      <Image
-                        src={selectedTheme.image}
-                        alt={selectedTheme.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      {/* Zoom Overlay Indicator */}
-                      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="bg-white/90 backdrop-blur-sm text-stone-800 text-[10px] font-bold tracking-widest uppercase py-2 px-4 rounded-full shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                          🔍 Tap to Zoom
-                        </div>
-                      </div>
-                    </>
+                    <Image
+                      src={selectedTheme.image}
+                      alt={selectedTheme.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center p-4">
                       <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{selectedTheme.emoji}</span>
@@ -2477,7 +2469,14 @@ export default function Home() {
                 {/* Selected Theme Card */}
                 <div className="bg-gradient-to-br from-[var(--pink-50)] via-white to-[var(--pink-100)] rounded-2xl p-6 text-center border border-pink-100/60">
                   {selectedTheme.image ? (
-                    <Image src={selectedTheme.image} alt={selectedTheme.name} width={80} height={80} className="mx-auto rounded-xl object-cover mb-3 shadow-md" />
+                    <Image 
+                      src={selectedTheme.image} 
+                      alt={selectedTheme.name} 
+                      width={80} 
+                      height={80} 
+                      className="mx-auto rounded-xl object-cover mb-3 shadow-md cursor-zoom-in hover:scale-105 transition-all duration-300" 
+                      onClick={() => setActiveReviewImg(selectedTheme.image || null)}
+                    />
                   ) : (
                     <span className="text-6xl block mb-3">{selectedTheme.emoji}</span>
                   )}
@@ -2601,7 +2600,14 @@ export default function Home() {
                 {/* Mini summary */}
                 <div className="flex items-center gap-4 bg-pink-50/40 border border-pink-100 rounded-2xl p-4">
                   {selectedTheme.image ? (
-                    <Image src={selectedTheme.image} alt={selectedTheme.name} width={40} height={40} className="rounded-lg object-cover shadow-sm" />
+                    <Image 
+                      src={selectedTheme.image} 
+                      alt={selectedTheme.name} 
+                      width={40} 
+                      height={40} 
+                      className="rounded-lg object-cover shadow-sm cursor-zoom-in hover:scale-105 transition-all duration-300" 
+                      onClick={() => setActiveReviewImg(selectedTheme.image || null)}
+                    />
                   ) : (
                     <span className="text-4xl">{selectedTheme.emoji}</span>
                   )}
