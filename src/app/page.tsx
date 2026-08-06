@@ -2474,37 +2474,62 @@ export default function Home() {
                     ✨ Optional Add-ons
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Fairy Lights Card */}
                     <button
                       type="button"
-                      onClick={() => setCollAddons(prev => ({ ...prev, fairy: !prev.fairy }))}
-                      className={`flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-300 text-left ${
+                      onClick={() => setCollAddons((prev) => ({ ...prev, fairy: !prev.fairy }))}
+                      className={`flex items-center gap-3 border-2 text-left rounded-2xl p-4 cursor-pointer transition-all duration-300 focus:outline-none ${
                         collAddons.fairy
-                          ? "border-[var(--pink-400)] bg-pink-50 shadow-md shadow-pink-500/10"
-                          : "border-pink-100 bg-white hover:border-pink-200"
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                          : "border-pink-100 bg-white hover:border-pink-300 hover:shadow-md"
                       }`}
                     >
-                      <span className="text-2xl">✨</span>
-                      <div className="flex-1">
-                        <span className="text-xs font-bold block text-[var(--dark-2)]">Fairy Lights</span>
-                        <span className="text-[10px] text-[var(--text-light)] font-semibold">Add sparkle inside the box</span>
+                      <div
+                        className={`w-5 h-5 rounded-lg border flex items-center justify-center text-[10px] text-white shrink-0 transition-all ${
+                          collAddons.fairy
+                            ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
+                            : "border-pink-200 bg-white"
+                        }`}
+                      >
+                        {collAddons.fairy && "✓"}
                       </div>
-                      <span className="text-xs font-extrabold text-[var(--pink-600)]">+Rs. {PRICES.fairy}</span>
+                      <div className="grow">
+                        <strong className="block text-xs text-[var(--dark-2)]">
+                          Fairy Lights
+                        </strong>
+                      </div>
+                      <div className="font-extrabold text-[var(--pink-600)] text-xs shrink-0">
+                        + Rs. {PRICES.fairy}
+                      </div>
                     </button>
+
+                    {/* Ribbon Bow Card */}
                     <button
                       type="button"
-                      onClick={() => setCollAddons(prev => ({ ...prev, ribbon: !prev.ribbon }))}
-                      className={`flex items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-300 text-left ${
+                      onClick={() => setCollAddons((prev) => ({ ...prev, ribbon: !prev.ribbon }))}
+                      className={`flex items-center gap-3 border-2 text-left rounded-2xl p-4 cursor-pointer transition-all duration-300 focus:outline-none ${
                         collAddons.ribbon
-                          ? "border-[var(--pink-400)] bg-pink-50 shadow-md shadow-pink-500/10"
-                          : "border-pink-100 bg-white hover:border-pink-200"
+                          ? "border-[var(--pink-500)] bg-[var(--pink-50)]/30 ring-1 ring-[var(--pink-300)]/35 shadow-md"
+                          : "border-pink-100 bg-white hover:border-pink-300 hover:shadow-md"
                       }`}
                     >
-                      <span className="text-2xl">🎀</span>
-                      <div className="flex-1">
-                        <span className="text-xs font-bold block text-[var(--dark-2)]">Ribbon Bow</span>
-                        <span className="text-[10px] text-[var(--text-light)] font-semibold">Premium gift wrapping</span>
+                      <div
+                        className={`w-5 h-5 rounded-lg border flex items-center justify-center text-[10px] text-white shrink-0 transition-all ${
+                          collAddons.ribbon
+                            ? "bg-[var(--pink-500)] border-[var(--pink-500)]"
+                            : "border-pink-200 bg-white"
+                        }`}
+                      >
+                        {collAddons.ribbon && "✓"}
                       </div>
-                      <span className="text-xs font-extrabold text-[var(--pink-600)]">+Rs. {PRICES.ribbon}</span>
+                      <div className="grow">
+                        <strong className="block text-xs text-[var(--dark-2)]">
+                          Ribbon Bow
+                        </strong>
+                      </div>
+                      <div className="font-extrabold text-[var(--pink-600)] text-xs shrink-0">
+                        + Rs. {PRICES.ribbon}
+                      </div>
                     </button>
                   </div>
                 </div>
