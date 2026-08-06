@@ -22,8 +22,8 @@ const COLLECTIONS = [
     emoji: "🎬",
     themes: [
       { name: "Spider-Man", emoji: "🕷️" },
-      { name: "Batman", emoji: "🦇" },
-      { name: "Deadpool", emoji: "❤️" },
+      { name: "Batman", image: "/collections/batman.jpg" },
+      { name: "Deadpool", image: "/collections/deadpool.jpg" },
       { name: "Naruto", emoji: "🍥" },
       { name: "One Piece", emoji: "☠️" },
       { name: "Jujutsu Kaisen", emoji: "👁️" },
@@ -34,11 +34,11 @@ const COLLECTIONS = [
     name: "Cars Collection",
     emoji: "🚗",
     themes: [
-      { name: "BMW M", emoji: "🏎️" },
+      { name: "BMW M", image: "/collections/bmw.jpg" },
       { name: "Mercedes AMG", emoji: "⭐" },
       { name: "Porsche", emoji: "🏁" },
       { name: "Ferrari", emoji: "🐎" },
-      { name: "Bugatti", emoji: "💨" },
+      { name: "Bugatti", image: "/collections/bugatti.jpg" },
       { name: "Formula 1", emoji: "🏎️" },
     ],
   },
@@ -74,10 +74,10 @@ const COLLECTIONS = [
       { name: "Hello Kitty", emoji: "🐱" },
       { name: "Kuromi", emoji: "💜" },
       { name: "My Melody", emoji: "🐰" },
-      { name: "Cinnamoroll", emoji: "☁️" },
+      { name: "Cinnamoroll", image: "/collections/cinnamoroll.jpg" },
       { name: "Strawberry", emoji: "🍓" },
       { name: "Teddy Bear", emoji: "🧸" },
-      { name: "Barbie", emoji: "👛" },
+      { name: "Barbie", image: "/collections/barbie.jpg" },
     ],
   },
   {
@@ -85,8 +85,8 @@ const COLLECTIONS = [
     name: "Blush & Bows",
     emoji: "🎀",
     themes: [
-      { name: "Coquette", emoji: "🎀" },
-      { name: "Butterfly", emoji: "🦋" },
+      { name: "Coquette", image: "/collections/coquette.jpg" },
+      { name: "Butterfly", image: "/collections/butterfly.jpg" },
       { name: "Cherry", emoji: "🍒" },
       { name: "Moon & Stars", emoji: "🌙" },
     ],
@@ -99,10 +99,10 @@ const COLLECTIONS = [
       { name: "Rose", emoji: "🌹" },
       { name: "Tulip", emoji: "🌷" },
       { name: "Sunflower", emoji: "🌻" },
-      { name: "Daisy", emoji: "🌼" },
+      { name: "Daisy", image: "/collections/daisy.jpg" },
       { name: "Lavender", emoji: "💜" },
       { name: "Lilies", emoji: "🪷" },
-    ],
+     ],
   },
   {
     id: "beauty",
@@ -201,13 +201,14 @@ export default function Home() {
   const [isSavedMsgTop, setIsSavedMsgTop] = useState(false);
   const [isSavedMsgInside, setIsSavedMsgInside] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
-
-  // Collections state
+  
+  // Collections states
   const [activeCategory, setActiveCategory] = useState("all");
   const [collectionModalOpen, setCollectionModalOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji: string; category: string; price: number} | null>(null);
-  const [collCheckoutStep, setCollCheckoutStep] = useState<"addons" | "form" | "confirmation">("addons");
+  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; category: string; price: number; id: string} | null>(null);
+  const [collCheckoutStep, setCollCheckoutStep] = useState<"details" | "addons" | "form" | "confirmation">("details");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [varietiesModalOpen, setVarietiesModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -221,7 +222,6 @@ export default function Home() {
   const insideTextareaRef = useRef<HTMLTextAreaElement>(null);
   const topTextareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // --- PERSISTENCE & BOOTSTRAP ---
   useEffect(() => {
     // Generate particles
     const generated = Array.from({ length: 15 }).map((_, idx) => ({
@@ -233,7 +233,6 @@ export default function Home() {
     }));
     setParticles(generated);
 
-    // Scroll listener for sticky nav
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -788,10 +787,10 @@ export default function Home() {
               ✨ Build Your Box
             </a>
             <a
-              href="#showcase"
+              href="#collections"
               className="w-full sm:w-auto bg-white/70 border border-white/50 text-[var(--text-mid)] px-8 py-4 rounded-2xl text-sm font-bold tracking-wider shadow-md hover:bg-white/95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center font-bold"
             >
-              See Our Work →
+              Our Themed Collections →
             </a>
           </div>
         </div>
@@ -1797,6 +1796,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ========== COLLECTIONS SECTION ========== */}
+      <section id="collections" className="py-12 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
+          <div className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-4">
+            Curated For You
+          </div>
+          <h2 className="font-playfair text-3xl sm:text-5xl font-extrabold text-[var(--dark-2)]">
+            Our <span className="text-[var(--pink-500)]">Themed</span> Collections
+          </h2>
+          <p className="text-[var(--text-mid)] text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
+            Beautifully crafted boxes for every occasion. Select a collection below to see the varieties!
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          {COLLECTIONS.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setSelectedCategory(cat.id);
+                setVarietiesModalOpen(true);
+              }}
+              className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center gap-4 hover:-translate-y-2 hover:shadow-xl hover:shadow-pink-500/10 transition-all group"
+            >
+              <span className="text-5xl sm:text-6xl group-hover:scale-110 transition-transform">{cat.emoji}</span>
+              <span className="font-bold text-[var(--dark-2)] text-sm sm:text-base">{cat.name}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* ========== PAYMENT & GUIDE SECTION (REDESIGNED LUXURY CREDIT CARD CARD) ========== */}
       <section id="payment" className="py-12 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-20">
@@ -2198,7 +2227,7 @@ export default function Home() {
                 <h3 className="font-playfair text-2xl sm:text-3xl font-extrabold text-[var(--dark-2)]">
                   Order Placed!
                 </h3>
-                <p className="text-stone-700 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
+                <p className="text-stone-750 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
                   Your order is received.
                   <strong className="block text-[var(--pink-600)] mt-4 font-black">
@@ -2253,19 +2282,153 @@ export default function Home() {
         </div>
       )}
 
+      {/* ========== VARIETIES MODAL ========== */}
+      {varietiesModalOpen && selectedCategory && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
+          <div className="bg-white rounded-[32px] max-w-4xl w-full shadow-2xl relative p-6 sm:p-10">
+            <button
+              onClick={() => setVarietiesModalOpen(false)}
+              className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2 text-xl hover:bg-pink-50 rounded-xl transition-all"
+            >
+              ✕
+            </button>
+            <div className="text-center mb-8 border-b border-pink-100 pb-5">
+              <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">Select Theme</span>
+              <h3 className="font-playfair text-2xl font-bold text-[var(--dark-2)] mt-2">
+                {COLLECTIONS.find(c => c.id === selectedCategory)?.name}
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+              {COLLECTIONS.find(c => c.id === selectedCategory)?.themes.map((theme, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    const catName = COLLECTIONS.find(c => c.id === selectedCategory)?.name || "";
+                    setSelectedTheme({ ...theme, category: catName, price: COLLECTION_PRICE, id: selectedCategory });
+                    setVarietiesModalOpen(false);
+                    setCollCheckoutStep("details");
+                    setCollectionModalOpen(true);
+                  }}
+                  className="bg-pink-50/50 border border-pink-100 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/10 hover:bg-white hover:border-[var(--pink-300)] transition-all group overflow-hidden"
+                >
+                  {theme.image ? (
+                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden mb-2 shadow-sm shrink-0">
+                      <Image src={theme.image} alt={theme.name} fill className="object-cover group-hover:scale-105 transition-transform" />
+                    </div>
+                  ) : (
+                    <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform mb-2">{theme.emoji}</span>
+                  )}
+                  <span className="font-bold text-xs sm:text-sm text-[var(--dark-2)] text-center line-clamp-2">{theme.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ========== COLLECTION CHECKOUT MODAL ========== */}
       {collectionModalOpen && selectedTheme && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
           <div className="bg-white rounded-[32px] max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
             <button
-              onClick={() => { setCollectionModalOpen(false); setCollCheckoutStep("addons"); }}
+              onClick={() => { setCollectionModalOpen(false); setCollCheckoutStep("details"); }}
               className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2.5 text-xl focus:outline-none hover:bg-pink-50 rounded-xl transition-all"
               aria-label="Close modal"
             >
               ✕
             </button>
 
-            {collCheckoutStep === "addons" ? (
+            {collCheckoutStep === "details" ? (
+              /* --- Step 0: Theme Details View --- */
+              <div className="space-y-6">
+                <div className="text-center border-b border-pink-100 pb-5">
+                  <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">
+                    box.love.pk
+                  </span>
+                  <h3 className="font-playfair text-xl font-bold text-[var(--dark-2)] mt-1">
+                    Theme Details
+                  </h3>
+                </div>
+
+                {/* Theme Image Mockup area */}
+                <div className="relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group">
+                  {/* Dynamic image loading with fallback */}
+                  <img
+                    src={`/collections/${selectedTheme.id}.jpg`}
+                    alt={selectedTheme.name}
+                    onError={(e) => {
+                      // Fallback to stylized emoji if file not found
+                      e.currentTarget.style.display = "none";
+                      const el = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
+                      if (el) el.style.display = "flex";
+                    }}
+                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="emoji-fallback hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                    <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{selectedTheme.emoji}</span>
+                    <span className="text-[10px] text-pink-400 font-bold tracking-widest uppercase bg-white/80 backdrop-blur-sm py-1 px-3.5 rounded-full border border-pink-100">
+                      Photo Coming Soon 📸
+                    </span>
+                  </div>
+                </div>
+
+                {/* Text detailing */}
+                <div className="space-y-2">
+                  <span className="inline-block bg-[var(--pink-50)] text-[var(--pink-600)] text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full">
+                    {selectedTheme.category}
+                  </span>
+                  <h4 className="font-playfair text-2xl font-black text-[var(--dark-2)]">
+                    {selectedTheme.name} Gift Box
+                  </h4>
+                  <div className="flex justify-between items-center pt-2">
+                    <span className="font-extrabold text-2xl text-[var(--pink-600)]">Rs. {COLLECTION_PRICE.toLocaleString()}</span>
+                    <span className="text-xs font-semibold text-[var(--text-light)] bg-pink-50 px-3 py-1 rounded-full">
+                      + Rs. {COLLECTION_DELIVERY} delivery
+                    </span>
+                  </div>
+                </div>
+
+                {/* Box details list */}
+                <div className="border border-pink-100/60 rounded-2xl p-4 bg-pink-50/10 space-y-3 text-xs text-stone-750 font-medium">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--pink-500)] text-sm">✓</span>
+                    <span>Premium rigid black box keepsake (Premium quality)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--pink-500)] text-sm">✓</span>
+                    <span>Decals and customized graphics tailored to <strong>{selectedTheme.name}</strong> theme</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--pink-500)] text-sm">✓</span>
+                    <span>Custom lid design decorations</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--pink-500)] text-sm">✓</span>
+                    <span>Add-ons supported: fairy lights & ribbon wrapping</span>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCollectionModalOpen(false);
+                      setVarietiesModalOpen(true);
+                    }}
+                    className="px-6 py-4.5 rounded-2xl border border-pink-100 text-sm font-bold text-[var(--text-mid)] hover:bg-pink-50 transition-all cursor-pointer"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCollCheckoutStep("addons")}
+                    className="flex-1 bg-gradient-to-r from-[var(--pink-50)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer"
+                  >
+                    Select Add-ons & Order →
+                  </button>
+                </div>
+              </div>
+            ) : collCheckoutStep === "addons" ? (
               /* --- Step 1: Theme Summary + Add-ons --- */
               <div className="space-y-6">
                 <div className="text-center border-b border-pink-100 pb-5">
@@ -2279,7 +2442,11 @@ export default function Home() {
 
                 {/* Selected Theme Card */}
                 <div className="bg-gradient-to-br from-[var(--pink-50)] via-white to-[var(--pink-100)] rounded-2xl p-6 text-center border border-pink-100/60">
-                  <span className="text-6xl block mb-3">{selectedTheme.emoji}</span>
+                  {selectedTheme.image ? (
+                    <Image src={selectedTheme.image} alt={selectedTheme.name} width={80} height={80} className="mx-auto rounded-xl object-cover mb-3 shadow-md" />
+                  ) : (
+                    <span className="text-6xl block mb-3">{selectedTheme.emoji}</span>
+                  )}
                   <h4 className="font-playfair text-2xl font-bold text-[var(--dark-2)]">{selectedTheme.name}</h4>
                   <p className="text-xs text-[var(--text-mid)] font-bold mt-1">{selectedTheme.category}</p>
                   <p className="font-extrabold text-xl text-[var(--pink-600)] mt-3">Rs. {COLLECTION_PRICE.toLocaleString()}</p>
@@ -2359,7 +2526,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setCollCheckoutStep("form")}
-                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer"
                 >
                   Proceed to Checkout →
                 </button>
@@ -2374,7 +2541,11 @@ export default function Home() {
 
                 {/* Mini summary */}
                 <div className="flex items-center gap-4 bg-pink-50/40 border border-pink-100 rounded-2xl p-4">
-                  <span className="text-4xl">{selectedTheme.emoji}</span>
+                  {selectedTheme.image ? (
+                    <Image src={selectedTheme.image} alt={selectedTheme.name} width={40} height={40} className="rounded-lg object-cover shadow-sm" />
+                  ) : (
+                    <span className="text-4xl">{selectedTheme.emoji}</span>
+                  )}
                   <div className="flex-1">
                     <p className="font-bold text-sm text-[var(--dark-2)]">{selectedTheme.name} Box</p>
                     <p className="text-[10px] text-[var(--text-mid)] font-semibold">{selectedTheme.category}</p>
@@ -2404,77 +2575,47 @@ export default function Home() {
                   </div>
                   <input type="text" id="chk-address" required placeholder="Address" value={formInputs.address} onChange={handleInputChange}
                     className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
-                  <input type="text" id="chk-apartment" placeholder="Apartment, suite, unit (optional)" value={formInputs.apartment} onChange={handleInputChange}
+                  <input type="text" id="chk-apartment" placeholder="Apartment, suite, etc. (optional)" value={formInputs.apartment} onChange={handleInputChange}
                     className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
                   <div className="grid grid-cols-2 gap-3">
                     <input type="text" id="chk-city" required placeholder="City" value={formInputs.city} onChange={handleInputChange}
                       className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
-                    <input type="text" id="chk-postal" placeholder="Postal Code (optional)" value={formInputs.postal} onChange={handleInputChange}
+                    <input type="text" id="chk-postal" placeholder="Postal code (optional)" value={formInputs.postal} onChange={handleInputChange}
                       className="border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
                   </div>
-                  <input type="tel" id="chk-phone" required placeholder="Mobile Number (e.g. 03001234567)" value={formInputs.phone} onChange={handleInputChange}
+                  <input type="tel" id="chk-phone" required placeholder="Phone number (e.g. 03001234567)" value={formInputs.phone} onChange={handleInputChange}
                     className="w-full border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm" />
-                  <label className="flex items-center gap-2.5 text-xs text-stone-700 cursor-pointer font-semibold">
-                    <input type="checkbox" id="chk-saveInfo" checked={formInputs.saveInfo} onChange={handleInputChange}
-                      className="accent-[var(--pink-500)] w-4 h-4 rounded" />
-                    <span>Save this information for next time</span>
-                  </label>
                 </div>
 
-                {/* Shipping */}
-                <div className="space-y-2.5">
-                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Shipping Method</h4>
-                  <div className="flex justify-between items-center bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3.5 text-sm font-semibold">
-                    <span className="text-stone-700">Standard Delivery (Pakistan)</span>
-                    <span className="text-[var(--pink-600)]">Rs. {COLLECTION_DELIVERY}</span>
-                  </div>
-                </div>
-
-                {/* Payment info */}
-                <div className="space-y-3">
-                  <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">Payment Info</h4>
-                  <div className="border border-pink-100 rounded-2xl overflow-hidden shadow-sm">
-                    <div className="flex justify-between items-center bg-pink-50/20 px-4 py-3.5 text-sm font-bold text-stone-750 border-b border-pink-50">
-                      <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-[var(--pink-500)] animate-pulse" />
-                        <span>Advance Payment (JazzCash)</span>
-                      </div>
-                      <span>🔒 Secure</span>
-                    </div>
-                    <div className="p-4 bg-white text-xs text-stone-700 space-y-2 leading-relaxed">
-                      <p>Advance payment only via JazzCash to <strong>0300-6600178</strong> (Account Name: <strong>NAZI YAQOOB</strong>).</p>
-                      <p className="text-red-600 font-extrabold">❌ Cash on Delivery (COD) is not available.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <button type="button" onClick={() => setCollCheckoutStep("addons")}
-                    className="px-6 py-4 rounded-2xl border border-pink-100 text-sm font-bold text-[var(--text-mid)] hover:bg-pink-50 transition-all">
-                    ← Back
-                  </button>
-                  <button type="submit" disabled={isSubmitting}
-                    className="flex-1 bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:translate-y-0 transition-all duration-300">
-                    {isSubmitting ? "⏳ Processing Order..." : "Complete Order →"}
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-[var(--pink-500)] to-[var(--pink-600)] text-white py-4.5 rounded-2xl text-center font-black text-sm shadow-xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-55 disabled:pointer-events-none transition-all duration-300"
+                >
+                  {isSubmitting ? "⏳ Processing Order..." : "Complete Order →"}
+                </button>
               </form>
             ) : (
-              /* --- Step 3: Confirmation --- */
+              /* --- Step 3: Post-Checkout Confirmation --- */
               <div className="space-y-6 text-center animate-[successBounce_0.4s_ease-out_forwards]">
                 <div className="text-6xl animate-bounce">🎁</div>
                 <h3 className="font-playfair text-2xl sm:text-3xl font-extrabold text-[var(--dark-2)]">
                   Order Placed!
                 </h3>
-                <p className="text-stone-700 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
+                <p className="text-stone-750 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto font-medium">
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
-                  Your <strong>{selectedTheme.name}</strong> themed box order is received.
+                  Your order is received.
                   <strong className="block text-[var(--pink-600)] mt-4 font-black">
-                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot on Instagram DM! 📸
+                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot on
+                    Instagram DM! 📸
                   </strong>
                 </p>
+
+                {/* JazzCash Info Box */}
                 <div className="bg-gradient-to-br from-white to-[var(--pink-50)]/45 border-2 border-pink-100 rounded-2xl p-5 text-left text-xs space-y-2.5 shadow-sm">
-                  <div className="font-bold text-[var(--pink-500)] text-sm border-b border-pink-100 pb-2">JazzCash Account details:</div>
+                  <div className="font-bold text-[var(--pink-500)] text-sm border-b border-pink-100 pb-2">
+                    JazzCash Account details:
+                  </div>
                   <div className="flex justify-between">
                     <span className="text-[var(--text-light)] font-bold">Number</span>
                     <strong className="text-sm tracking-wider text-[var(--pink-600)]">0300-6600178</strong>
@@ -2485,84 +2626,33 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[var(--text-light)] font-bold">Amount to Send</span>
-                    <strong className="text-sm text-[var(--pink-600)]">Rs. {calculateCollectionTotal().toLocaleString()}</strong>
+                    <strong className="text-sm text-[var(--pink-600)]">
+                      Rs. {calculateCollectionTotal().toLocaleString()}
+                    </strong>
                   </div>
                 </div>
+
+                {/* Instagram Direct Link */}
                 <div className="bg-pink-50/20 border border-pink-100/60 rounded-2xl p-6 flex flex-col items-center gap-3.5 text-center">
                   <span className="text-3xl animate-[floatIcon_3s_ease-in-out_infinite]">📸</span>
-                  <strong className="text-xs sm:text-sm text-[var(--pink-600)] block font-extrabold">Send Payment Screenshot</strong>
+                  <strong className="text-xs sm:text-sm text-[var(--pink-600)] block font-extrabold">
+                    Send Payment Screenshot
+                  </strong>
                   <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
-                    Take a screenshot of your successful transaction receipt and send it to us on Instagram so we can confirm your order immediately! 💕
+                    Take a screenshot of your successful transaction receipt and send it to us on Instagram
+                    so we can confirm your order immediately! 💕
                   </p>
-                  <a href="https://instagram.com/box.love.pk" target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-3 px-7 rounded-full font-black text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-1">
+                  <a
+                    href="https://instagram.com/box.love.pk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C2336A] to-[#9B2452] text-white py-3 px-7 rounded-full font-black text-xs shadow-lg shadow-pink-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-1"
+                  >
                     📩 Send screenshot @box.love.pk
                   </a>
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* ========== VARIETIES SELECTION MODAL ========== */}
-      {varietiesModalOpen && selectedCategory && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-[modalFadeIn_0.3s_ease-out_forwards]">
-          <div className="bg-white rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 animate-[modalSlideUp_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
-            <button
-              onClick={() => {
-                setVarietiesModalOpen(false);
-                setSelectedCategory(null);
-              }}
-              className="absolute top-5 right-5 text-stone-500 hover:text-stone-850 p-2.5 text-xl focus:outline-none hover:bg-pink-50 rounded-xl transition-all"
-              aria-label="Close modal"
-            >
-              ✕
-            </button>
-
-            <div className="text-center border-b border-pink-100 pb-5 mb-6">
-              <span className="font-dancing text-3xl font-black text-[var(--pink-500)]">
-                box.love.pk
-              </span>
-              <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mt-1">
-                {COLLECTIONS.find(c => c.id === selectedCategory)?.emoji} {COLLECTIONS.find(c => c.id === selectedCategory)?.name}
-              </h3>
-              <p className="text-[var(--text-mid)] text-xs sm:text-sm mt-1">
-                Choose a theme below to configure and place your order
-              </p>
-            </div>
-
-            {/* Varieties Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {COLLECTIONS.find(c => c.id === selectedCategory)?.themes.map((theme, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    setSelectedTheme({
-                      name: theme.name,
-                      emoji: theme.emoji,
-                      category: COLLECTIONS.find(c => c.id === selectedCategory)?.name || "",
-                      price: COLLECTION_PRICE
-                    });
-                    setCollAddons({ fairy: false, ribbon: false });
-                    setCollCheckoutStep("addons");
-                    setVarietiesModalOpen(false);
-                    setCollectionModalOpen(true);
-                  }}
-                  className="group bg-gradient-to-br from-[var(--pink-50)]/30 to-[#FFFDFE] border border-pink-100/60 rounded-[20px] p-4 text-center cursor-pointer hover:shadow-lg hover:shadow-pink-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-pink-300"
-                >
-                  <span className="text-5xl block mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {theme.emoji}
-                  </span>
-                  <span className="font-playfair text-xs sm:text-sm font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors line-clamp-1">
-                    {theme.name}
-                  </span>
-                  <span className="block font-extrabold text-[var(--pink-600)] text-xs mt-1.5">
-                    Rs. {COLLECTION_PRICE.toLocaleString()}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       )}
