@@ -25,8 +25,8 @@ const COLLECTIONS = [
       { name: "Batman", image: "/collections/batman.jpg" },
       { name: "Deadpool", image: "/collections/deadpool.jpg" },
       { name: "Naruto", image: "/collections/naruto.jpg" },
-      { name: "One Piece", emoji: "☠️" },
-      { name: "Jujutsu Kaisen", emoji: "👁️" },
+      { name: "One Piece", image: "/collections/one_piece.jpg" },
+      { name: "Jujutsu Kaisen", image: "/collections/jujutsu_kaisen.jpg" },
     ],
   },
   {
@@ -60,7 +60,7 @@ const COLLECTIONS = [
     emoji: "⚽",
     themes: [
       { name: "Real Madrid", emoji: "⚪" },
-      { name: "Barcelona", emoji: "🔵" },
+      { name: "Barcelona", image: "/collections/barcelona.png" },
       { name: "Manchester City", image: "/collections/manchester_city.png" },
       { name: "Ronaldo", emoji: "🐐" },
       { name: "Messi", image: "/collections/messi.jpg" },
@@ -71,9 +71,9 @@ const COLLECTIONS = [
     name: "Cute Collection",
     emoji: "🍓",
     themes: [
-      { name: "Hello Kitty", emoji: "🐱" },
+      { name: "Hello Kitty", image: "/collections/hello_kitty.jpg" },
       { name: "Kuromi", emoji: "💜" },
-      { name: "My Melody", emoji: "🐰" },
+      { name: "My Melody", image: "/collections/my_melody.png" },
       { name: "Cinnamoroll", image: "/collections/cinnamoroll.jpg" },
       { name: "Strawberry", image: "/collections/strawberry.jpg" },
       { name: "Teddy Bear", image: "/collections/teddy_bear.jpg" },
