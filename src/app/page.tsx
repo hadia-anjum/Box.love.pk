@@ -36,7 +36,7 @@ const COLLECTIONS = [
     themes: [
       { name: "BMW M", image: "/collections/bmw.jpg" },
       { name: "Mercedes AMG", image: "/collections/mercedes.png" },
-      { name: "Porsche", emoji: "🏁" },
+      { name: "Porsche", image: "/collections/porsche.png" },
       { name: "Ferrari", emoji: "🐎" },
       { name: "Bugatti", image: "/collections/bugatti.jpg" },
       { name: "Formula 1", emoji: "🏎️" },
@@ -48,7 +48,7 @@ const COLLECTIONS = [
     emoji: "🎮",
     themes: [
       { name: "PlayStation 5", image: "/collections/ps5.jpg" },
-      { name: "Valorant", emoji: "🎯" },
+      { name: "Valorant", image: "/collections/valorant.png" },
       { name: "GTA VI", emoji: "🌴" },
       { name: "Minecraft", emoji: "⛏️" },
       { name: "Call of Duty", emoji: "🎖️" },
@@ -59,7 +59,7 @@ const COLLECTIONS = [
     name: "Sports Collection",
     emoji: "⚽",
     themes: [
-      { name: "Real Madrid", emoji: "⚪" },
+      { name: "Real Madrid", image: "/collections/real_madrid.png" },
       { name: "Barcelona", image: "/collections/barcelona.png" },
       { name: "Manchester City", image: "/collections/manchester_city.png" },
       { name: "Ronaldo", emoji: "🐐" },
@@ -72,7 +72,7 @@ const COLLECTIONS = [
     emoji: "🍓",
     themes: [
       { name: "Hello Kitty", image: "/collections/hello_kitty.jpg" },
-      { name: "Kuromi", emoji: "💜" },
+      { name: "Kuromi", image: "/collections/kuromi.jpg" },
       { name: "My Melody", image: "/collections/my_melody.png" },
       { name: "Cinnamoroll", image: "/collections/cinnamoroll.jpg" },
       { name: "Strawberry", image: "/collections/strawberry.jpg" },
@@ -96,7 +96,7 @@ const COLLECTIONS = [
     name: "Floral Collection",
     emoji: "🌸",
     themes: [
-      { name: "Rose", emoji: "🌹" },
+      { name: "Rose", image: "/collections/rose.png" },
       { name: "Tulip", image: "/collections/tulips.png" },
       { name: "Sunflower", image: "/collections/sunflower.png" },
       { name: "Daisy", image: "/collections/daisy.jpg" },
@@ -109,7 +109,7 @@ const COLLECTIONS = [
     name: "Beauty Collection",
     emoji: "💄",
     themes: [
-      { name: "Makeup", emoji: "💄" },
+      { name: "Makeup", image: "/collections/makeup.png" },
     ],
   },
   {
@@ -117,7 +117,7 @@ const COLLECTIONS = [
     name: "Cozy Collection",
     emoji: "☕",
     themes: [
-      { name: "Coffee", emoji: "☕" },
+      { name: "Coffee", image: "/collections/coffee.png" },
       { name: "Books", image: "/collections/books.png" },
       { name: "Vintage", image: "/collections/vintage.jpg" },
       { name: "Matcha", image: "/collections/matcha.jpg" },
@@ -129,7 +129,7 @@ const COLLECTIONS = [
     emoji: "🎵",
     themes: [
       { name: "BTS", image: "/collections/bts.jpg" },
-      { name: "Lana Del Rey", emoji: "🌊" },
+      { name: "Lana Del Rey", image: "/collections/lana_del_rey.jpg" },
       { name: "Taylor Swift", image: "/collections/taylor_swift.jpg" },
       { name: "Billie Eilish", image: "/collections/billie_eilish.png" },
       { name: "The Weeknd", image: "/collections/the_weeknd.png" },
@@ -1836,10 +1836,13 @@ export default function Home() {
                 setSelectedCategory(cat.id);
                 setVarietiesModalOpen(true);
               }}
-              className="bg-white border border-pink-100 rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center gap-4 hover:-translate-y-2 hover:shadow-xl hover:shadow-pink-500/10 transition-all group"
+              className="relative overflow-hidden bg-white border border-pink-100/80 rounded-3xl p-8 sm:p-10 flex flex-col items-center justify-center min-h-[140px] hover:border-[var(--pink-400)] hover:shadow-xl hover:shadow-pink-500/10 hover:-translate-y-1 transition-all duration-300 group cursor-pointer focus:outline-none"
             >
-              <span className="text-5xl sm:text-6xl group-hover:scale-110 transition-transform">{cat.emoji}</span>
-              <span className="font-bold text-[var(--dark-2)] text-sm sm:text-base">{cat.name}</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-50/20 to-pink-100/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative font-playfair font-extrabold text-[var(--dark-2)] text-sm sm:text-lg text-center group-hover:text-[var(--pink-600)] group-hover:scale-105 transition-all duration-300">
+                {cat.name}
+              </span>
+              <span className="absolute bottom-4 w-6 h-1 bg-[var(--pink-400)] rounded-full transition-all duration-300 group-hover:w-16" />
             </button>
           ))}
         </div>
@@ -2370,14 +2373,29 @@ export default function Home() {
                 </div>
 
                 {/* Theme Image Mockup area */}
-                <div className="relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group">
+                <div 
+                  onClick={() => {
+                    if (selectedTheme.image) {
+                      setActiveReviewImg(selectedTheme.image);
+                    }
+                  }}
+                  className={`relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group ${selectedTheme.image ? 'cursor-zoom-in' : ''}`}
+                >
                   {selectedTheme.image ? (
-                    <Image
-                      src={selectedTheme.image}
-                      alt={selectedTheme.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <>
+                      <Image
+                        src={selectedTheme.image}
+                        alt={selectedTheme.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Zoom Overlay Indicator */}
+                      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-white/90 backdrop-blur-sm text-stone-800 text-[10px] font-bold tracking-widest uppercase py-2 px-4 rounded-full shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                          🔍 Tap to Zoom
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center p-4">
                       <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{selectedTheme.emoji}</span>
