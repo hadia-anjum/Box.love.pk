@@ -35,7 +35,7 @@ const COLLECTIONS = [
     emoji: "🚗",
     themes: [
       { name: "BMW M", image: "/collections/bmw.jpg" },
-      { name: "Mercedes AMG", emoji: "⭐" },
+      { name: "Mercedes AMG", image: "/collections/mercedes.png" },
       { name: "Porsche", emoji: "🏁" },
       { name: "Ferrari", emoji: "🐎" },
       { name: "Bugatti", image: "/collections/bugatti.jpg" },
@@ -61,9 +61,9 @@ const COLLECTIONS = [
     themes: [
       { name: "Real Madrid", emoji: "⚪" },
       { name: "Barcelona", emoji: "🔵" },
-      { name: "Manchester City", emoji: "🩵" },
+      { name: "Manchester City", image: "/collections/manchester_city.png" },
       { name: "Ronaldo", emoji: "🐐" },
-      { name: "Messi", emoji: "🏆" },
+      { name: "Messi", image: "/collections/messi.jpg" },
     ],
   },
   {
@@ -88,7 +88,7 @@ const COLLECTIONS = [
       { name: "Coquette", image: "/collections/coquette.jpg" },
       { name: "Butterfly", image: "/collections/butterfly.jpg" },
       { name: "Cherry", emoji: "🍒" },
-      { name: "Moon & Stars", emoji: "🌙" },
+      { name: "Moon & Stars", image: "/collections/moon_stars.png" },
     ],
   },
   {
@@ -101,7 +101,7 @@ const COLLECTIONS = [
       { name: "Sunflower", emoji: "🌻" },
       { name: "Daisy", image: "/collections/daisy.jpg" },
       { name: "Lavender", emoji: "💜" },
-      { name: "Lilies", emoji: "🪷" },
+      { name: "Lilies", image: "/collections/lilies.jpg" },
      ],
   },
   {
