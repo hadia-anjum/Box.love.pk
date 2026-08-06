@@ -47,7 +47,7 @@ const COLLECTIONS = [
     name: "Gaming Collection",
     emoji: "🎮",
     themes: [
-      { name: "PlayStation 5", emoji: "🎮" },
+      { name: "PlayStation 5", image: "/collections/ps5.jpg" },
       { name: "Valorant", emoji: "🎯" },
       { name: "GTA VI", emoji: "🌴" },
       { name: "Minecraft", emoji: "⛏️" },
@@ -118,9 +118,9 @@ const COLLECTIONS = [
     emoji: "☕",
     themes: [
       { name: "Coffee", emoji: "☕" },
-      { name: "Books", emoji: "📚" },
-      { name: "Candles", emoji: "🕯️" },
-      { name: "Matcha", emoji: "🍵" },
+      { name: "Books", image: "/collections/books.png" },
+      { name: "Vintage", image: "/collections/vintage.jpg" },
+      { name: "Matcha", image: "/collections/matcha.jpg" },
     ],
   },
   {
