@@ -2352,24 +2352,21 @@ export default function Home() {
 
                 {/* Theme Image Mockup area */}
                 <div className="relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group">
-                  {/* Dynamic image loading with fallback */}
-                  <img
-                    src={`/collections/${selectedTheme.id}.jpg`}
-                    alt={selectedTheme.name}
-                    onError={(e) => {
-                      // Fallback to stylized emoji if file not found
-                      e.currentTarget.style.display = "none";
-                      const el = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
-                      if (el) el.style.display = "flex";
-                    }}
-                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="emoji-fallback hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                    <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{selectedTheme.emoji}</span>
-                    <span className="text-[10px] text-pink-400 font-bold tracking-widest uppercase bg-white/80 backdrop-blur-sm py-1 px-3.5 rounded-full border border-pink-100">
-                      Photo Coming Soon 📸
-                    </span>
-                  </div>
+                  {selectedTheme.image ? (
+                    <Image
+                      src={selectedTheme.image}
+                      alt={selectedTheme.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-center p-4">
+                      <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{selectedTheme.emoji}</span>
+                      <span className="text-[10px] text-pink-400 font-bold tracking-widest uppercase bg-white/80 backdrop-blur-sm py-1 px-3.5 rounded-full border border-pink-100">
+                        Photo Coming Soon 📸
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Text detailing */}
