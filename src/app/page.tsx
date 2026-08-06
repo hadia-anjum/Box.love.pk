@@ -49,9 +49,9 @@ const COLLECTIONS = [
     themes: [
       { name: "PlayStation 5", image: "/collections/ps5.jpg" },
       { name: "Valorant", image: "/collections/valorant.png" },
-      { name: "GTA VI", emoji: "🌴" },
+      { name: "GTA VI", image: "/collections/gta_vi.png" },
       { name: "Minecraft", emoji: "⛏️" },
-      { name: "Call of Duty", emoji: "🎖️" },
+      { name: "Call of Duty", image: "/collections/call_of_duty.jpg" },
     ],
   },
   {
@@ -62,7 +62,7 @@ const COLLECTIONS = [
       { name: "Real Madrid", image: "/collections/real_madrid.png" },
       { name: "Barcelona", image: "/collections/barcelona.png" },
       { name: "Manchester City", image: "/collections/manchester_city.png" },
-      { name: "Ronaldo", emoji: "🐐" },
+      { name: "Ronaldo", image: "/collections/ronaldo.jpg" },
       { name: "Messi", image: "/collections/messi.jpg" },
     ],
   },
@@ -87,7 +87,7 @@ const COLLECTIONS = [
     themes: [
       { name: "Coquette", image: "/collections/coquette.jpg" },
       { name: "Butterfly", image: "/collections/butterfly.jpg" },
-      { name: "Cherry", emoji: "🍒" },
+      { name: "Cherry", image: "/collections/cherry.jpg" },
       { name: "Moon & Stars", image: "/collections/moon_stars.png" },
     ],
   },
@@ -100,7 +100,7 @@ const COLLECTIONS = [
       { name: "Tulip", image: "/collections/tulips.png" },
       { name: "Sunflower", image: "/collections/sunflower.png" },
       { name: "Daisy", image: "/collections/daisy.jpg" },
-      { name: "Lavender", emoji: "💜" },
+      { name: "Lavender", image: "/collections/lavender.jpg" },
       { name: "Lilies", image: "/collections/lilies.jpg" },
      ],
   },
