@@ -1815,42 +1815,33 @@ export default function Home() {
           ].map((rev, idx) => (
             <div
               key={idx}
-              className="flex gap-2 sm:gap-3 items-start bg-white border border-gray-200 rounded-2xl p-3 sm:p-5 shadow-sm hover:shadow-md transition-all duration-300"
+              className="bg-white border border-gray-200 rounded-[20px] p-2.5 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full"
             >
-              {/* Left Column: Quote Icon & Content */}
-              <div className="flex-1 flex gap-3 items-start">
-                <div className="text-[var(--pink-400)]/20 shrink-0 select-none">
-                  <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-[var(--text-mid)] text-[10px] sm:text-xs leading-relaxed font-semibold">
-                    {rev.text}
-                  </p>
-                  <div className="text-[var(--dark-2)] text-xs font-black tracking-widest uppercase mt-1">
-                    {rev.name}
-                  </div>
-                  <div className="flex gap-0.5 text-amber-500 text-sm">
-                    {Array.from({ length: rev.rating }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Small Box Image with Click to Zoom */}
-              <div
+              <div 
+                className="relative aspect-square rounded-xl overflow-hidden mb-3 border border-pink-50/50 shrink-0 cursor-zoom-in" 
                 onClick={() => setActiveReviewImg(rev.img)}
-                className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0 cursor-zoom-in hover:brightness-95 hover:shadow-md transition-all duration-300"
                 title="Click to zoom image"
               >
                 <Image
                   src={rev.img}
                   alt="Reviewed box"
                   fill
-                  className="object-cover hover:scale-105 transition-all duration-500"
+                  className="object-cover hover:scale-105 transition-all duration-700"
                 />
+              </div>
+              
+              <div className="flex-1 flex flex-col px-1">
+                <div className="flex gap-0.5 text-amber-400 text-[10px] sm:text-xs mb-1.5">
+                  {Array.from({ length: rev.rating }).map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
+                <p className="text-[var(--text-mid)] text-[10px] sm:text-[11px] leading-relaxed font-medium mb-2 flex-1">
+                  "{rev.text}"
+                </p>
+                <div className="text-[var(--dark-2)] text-[10px] sm:text-xs font-extrabold tracking-widest uppercase mt-auto">
+                  - {rev.name}
+                </div>
               </div>
             </div>
           ))}
