@@ -837,14 +837,14 @@ export default function Home() {
           {[
             {
               title: "Birthday Box",
-              price: 2800,
+              price: 1950,
               img: "/featured_birthday.jpg",
               category: "Premium Box",
               badge: "✨ New"
             },
             {
               title: "My Man",
-              price: 2800,
+              price: 1900,
               img: "/myman.jpg",
               category: "Premium Box",
               badge: "✨ Best Seller"
@@ -955,7 +955,7 @@ export default function Home() {
                       ✓
                     </span>
                   )}
-                  <span className="text-4xl block mb-3 animate-[floatIcon_3s_ease-in-out_infinite]">🖤</span>
+                  
                   <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Simple Black Box
                   </div>
@@ -982,7 +982,7 @@ export default function Home() {
                       ✓
                     </span>
                   )}
-                  <span className="text-4xl block mb-3 animate-[floatIcon_3.5s_ease-in-out_infinite]">✍️</span>
+                  
                   <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Personalised Box
                   </div>
