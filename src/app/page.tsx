@@ -841,7 +841,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
               title: "Birthday Bliss Box",
@@ -988,9 +988,7 @@ export default function Home() {
                   <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Simple Black Box
                   </div>
-                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-4 font-medium">
-                    Just the premium black box with delivery. Add optional lights or ribbon.
-                  </div>
+                  
                   <div className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base bg-white/80 inline-block px-3 py-1 rounded-xl shadow-inner border border-pink-100/50">
                     Rs. 1,600 + DC
                   </div>
@@ -1015,9 +1013,7 @@ export default function Home() {
                   <div className="font-bold text-base text-[var(--dark-2)] mb-1">
                     Personalised Box
                   </div>
-                  <div className="text-[var(--text-mid)] text-xs leading-relaxed mb-4 font-medium">
-                    Write your message in golden or silver ink on top and/or inside the box.
-                  </div>
+                  
                   <div className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base bg-white/80 inline-block px-3 py-1 rounded-xl shadow-inner border border-pink-100/50">
                     Rs. 1,600 + writing
                   </div>
