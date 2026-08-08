@@ -213,6 +213,7 @@ export default function Home() {
   const [collCheckoutStep, setCollCheckoutStep] = useState<"details" | "addons" | "form" | "confirmation">("details");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
   const [polaroidPhotos, setPolaroidPhotos] = useState<File[]>([]);
+  const [boxAge, setBoxAge] = useState("");
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [varietiesModalOpen, setVarietiesModalOpen] = useState(false);
@@ -480,6 +481,7 @@ export default function Home() {
     const addonsList: string[] = [];
     if (collAddons.fairy) addonsList.push("Fairy Lights");
     if (collAddons.ribbon) addonsList.push("Ribbon Bow");
+    if (boxAge) addonsList.push(`Age Balloon: ${boxAge}`);
     const orderData: OrderData = {
       name: `${formInputs.fname} ${formInputs.lname}`.trim(),
       email: formInputs.email,
@@ -861,6 +863,13 @@ export default function Home() {
               img: "/polaroid_box.jpg",
               category: "Premium Box",
               badge: "📸 3 Photos"
+            },
+            {
+              title: "For boys",
+              price: 2800,
+              img: "/for_boys.jpg",
+              category: "Premium Box",
+              badge: "✨ New"
             },
             {
               title: "For girls",
@@ -2648,6 +2657,20 @@ export default function Home() {
                     {polaroidPhotos.length > 0 && (
                       <p className="text-xs font-bold text-green-600 mt-2">✓ {polaroidPhotos.length} photo(s) selected.</p>
                     )}
+                  </div>
+                )}
+                {(selectedTheme?.name === "For girls" || selectedTheme?.name === "For boys") && (
+                  <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
+                    <span className="text-2xl block animate-bounce">🎈</span>
+                    <h4 className="font-bold text-[var(--dark-2)] text-sm">Age Number</h4>
+                    <p className="text-xs text-[var(--text-mid)] mb-3">What age balloon do you want on the box?</p>
+                    <input 
+                      type="number" 
+                      placeholder="e.g. 16"
+                      value={boxAge}
+                      onChange={(e) => setBoxAge(e.target.value)}
+                      className="w-full text-center border border-pink-100 focus:border-[var(--pink-300)] rounded-xl p-3 text-sm focus:outline-none shadow-sm font-bold text-[var(--pink-600)]"
+                    />
                   </div>
                 )}
                 <div className="space-y-3">
