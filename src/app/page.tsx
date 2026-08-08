@@ -783,7 +783,7 @@ export default function Home() {
           </h1>
 
           <p className="text-[var(--text-mid)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-semibold">
-            Sometimes the words written on the box mean more than the gift inside...... 💕
+            
             <span className="block text-xs sm:text-sm font-extrabold mt-4 text-[var(--pink-600)] bg-pink-100/30 backdrop-blur-sm border border-pink-100/50 py-2.5 px-5 rounded-2xl max-w-max shadow-sm mx-auto">
               📸 Visit our Instagram{" "}
               <a
@@ -1029,7 +1029,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-xl bg-black border border-pink-200/20 shrink-0 shadow-md shadow-black/10" />
                   <div className="grow">
                     <strong className="block text-sm text-[var(--dark-2)]">
-                      🖤 Simple Black Luxury Box
+                      Simple Black Luxury Box
                     </strong>
                     <span className="text-[var(--text-light)] text-xs font-medium">
                       Clean, elegant — ready for your gift. Add lights or ribbon below.
@@ -1209,9 +1209,7 @@ export default function Home() {
                         </span>
                         <span className="text-[10px] text-[var(--text-light)] font-bold">Free</span>
                       </div>
-                      <span className="text-[10px] text-[var(--text-light)] leading-tight font-medium">
-                        Inside lid will be left empty
-                      </span>
+                      
                     </button>
 
                     {/* Option 2: Handwritten Message */}
@@ -1236,9 +1234,7 @@ export default function Home() {
                         </span>
                         <span className="text-[10px] text-[var(--pink-600)] font-black">+ Rs. 300</span>
                       </div>
-                      <span className="text-[10px] text-[var(--text-light)] leading-tight font-medium">
-                        Golden or silver writing on inside lid
-                      </span>
+                      
                     </button>
 
                     {/* Option 3: Hanging Banner */}
@@ -1679,7 +1675,7 @@ export default function Home() {
 
               <div className="flex flex-col gap-4 mb-6 text-sm font-medium">
                 <div className="flex justify-between items-center text-[var(--text-mid)]">
-                  <span>🖤 Black Luxury Box</span>
+                  <span>Black Luxury Box</span>
                   <span className="font-extrabold text-[var(--dark-2)]">Rs. 1,600</span>
                 </div>
 
@@ -1764,7 +1760,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {[
             {
               name: "S******",
