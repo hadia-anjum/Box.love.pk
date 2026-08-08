@@ -1818,7 +1818,7 @@ export default function Home() {
               className="bg-white border border-gray-200 rounded-[20px] p-2.5 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full"
             >
               <div 
-                className="relative aspect-square rounded-xl overflow-hidden mb-3 border border-pink-50/50 shrink-0 cursor-zoom-in" 
+                className="relative h-28 sm:h-36 w-full rounded-xl overflow-hidden mb-3 border border-pink-50/50 shrink-0 cursor-zoom-in" 
                 onClick={() => setActiveReviewImg(rev.img)}
                 title="Click to zoom image"
               >
