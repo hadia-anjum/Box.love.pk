@@ -212,6 +212,7 @@ export default function Home() {
   const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; category: string; price: number; id: string} | null>(null);
   const [collCheckoutStep, setCollCheckoutStep] = useState<"details" | "addons" | "form" | "confirmation">("details");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
+  const [polaroidPhotos, setPolaroidPhotos] = useState<File[]>([]);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [varietiesModalOpen, setVarietiesModalOpen] = useState(false);
@@ -287,7 +288,7 @@ export default function Home() {
   };
 
   const calculateCollectionTotal = () => {
-    let total = COLLECTION_PRICE + COLLECTION_DELIVERY;
+    let total = (selectedTheme?.price || 2800) + COLLECTION_DELIVERY;
     if (collAddons.fairy) total += PRICES.fairy;
     if (collAddons.ribbon) total += PRICES.ribbon;
     return total;
@@ -460,6 +461,11 @@ export default function Home() {
     e.preventDefault();
     if (!formInputs.email || !formInputs.fname || !formInputs.lname || !formInputs.address || !formInputs.city || !formInputs.phone) {
       alert("Please fill in all required fields.");
+      return;
+    }
+    if (selectedTheme?.name === "Polaroid photo box" && polaroidPhotos.length !== 3) {
+      alert("Please select exactly 3 photos for the Polaroid Box before completing the order.");
+      setCollCheckoutStep("details");
       return;
     }
     setIsSubmitting(true);
@@ -850,11 +856,11 @@ export default function Home() {
               badge: "✨ Best Seller"
             },
             {
-              title: "Custom Box",
-              price: 2800,
-              img: "/inside.jpg",
-              category: "Custom Box",
-              badge: "💕 Most Loved"
+              title: "Polaroid photo box",
+              price: 2350,
+              img: "/polaroid_box.jpg",
+              category: "Premium Box",
+              badge: "📸 3 Photos"
             }
           ].map((item, idx) => (
             <div
@@ -2381,8 +2387,7 @@ export default function Home() {
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
                   Your order is received.
                   <strong className="block text-[var(--pink-600)] mt-4 font-black">
-                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot on
-                    Instagram DM! 📸
+                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot {selectedTheme?.name === "Polaroid photo box" ? "AND your 3 photos" : ""} on Instagram DM! 📸
                   </strong>
                 </p>
 
@@ -2414,8 +2419,7 @@ export default function Home() {
                     Send Payment Screenshot
                   </strong>
                   <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
-                    Take a screenshot of your successful transaction receipt and send it to us on Instagram
-                    so we can confirm your order immediately! 💕
+                    Take a screenshot of your successful transaction receipt {selectedTheme?.name === "Polaroid photo box" ? "and attach your 3 photos" : ""} and send it to us on Instagram so we can confirm your order immediately! 💕
                   </p>
                   <a
                     href="https://instagram.com/box.love.pk"
@@ -2535,7 +2539,7 @@ export default function Home() {
                     {selectedTheme.name} Gift Box
                   </h4>
                   <div className="flex justify-between items-center pt-2">
-                    <span className="font-extrabold text-2xl text-[var(--pink-600)]">Rs. {COLLECTION_PRICE.toLocaleString()}</span>
+                    <span className="font-extrabold text-2xl text-[var(--pink-600)]">Rs. {(selectedTheme?.price || 2800).toLocaleString()}</span>
                     <span className="text-xs font-semibold text-[var(--text-light)] bg-pink-50 px-3 py-1 rounded-full">
                       + Rs. {COLLECTION_DELIVERY} delivery
                     </span>
@@ -2610,7 +2614,7 @@ export default function Home() {
                   )}
                   <h4 className="font-playfair text-2xl font-bold text-[var(--dark-2)]">{selectedTheme.name}</h4>
                   <p className="text-xs text-[var(--text-mid)] font-bold mt-1">{selectedTheme.category}</p>
-                  <p className="font-extrabold text-xl text-[var(--pink-600)] mt-3">Rs. {COLLECTION_PRICE.toLocaleString()}</p>
+                  <p className="font-extrabold text-xl text-[var(--pink-600)] mt-3">Rs. {(selectedTheme?.price || 2800).toLocaleString()}</p>
                 </div>
 
                 {/* Optional Add-ons */}
@@ -2683,7 +2687,7 @@ export default function Home() {
                 <div className="border border-pink-100 rounded-2xl p-4 bg-pink-50/20 space-y-2.5 text-xs font-medium">
                   <div className="flex justify-between">
                     <span>{selectedTheme.name} Themed Box</span>
-                    <span>Rs. {COLLECTION_PRICE.toLocaleString()}</span>
+                    <span>Rs. {(selectedTheme?.price || 2800).toLocaleString()}</span>
                   </div>
                   {collAddons.fairy && (
                     <div className="flex justify-between">
