@@ -861,6 +861,13 @@ export default function Home() {
               img: "/polaroid_box.jpg",
               category: "Premium Box",
               badge: "📸 3 Photos"
+            },
+            {
+              title: "For girls",
+              price: 2800,
+              img: "/for_girls.jpg",
+              category: "Premium Box",
+              badge: "💕 Most Loved"
             }
           ].map((item, idx) => (
             <div
@@ -2618,6 +2625,31 @@ export default function Home() {
                 </div>
 
                 {/* Optional Add-ons */}
+                {selectedTheme?.name === "Polaroid photo box" && (
+                  <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
+                    <span className="text-2xl block animate-bounce">📸</span>
+                    <h4 className="font-bold text-[var(--dark-2)] text-sm">Upload 3 Photos</h4>
+                    <p className="text-xs text-[var(--text-mid)] mb-3">Please select the 3 photos you want inside the box.</p>
+                    <input 
+                      type="file" 
+                      multiple 
+                      accept="image/*"
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        if (files.length > 3) {
+                          alert("You can only select up to 3 photos.");
+                          e.target.value = "";
+                        } else {
+                          setPolaroidPhotos(files);
+                        }
+                      }}
+                      className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-[var(--pink-100)] file:text-[var(--pink-600)] hover:file:bg-[var(--pink-200)]"
+                    />
+                    {polaroidPhotos.length > 0 && (
+                      <p className="text-xs font-bold text-green-600 mt-2">✓ {polaroidPhotos.length} photo(s) selected.</p>
+                    )}
+                  </div>
+                )}
                 <div className="space-y-3">
                   <h4 className="font-black text-xs uppercase tracking-wider text-[var(--text-mid)]">
                     ✨ Optional Add-ons
