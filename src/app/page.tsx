@@ -872,6 +872,13 @@ export default function Home() {
               badge: "✨ New"
             },
             {
+              title: "Custom Box",
+              price: 1900,
+              img: "/custom_box.jpg",
+              category: "Custom Box",
+              badge: "💕 Make Your Own"
+            },
+            {
               title: "For girls",
               price: 2800,
               img: "/for_girls.jpg",
