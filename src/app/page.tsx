@@ -833,37 +833,43 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {[
             {
+              title: "Birthday Box",
+              price: 2800,
+              img: "/featured_birthday.jpg",
+              category: "Premium Box",
+              badge: "✨ New"
+            },
+            {
               title: "My Man",
-              desc: "Black luxury box with golden handwritten message. Perfect for anniversaries, surprises & special moments.",
+              price: 2800,
               img: "/myman.jpg",
-              badge: "✨ Best Seller",
+              category: "Premium Box",
+              badge: "✨ Best Seller"
             },
             {
               title: "Custom Box",
-              desc: "Write a heartfelt message inside the box lid to express your feelings in a beautiful way.",
+              price: 2800,
               img: "/inside.jpg",
-              badge: "💕 Most Loved",
-            },
-            {
-              title: "Birthday Box",
-              desc: "A premium customized black birthday box with your personalized lid writing in gold or silver.",
-              img: "/birthday.jpg",
-              badge: "🖤 Simple & Elegant",
-            },
+              category: "Custom Box",
+              badge: "💕 Most Loved"
+            }
           ].map((item, idx) => (
             <div
               key={idx}
-              className="box-card bg-white border border-pink-50 rounded-[28px] p-6 shadow-xl shadow-pink-500/5 group hover:shadow-pink-500/20 transition-all duration-500"
-              onMouseMove={handleCardMouseMove}
-              onMouseLeave={handleCardMouseLeave}
+              className="bg-white border border-pink-100/60 rounded-[20px] p-3 sm:p-4 shadow-lg shadow-pink-500/5 group hover:shadow-pink-500/15 transition-all duration-300 flex flex-col h-full"
             >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-inner border border-pink-100/10">
-                <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-[var(--pink-600)] font-black text-[10px] uppercase tracking-widest py-1.5 px-4 rounded-full shadow-lg z-10 border border-pink-100/40">
-                  {item.badge}
-                </span>
+              <div 
+                className="relative aspect-square rounded-xl overflow-hidden mb-3 border border-pink-50/50 shrink-0 cursor-zoom-in" 
+                onClick={() => setActiveReviewImg(item.img)}
+              >
+                {item.badge && (
+                  <span className="absolute top-2 left-2 bg-white/95 backdrop-blur-md text-[var(--pink-600)] font-black text-[8px] uppercase tracking-wider py-1 px-2 rounded-full shadow-sm z-10 border border-pink-100/50">
+                    {item.badge}
+                  </span>
+                )}
                 <Image
                   src={item.img}
                   alt={item.title}
@@ -871,13 +877,24 @@ export default function Home() {
                   className="object-cover group-hover:scale-105 transition-all duration-700"
                 />
               </div>
-              <div className="card-info">
-                <h3 className="font-playfair text-xl sm:text-2xl font-bold text-[var(--dark-2)] mb-3 group-hover:text-[var(--pink-500)] transition-all">
+              
+              <div className="flex-1 flex flex-col">
+                <h3 className="font-playfair text-sm sm:text-lg font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors line-clamp-1">
                   {item.title}
                 </h3>
-                <p className="text-[var(--text-mid)] text-xs sm:text-sm leading-relaxed font-medium">
-                  {item.desc}
-                </p>
+                <div className="mt-1 mb-3">
+                  <p className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    setSelectedTheme({ name: item.title, image: item.img, category: item.category, price: item.price, id: item.title.toLowerCase().replace(/\s+/g, "-") });
+                    setCollectionModalOpen(true);
+                  }}
+                  className="w-full mt-auto bg-[var(--pink-500)] hover:bg-[var(--pink-600)] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
+                >
+                  <span className="text-lg leading-none mb-0.5">+</span> Add to cart
+                </button>
               </div>
             </div>
           ))}
