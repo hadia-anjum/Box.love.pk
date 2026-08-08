@@ -841,7 +841,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {[
             {
               title: "Birthday Bliss Box",
@@ -908,11 +908,11 @@ export default function Home() {
               </div>
               
               <div className="flex-1 flex flex-col">
-                <h3 className="font-playfair text-sm sm:text-lg font-bold text-[var(--dark-2)] group-hover:text-[var(--pink-500)] transition-colors line-clamp-1">
+                <h3 className="font-bold text-xs sm:text-sm text-[var(--dark-2)] transition-colors line-clamp-2 leading-tight">
                   {item.title}
                 </h3>
                 <div className="mt-1 mb-3">
-                  <p className="font-extrabold text-[var(--pink-600)] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
+                  <p className="font-black text-[#9B2452] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
                 </div>
                 
                 <button 
@@ -920,7 +920,7 @@ export default function Home() {
                     setSelectedTheme({ name: item.title, image: item.img, category: item.category, price: item.price, id: item.title.toLowerCase().replace(/\s+/g, "-") });
                     setCollectionModalOpen(true);
                   }}
-                  className="w-full mt-auto bg-[var(--pink-500)] hover:bg-[var(--pink-600)] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
+                  className="w-full mt-auto bg-[#E91E63] hover:bg-[#D81B60] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-full transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
                 >
                   <span className="text-lg leading-none mb-0.5">+</span> Add to cart
                 </button>
@@ -1815,7 +1815,7 @@ export default function Home() {
           ].map((rev, idx) => (
             <div
               key={idx}
-              className="flex gap-3 sm:gap-4 items-start bg-white border border-pink-100 rounded-3xl p-4 sm:p-6 shadow-xl shadow-pink-500/5 hover:-translate-y-1 transition-all duration-300"
+              className="flex gap-2 sm:gap-3 items-start bg-white border border-gray-200 rounded-2xl p-3 sm:p-5 shadow-sm hover:shadow-md transition-all duration-300"
             >
               {/* Left Column: Quote Icon & Content */}
               <div className="flex-1 flex gap-3 items-start">
@@ -1825,7 +1825,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-[var(--text-mid)] text-xs sm:text-sm leading-relaxed font-semibold">
+                  <p className="text-[var(--text-mid)] text-[10px] sm:text-xs leading-relaxed font-semibold">
                     {rev.text}
                   </p>
                   <div className="text-[var(--dark-2)] text-xs font-black tracking-widest uppercase mt-1">
@@ -2003,7 +2003,7 @@ export default function Home() {
             setLightboxScale(1);
             setLightboxPosition({ x: 0, y: 0 });
           }}
-          className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-[modalFadeIn_0.2s_ease-out_forwards]"
+          className="fixed inset-0 bg-white/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-[modalFadeIn_0.2s_ease-out_forwards]"
         >
           <div 
             onClick={(e) => e.stopPropagation()}
@@ -2011,7 +2011,7 @@ export default function Home() {
           >
             {/* Top Bar Controls */}
             <div className="absolute top-[-50px] right-0 left-0 flex justify-between items-center z-10 px-2">
-              <div className="flex gap-2 bg-black/40 rounded-full px-4 py-1.5 backdrop-blur-sm">
+              <div className="flex gap-2 bg-white rounded-full px-4 py-1.5 shadow-sm border border-pink-100">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -2019,12 +2019,12 @@ export default function Home() {
                     if (lightboxScale <= 1.5) setLightboxPosition({ x: 0, y: 0 });
                   }}
                   disabled={lightboxScale <= 1}
-                  className="text-white hover:text-pink-200 text-sm font-black disabled:opacity-40 disabled:hover:text-white px-2 focus:outline-none cursor-pointer"
+                  className="text-pink-600 hover:text-pink-800 text-sm font-black disabled:opacity-40 disabled:hover:text-pink-600 px-2 focus:outline-none cursor-pointer"
                   title="Zoom Out"
                 >
                   ➖
                 </button>
-                <span className="text-white text-xs font-bold min-w-[50px] text-center">
+                <span className="text-pink-600 text-xs font-bold min-w-[50px] text-center mt-0.5">
                   {Math.round(lightboxScale * 100)}%
                 </span>
                 <button
@@ -2033,7 +2033,7 @@ export default function Home() {
                     setLightboxScale(prev => Math.min(3, prev + 0.5));
                   }}
                   disabled={lightboxScale >= 3}
-                  className="text-white hover:text-pink-200 text-sm font-black disabled:opacity-40 disabled:hover:text-white px-2 focus:outline-none cursor-pointer"
+                  className="text-pink-600 hover:text-pink-800 text-sm font-black disabled:opacity-40 disabled:hover:text-pink-600 px-2 focus:outline-none cursor-pointer"
                   title="Zoom In"
                 >
                   ➕
@@ -2045,7 +2045,7 @@ export default function Home() {
                       setLightboxScale(1);
                       setLightboxPosition({ x: 0, y: 0 });
                     }}
-                    className="text-pink-300 hover:text-pink-100 text-xs font-extrabold ml-2 border-l border-white/20 pl-2.5 focus:outline-none cursor-pointer"
+                    className="text-pink-500 hover:text-pink-700 text-xs font-extrabold ml-2 border-l border-pink-200 pl-2.5 focus:outline-none cursor-pointer"
                   >
                     Reset
                   </button>
@@ -2058,7 +2058,7 @@ export default function Home() {
                   setLightboxScale(1);
                   setLightboxPosition({ x: 0, y: 0 });
                 }}
-                className="text-white hover:text-pink-200 text-sm font-black focus:outline-none bg-black/40 hover:bg-black/60 px-4 py-1.5 rounded-full backdrop-blur-sm cursor-pointer"
+                className="text-pink-600 hover:text-pink-700 text-sm font-black focus:outline-none bg-pink-100 hover:bg-pink-200 px-4 py-1.5 rounded-full backdrop-blur-sm cursor-pointer shadow-sm"
                 aria-label="Close image"
               >
                 ✕ Close
@@ -2120,10 +2120,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            {/* Small helper hint at the bottom */}
-            <div className="absolute bottom-[-35px] text-white/50 text-[10px] font-medium tracking-wide">
-              {lightboxScale > 1 ? "Drag to pan • Click / tap to zoom out" : "Click / tap image to zoom in"}
-            </div>
+            
           </div>
         </div>
       )}
