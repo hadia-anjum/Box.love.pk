@@ -464,7 +464,7 @@ export default function Home() {
       alert("Please fill in all required fields.");
       return;
     }
-    if (selectedTheme?.name === "Polaroid photo box" && polaroidPhotos.length !== 3) {
+    if (selectedTheme?.name === "Memory Lane Box" && polaroidPhotos.length !== 3) {
       alert("Please select exactly 3 photos for the Polaroid Box before completing the order.");
       setCollCheckoutStep("details");
       return;
@@ -844,42 +844,42 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {[
             {
-              title: "Birthday Box",
+              title: "Birthday Bliss Box",
               price: 1950,
               img: "/featured_birthday.jpg",
               category: "Premium Box",
               badge: "✨ New"
             },
             {
-              title: "My Man",
+              title: "My Person Box",
               price: 1900,
               img: "/myman.jpg",
               category: "Premium Box",
               badge: "✨ Best Seller"
             },
             {
-              title: "Polaroid photo box",
+              title: "Memory Lane Box",
               price: 2350,
               img: "/polaroid_box.jpg",
               category: "Premium Box",
               badge: "📸 3 Photos"
             },
             {
-              title: "For boys",
+              title: "Blue Boy Box",
               price: 2800,
               img: "/for_boys.jpg",
               category: "Premium Box",
               badge: "✨ New"
             },
             {
-              title: "Custom Box",
+              title: "Made for you Box",
               price: 1900,
               img: "/custom_box.jpg",
               category: "Custom Box",
               badge: "💕 Make Your Own"
             },
             {
-              title: "For girls",
+              title: "Pretty Girl Box",
               price: 2800,
               img: "/for_girls.jpg",
               category: "Premium Box",
@@ -2410,7 +2410,7 @@ export default function Home() {
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
                   Your order is received.
                   <strong className="block text-[var(--pink-600)] mt-4 font-black">
-                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot {selectedTheme?.name === "Polaroid photo box" ? "AND your 3 photos" : ""} on Instagram DM! 📸
+                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot {selectedTheme?.name === "Memory Lane Box" ? "AND your 3 photos" : ""} on Instagram DM! 📸
                   </strong>
                 </p>
 
@@ -2442,7 +2442,7 @@ export default function Home() {
                     Send Payment Screenshot
                   </strong>
                   <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
-                    Take a screenshot of your successful transaction receipt {selectedTheme?.name === "Polaroid photo box" ? "and attach your 3 photos" : ""} and send it to us on Instagram so we can confirm your order immediately! 💕
+                    Take a screenshot of your successful transaction receipt {selectedTheme?.name === "Memory Lane Box" ? "and attach your 3 photos" : ""} and send it to us on Instagram so we can confirm your order immediately! 💕
                   </p>
                   <a
                     href="https://instagram.com/box.love.pk"
@@ -2641,7 +2641,7 @@ export default function Home() {
                 </div>
 
                 {/* Optional Add-ons */}
-                {selectedTheme?.name === "Polaroid photo box" && (
+                {selectedTheme?.name === "Memory Lane Box" && (
                   <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
                     <span className="text-2xl block animate-bounce">📸</span>
                     <h4 className="font-bold text-[var(--dark-2)] text-sm">Upload 3 Photos</h4>
@@ -2666,7 +2666,7 @@ export default function Home() {
                     )}
                   </div>
                 )}
-                {(selectedTheme?.name === "For girls" || selectedTheme?.name === "For boys") && (
+                {(selectedTheme?.name === "Pretty Girl Box" || selectedTheme?.name === "Blue Boy Box") && (
                   <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
                     <span className="text-2xl block animate-bounce">🎈</span>
                     <h4 className="font-bold text-[var(--dark-2)] text-sm">Age Number</h4>
