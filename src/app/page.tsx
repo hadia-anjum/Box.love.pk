@@ -2642,26 +2642,8 @@ export default function Home() {
                 {selectedTheme?.name === "Polaroid Photo Box" && (
                   <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
                     <span className="text-2xl block animate-bounce">📸</span>
-                    <h4 className="font-bold text-[var(--dark-2)] text-sm">Upload 3 Photos</h4>
-                    <p className="text-xs text-[var(--text-mid)] mb-3">Please select the 3 photos you want inside the box.</p>
-                    <input 
-                      type="file" 
-                      multiple 
-                      accept="image/*"
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files || []);
-                        if (files.length > 3) {
-                          alert("You can only select up to 3 photos.");
-                          e.target.value = "";
-                        } else {
-                          setPolaroidPhotos(files);
-                        }
-                      }}
-                      className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-[var(--pink-100)] file:text-[var(--pink-600)] hover:file:bg-[var(--pink-200)]"
-                    />
-                    {polaroidPhotos.length > 0 && (
-                      <p className="text-xs font-bold text-green-600 mt-2">✓ {polaroidPhotos.length} photo(s) selected.</p>
-                    )}
+                    <h4 className="font-bold text-[var(--dark-2)] text-sm">Send Us Your Photos!</h4>
+                    <p className="text-xs text-[var(--text-mid)] mb-3">Please place your order first, then send us your 3 photos via Instagram DM (<a href="https://instagram.com/box.love.pk" target="_blank" rel="noreferrer" className="text-[var(--pink-600)] font-bold underline">@box.love.pk</a>).</p>
                   </div>
                 )}
                 {(selectedTheme?.name === "For Girl Box" || selectedTheme?.name === "For Boy Box") && (
