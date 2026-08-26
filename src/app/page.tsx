@@ -882,13 +882,7 @@ export default function Home() {
               title: "For Girl Box",
               price: 2800,
               img: "/for_girls_1.jpg",
-              category: "Premium Box",
-              badge: "💕 Most Loved"
-            },
-            {
-              title: "For Girl Box",
-              price: 2800,
-              img: "/for_girls_2.jpg",
+              secondImg: "/for_girls_2.jpg",
               category: "Premium Box",
               badge: "💕 Most Loved"
             },
@@ -896,13 +890,7 @@ export default function Home() {
               title: "Black Box",
               price: 1600,
               img: "/black_box_1.jpg",
-              category: "Premium Box",
-              badge: "🖤 Classic"
-            },
-            {
-              title: "Black Box",
-              price: 1600,
-              img: "/black_box_2.jpg",
+              secondImg: "/black_box_2.jpg",
               category: "Premium Box",
               badge: "🖤 Classic"
             }
@@ -926,6 +914,15 @@ export default function Home() {
                   fill
                   className="object-cover group-hover:scale-105 transition-all duration-700"
                 />
+                {item.secondImg && (
+                  <Image
+                    src={item.secondImg}
+                    alt={item.title + " 2"}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-all duration-700"
+                    style={{ animation: "crossfade 6s ease-in-out infinite" }}
+                  />
+                )}
               </div>
               
               <div className="flex-1 flex flex-col">
