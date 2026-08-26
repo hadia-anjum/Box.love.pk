@@ -464,7 +464,7 @@ export default function Home() {
       alert("Please fill in all required fields.");
       return;
     }
-    if (selectedTheme?.name === "Memory Lane Box" && polaroidPhotos.length !== 3) {
+    if (selectedTheme?.name === "Polaroid Photo Box" && polaroidPhotos.length !== 3) {
       alert("Please select exactly 3 photos for the Polaroid Box before completing the order.");
       setCollCheckoutStep("details");
       return;
@@ -844,44 +844,51 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {[
             {
-              title: "Birthday Bliss Box",
+              title: "Birthday Box",
               price: 1950,
               img: "/featured_birthday.jpg",
               category: "Premium Box",
               badge: "✨ New"
             },
             {
-              title: "My Person Box",
+              title: "My Man Box",
               price: 1900,
               img: "/myman.jpg",
               category: "Premium Box",
               badge: "✨ Best Seller"
             },
             {
-              title: "Memory Lane Box",
+              title: "Polaroid Photo Box",
               price: 2350,
               img: "/polaroid_box.jpg",
               category: "Premium Box",
               badge: "📸 3 Photos"
             },
             {
-              title: "Blue Boy Box",
+              title: "For Boy Box",
               price: 2800,
               img: "/for_boys.jpg",
               category: "Premium Box",
               badge: "✨ New"
             },
             {
-              title: "Made for you Box",
+              title: "For You Box",
               price: 1900,
               img: "/custom_box.jpg",
               category: "Custom Box",
               badge: "💕 Make Your Own"
             },
             {
-              title: "Pretty Girl Box",
+              title: "For Girl Box",
               price: 2800,
-              img: "/for_girls.jpg",
+              img: "/for_girls_1.jpg",
+              category: "Premium Box",
+              badge: "💕 Most Loved"
+            },
+            {
+              title: "For Girl Box",
+              price: 2800,
+              img: "/for_girls_2.jpg",
               category: "Premium Box",
               badge: "💕 Most Loved"
             }
@@ -2390,7 +2397,7 @@ export default function Home() {
                   Thank you, <strong className="text-[var(--pink-600)]">{formInputs.fname}</strong>!
                   Your order is received.
                   <strong className="block text-[var(--pink-600)] mt-4 font-black">
-                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot {selectedTheme?.name === "Memory Lane Box" ? "AND your 3 photos" : ""} on Instagram DM! 📸
+                    ⚠️ Note: Your order confirms ONLY after you send the payment receipt screenshot {selectedTheme?.name === "Polaroid Photo Box" ? "AND your 3 photos" : ""} on Instagram DM! 📸
                   </strong>
                 </p>
 
@@ -2422,7 +2429,7 @@ export default function Home() {
                     Send Payment Screenshot
                   </strong>
                   <p className="text-stone-750 text-[11px] leading-relaxed font-semibold">
-                    Take a screenshot of your successful transaction receipt {selectedTheme?.name === "Memory Lane Box" ? "and attach your 3 photos" : ""} and send it to us on Instagram so we can confirm your order immediately! 💕
+                    Take a screenshot of your successful transaction receipt {selectedTheme?.name === "Polaroid Photo Box" ? "and attach your 3 photos" : ""} and send it to us on Instagram so we can confirm your order immediately! 💕
                   </p>
                   <a
                     href="https://instagram.com/box.love.pk"
@@ -2621,7 +2628,7 @@ export default function Home() {
                 </div>
 
                 {/* Optional Add-ons */}
-                {selectedTheme?.name === "Memory Lane Box" && (
+                {selectedTheme?.name === "Polaroid Photo Box" && (
                   <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
                     <span className="text-2xl block animate-bounce">📸</span>
                     <h4 className="font-bold text-[var(--dark-2)] text-sm">Upload 3 Photos</h4>
@@ -2646,7 +2653,7 @@ export default function Home() {
                     )}
                   </div>
                 )}
-                {(selectedTheme?.name === "Pretty Girl Box" || selectedTheme?.name === "Blue Boy Box") && (
+                {(selectedTheme?.name === "For Girl Box" || selectedTheme?.name === "For Boy Box") && (
                   <div className="mb-6 p-4 rounded-2xl border-2 border-dashed border-pink-300 bg-pink-50/30 text-center space-y-2">
                     <span className="text-2xl block animate-bounce">🎈</span>
                     <h4 className="font-bold text-[var(--dark-2)] text-sm">Age Number</h4>
