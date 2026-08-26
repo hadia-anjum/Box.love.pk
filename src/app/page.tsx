@@ -891,6 +891,20 @@ export default function Home() {
               img: "/for_girls_2.jpg",
               category: "Premium Box",
               badge: "💕 Most Loved"
+            },
+            {
+              title: "Black Box",
+              price: 1600,
+              img: "/black_box_1.jpg",
+              category: "Premium Box",
+              badge: "🖤 Classic"
+            },
+            {
+              title: "Black Box",
+              price: 1600,
+              img: "/black_box_2.jpg",
+              category: "Premium Box",
+              badge: "🖤 Classic"
             }
           ].map((item, idx) => (
             <div
