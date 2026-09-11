@@ -209,7 +209,7 @@ export default function Home() {
   // Collections states
   const [activeCategory, setActiveCategory] = useState("all");
   const [collectionModalOpen, setCollectionModalOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; category: string; price: number; id: string} | null>(null);
+  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; secondImg?: string; category: string; price: number; id: string} | null>(null);
   const [collCheckoutStep, setCollCheckoutStep] = useState<"details" | "addons" | "form" | "confirmation">("details");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
   const [polaroidPhotos, setPolaroidPhotos] = useState<File[]>([]);
@@ -935,12 +935,12 @@ export default function Home() {
                 
                 <button 
                   onClick={() => {
-                    setSelectedTheme({ name: item.title, image: item.img, category: item.category, price: item.price, id: item.title.toLowerCase().replace(/\s+/g, "-") });
+                    setSelectedTheme({ name: item.title, image: item.img, secondImg: (item as any).secondImg, category: item.category, price: item.price, id: item.title.toLowerCase().replace(/\s+/g, "-") });
                     setCollectionModalOpen(true);
                   }}
                   className="w-full mt-auto bg-[#E91E63] hover:bg-[#D81B60] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-full transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
                 >
-                  <span className="text-lg leading-none mb-0.5">+</span> Add to cart
+                  Buy Now
                 </button>
               </div>
             </div>
@@ -2526,30 +2526,59 @@ export default function Home() {
                 </div>
 
                 {/* Theme Image Mockup area */}
-                <div 
-                  onClick={() => {
-                    if (selectedTheme.image) {
-                      setActiveReviewImg(selectedTheme.image || null);
-                    }
-                  }}
-                  className={`relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group ${selectedTheme.image ? 'cursor-zoom-in hover:brightness-95' : ''}`}
-                >
-                  {selectedTheme.image ? (
-                    <Image
-                      src={selectedTheme.image}
-                      alt={selectedTheme.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-center p-4">
-                      <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{'emoji' in selectedTheme ? (selectedTheme as any).emoji : '🎁'}</span>
-                      <span className="text-[10px] text-pink-400 font-bold tracking-widest uppercase bg-white/80 backdrop-blur-sm py-1 px-3.5 rounded-full border border-pink-100">
-                        Photo Coming Soon 📸
-                      </span>
+                {selectedTheme.secondImg ? (
+                  <div className="relative">
+                    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-2xl border border-pink-100 shadow-inner bg-gradient-to-br from-pink-50 via-white to-pink-100">
+                      <div 
+                        className="relative w-full aspect-[4/3] shrink-0 snap-center cursor-zoom-in"
+                        onClick={() => setActiveReviewImg(selectedTheme.image || null)}
+                      >
+                        <Image src={selectedTheme.image!} alt={selectedTheme.name} fill className="object-cover" />
+                      </div>
+                      <div 
+                        className="relative w-full aspect-[4/3] shrink-0 snap-center cursor-zoom-in"
+                        onClick={() => setActiveReviewImg(selectedTheme.secondImg || null)}
+                      >
+                        <Image src={selectedTheme.secondImg} alt={selectedTheme.name + " 2"} fill className="object-cover" />
+                      </div>
                     </div>
-                  )}
-                </div>
+                    {/* Swipe Indicator */}
+                    <div className="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2.5 py-1 rounded-full font-bold backdrop-blur-md flex items-center gap-1.5 shadow-md">
+                      SWIPE
+                      <svg className="w-3 h-3 animate-bounce-x" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </div>
+                    {/* Dots indicator */}
+                    <div className="flex justify-center gap-1.5 mt-3">
+                      <div className="w-2 h-2 rounded-full bg-[var(--pink-500)]"></div>
+                      <div className="w-2 h-2 rounded-full bg-[var(--pink-200)]"></div>
+                    </div>
+                  </div>
+                ) : (
+                  <div 
+                    onClick={() => {
+                      if (selectedTheme.image) {
+                        setActiveReviewImg(selectedTheme.image || null);
+                      }
+                    }}
+                    className={`relative aspect-[4/3] bg-gradient-to-br from-pink-50 via-white to-pink-100 rounded-2xl border border-pink-100 flex items-center justify-center overflow-hidden shadow-inner group ${selectedTheme.image ? 'cursor-zoom-in hover:brightness-95' : ''}`}
+                  >
+                    {selectedTheme.image ? (
+                      <Image
+                        src={selectedTheme.image}
+                        alt={selectedTheme.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center text-center p-4">
+                        <span className="text-7xl mb-2 animate-[floatIcon_3s_ease-in-out_infinite]">{'emoji' in selectedTheme ? (selectedTheme as any).emoji : '🎁'}</span>
+                        <span className="text-[10px] text-pink-400 font-bold tracking-widest uppercase bg-white/80 backdrop-blur-sm py-1 px-3.5 rounded-full border border-pink-100">
+                          Photo Coming Soon 📸
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Text detailing */}
                 <div className="space-y-2">
