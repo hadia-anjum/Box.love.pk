@@ -209,7 +209,7 @@ export default function Home() {
   // Collections states
   const [activeCategory, setActiveCategory] = useState("all");
   const [collectionModalOpen, setCollectionModalOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; secondImg?: string; category: string; price: number; id: string} | null>(null);
+  const [selectedTheme, setSelectedTheme] = useState<{name: string; emoji?: string; image?: string; secondImg?: string; category: string; price: number; originalPrice?: number; details?: string; id: string} | null>(null);
   const [collCheckoutStep, setCollCheckoutStep] = useState<"details" | "addons" | "form" | "confirmation">("details");
   const [collAddons, setCollAddons] = useState({ fairy: false, ribbon: false });
   const [polaroidPhotos, setPolaroidPhotos] = useState<File[]>([]);
@@ -893,6 +893,15 @@ export default function Home() {
               secondImg: "/black_box_2.jpg",
               category: "Premium Box",
               badge: "🖤 Classic"
+            },
+            {
+              title: "Bundle of 5 Box",
+              price: 7000,
+              originalPrice: 8500,
+              img: "/bundle_of_5.jpg",
+              category: "Premium Bundle",
+              badge: "🔥 Best Value",
+              details: "Size: 13*10, Clr: Black"
             }
           ].map((item, idx) => (
             <div
@@ -930,12 +939,17 @@ export default function Home() {
                   {item.title}
                 </h3>
                 <div className="mt-1 mb-3">
-                  <p className="font-black text-[#9B2452] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-black text-[#9B2452] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
+                    {(item as any).originalPrice && (
+                      <p className="font-bold text-[var(--text-light)] text-xs sm:text-sm line-through">Rs. {(item as any).originalPrice.toLocaleString()}</p>
+                    )}
+                  </div>
                 </div>
                 
                 <button 
                   onClick={() => {
-                    setSelectedTheme({ name: item.title, image: item.img, secondImg: (item as any).secondImg, category: item.category, price: item.price, id: item.title.toLowerCase().replace(/\s+/g, "-") });
+                    setSelectedTheme({ name: item.title, image: item.img, secondImg: (item as any).secondImg, category: item.category, price: item.price, originalPrice: (item as any).originalPrice, details: (item as any).details, id: item.title.toLowerCase().replace(/\s+/g, "-") });
                     setCollectionModalOpen(true);
                   }}
                   className="w-full mt-auto bg-[#E91E63] hover:bg-[#D81B60] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-full transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
@@ -2586,10 +2600,18 @@ export default function Home() {
                     {selectedTheme.category}
                   </span>
                   <h4 className="font-playfair text-2xl font-black text-[var(--dark-2)]">
-                    {selectedTheme.name} Gift Box
+                    {selectedTheme.name}
                   </h4>
+                  {selectedTheme.details && (
+                    <p className="text-sm font-bold text-[var(--text-mid)] mt-1">{selectedTheme.details}</p>
+                  )}
                   <div className="flex justify-between items-center pt-2">
-                    <span className="font-extrabold text-2xl text-[var(--pink-600)]">Rs. {(selectedTheme?.price || 2800).toLocaleString()}</span>
+                    <div className="flex items-end gap-2">
+                      <span className="font-extrabold text-2xl text-[var(--pink-600)]">Rs. {(selectedTheme?.price || 2800).toLocaleString()}</span>
+                      {selectedTheme?.originalPrice && (
+                        <span className="font-bold text-[var(--text-light)] text-lg line-through mb-0.5">Rs. {selectedTheme.originalPrice.toLocaleString()}</span>
+                      )}
+                    </div>
                     <span className="text-xs font-semibold text-[var(--text-light)] bg-pink-50 px-3 py-1 rounded-full">
                       + Rs. {COLLECTION_DELIVERY} delivery
                     </span>
@@ -2817,6 +2839,9 @@ export default function Home() {
                   <div className="flex-1">
                     <p className="font-bold text-sm text-[var(--dark-2)]">{selectedTheme.name} Box</p>
                     <p className="text-[10px] text-[var(--text-mid)] font-semibold">{selectedTheme.category}</p>
+                    {selectedTheme.details && (
+                      <p className="text-[10px] text-[var(--text-mid)] font-bold">{selectedTheme.details}</p>
+                    )}
                   </div>
                   <span className="font-extrabold text-[var(--pink-600)]">Rs. {calculateCollectionTotal().toLocaleString()}</span>
                 </div>
