@@ -902,6 +902,24 @@ export default function Home() {
               category: "Premium Bundle",
               badge: "🔥 Best Value",
               details: "Size: 13*10, Clr: Black"
+            },
+            {
+              title: "White Box",
+              price: 0,
+              img: "/white_box.jpg",
+              category: "Wholesale",
+              badge: "🤍 Bulk Order",
+              isWholesale: true,
+              color: "White"
+            },
+            {
+              title: "Pink Box",
+              price: 0,
+              img: "/pink_box.jpg",
+              category: "Wholesale",
+              badge: "💗 Bulk Order",
+              isWholesale: true,
+              color: "Pink"
             }
           ].map((item, idx) => (
             <div
@@ -938,24 +956,36 @@ export default function Home() {
                 <h3 className="font-bold text-xs sm:text-sm text-[var(--dark-2)] transition-colors line-clamp-2 leading-tight">
                   {item.title}
                 </h3>
-                <div className="mt-1 mb-3">
-                  <div className="flex items-center gap-2">
-                    <p className="font-black text-[#9B2452] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
-                    {(item as any).originalPrice && (
-                      <p className="font-bold text-[var(--text-light)] text-xs sm:text-sm line-through">Rs. {(item as any).originalPrice.toLocaleString()}</p>
-                    )}
+                {!(item as any).isWholesale && (
+                  <div className="mt-1 mb-3">
+                    <div className="flex items-center gap-2">
+                      <p className="font-black text-[#9B2452] text-sm sm:text-base">Rs. {item.price.toLocaleString()}</p>
+                      {(item as any).originalPrice && (
+                        <p className="font-bold text-[var(--text-light)] text-xs sm:text-sm line-through">Rs. {(item as any).originalPrice.toLocaleString()}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
                 
-                <button 
-                  onClick={() => {
-                    setSelectedTheme({ name: item.title, image: item.img, secondImg: (item as any).secondImg, category: item.category, price: item.price, originalPrice: (item as any).originalPrice, details: (item as any).details, id: item.title.toLowerCase().replace(/\s+/g, "-") });
-                    setCollectionModalOpen(true);
-                  }}
-                  className="w-full mt-auto bg-[#E91E63] hover:bg-[#D81B60] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-full transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
-                >
-                  Buy Now
-                </button>
+                {(item as any).isWholesale ? (
+                  <div className="mt-auto pt-2 space-y-1">
+                    <p className="text-[10px] sm:text-xs font-bold text-[var(--dark-2)]">Size: 13*10, Color: {(item as any).color}</p>
+                    <p className="text-[10px] sm:text-xs font-bold text-[var(--dark-2)]">Minimum order 30 boxes</p>
+                    <a href="https://instagram.com/box.love.pk" target="_blank" rel="noreferrer" className="block w-full text-center mt-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-2 sm:py-2.5 px-4 rounded-xl text-[10px] sm:text-xs transition-all duration-300 shadow-sm hover:shadow-md">
+                      Direct DM on Insta
+                    </a>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setSelectedTheme({ name: item.title, image: item.img, secondImg: (item as any).secondImg, category: item.category, price: item.price, originalPrice: (item as any).originalPrice, details: (item as any).details, id: item.title.toLowerCase().replace(/\s+/g, "-") });
+                      setCollectionModalOpen(true);
+                    }}
+                    className="w-full mt-auto bg-[#E91E63] hover:bg-[#D81B60] text-white text-xs sm:text-sm font-bold py-2 sm:py-2.5 rounded-full transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
+                  >
+                    Buy Now
+                  </button>
+                )}
               </div>
             </div>
           ))}
