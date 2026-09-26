@@ -909,6 +909,20 @@ export default function Home() {
               badge: "💗 New"
             },
             {
+              title: "Yellow Banner Box",
+              price: 1950,
+              img: "/yellow_banner_box.jpg",
+              category: "Premium Box",
+              badge: "💛 New"
+            },
+            {
+              title: "Purple Banner Box",
+              price: 1950,
+              img: "/purple_banner_box.jpg",
+              category: "Premium Box",
+              badge: "💜 New"
+            },
+            {
               title: "Bundle of 5 Box",
               price: 7000,
               originalPrice: 8500,
