@@ -896,10 +896,17 @@ export default function Home() {
             },
             {
               title: "Blue Banner Box",
-              price: 1900,
+              price: 1950,
               img: "/blue_banner_box.jpg",
               category: "Premium Box",
               badge: "💙 New"
+            },
+            {
+              title: "Pink Banner Box",
+              price: 1950,
+              img: "/pink_banner_box.jpg",
+              category: "Premium Box",
+              badge: "💗 New"
             },
             {
               title: "Bundle of 5 Box",
